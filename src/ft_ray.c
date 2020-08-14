@@ -1,4 +1,117 @@
-#include "../Cub3D.h"
+
+
+#include "Cub3D.h"
+
+int	ft_collision(char **map, t_coor ray, t_coor dir)
+{
+	int i;
+
+	i = 0;
+	printf("\nTESTWALL : rayx = %.16f ;; rayy = %.16f", ray.x, ray.y);
+	if (ray.x == ((double)((int)ray.x)) && ray.y == ((double)((int)ray.y)))
+	{
+		if (dir.x <= 0)
+			i = -1;
+		if (dir.y <= 0)
+			i = -1;
+		if (map[(int)ray.y + i][(int)ray.x + i] == '1')
+			return (1);
+	}
+	else if (ray.x == (double)((int)ray.x))
+	{
+		printf("\ntestwally = %i ; testwallx = %i ", (int)ray.y + i, (int)ray.x);
+		if (dir.x <= 0)
+			i = -1;
+		if (map[(int)ray.y][(int)ray.x + i] == '1')
+			return (1);
+	}
+	else
+	{
+		if (dir.y <= 0)
+			i = -1;
+		printf("\ntestwally = %i ; testwallx = %i ", (int)ray.y + i, (int)ray.x);
+		if (map[(int)ray.y + i][(int)ray.x] == '1')
+		{
+			return (1);
+		}
+	}
+	return(0);
+}
+
+t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, char **map)
+{
+	double eqsol;
+	int midcase;
+
+	printf("X");
+	midcase = 0;
+	eqsol = ((int)ray.x + dir.x) * eqline.x + eqline.y;
+	eqsol = floor(eqsol * pow(10, 14) + 0.5) / pow(10, 14);
+	if (dir.y == 0 && ray.y == (double)((int)ray.y) && ray.x != (double)((int)ray.x))//////////////////////////)
+		midcase = -1;
+	printf("\nmidcase = %i, eqsol = %.16f, ray.y = %.16f, ray.x+dir = %.16f", midcase, eqsol, ray.y, (int)ray.x + dir.x);
+	while ((eqsol > (int)ray.y + midcase && eqsol < (int)ray.y + midcase + 1) || 
+	(eqsol == (int)eqsol))
+	{
+		printf("\n!V(x)!");
+		ray.x = (int)ray.x + dir.x;
+		ray.y = eqsol;
+		printf("\nLimite1 = %i ; Limite2 %i; Eqsol = %.15f", (int)(ray.y) + midcase, (int)(ray.y) + midcase + 1, eqsol);
+		printf("\nray.y = %.16f; ray.x %.16f; midcase = %i", ray.y, ray.x, midcase);
+		if (ft_collision(map, ray, dir) == 1)
+		{
+			ray.dist = 0;
+			return (ray);
+		}
+		if (dir.x == 0)
+			dir.x = -1;
+		eqsol = ((int)ray.x + dir.x) * eqline.x + eqline.y;
+		if (dir.y == 0 && ray.y == (double)((int)ray.y) ) //&& ray.x != (double)((int)ray.x))//////////////////////////)
+			midcase = -1;
+		else
+			midcase = 0;
+	}
+	ray.dist = 1;
+	return (ray);
+}
+
+t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, char **map)
+{
+	double eqsol;
+	int midcase;
+
+	midcase = 0;
+	printf("\nY");
+	printf("\n ray.x = %.16f ; ray.y = %.16f", ray.x, ray.y);
+	eqsol = (((int)ray.y + dir.y) - eqline.y) / eqline.x;
+	eqsol = floor(eqsol * pow(10, 14) + 0.5) / pow(10, 14);
+	if (dir.x == 0 && (ray.x == (double)((int)ray.x) ))//|| ray.y == (double)((int)ray.y)))
+		midcase = -1;
+	printf("\nround(ray.x) = %f, eqsol = %.16f, ray.x = %.16f, ray.y = %.16f", round(ray.x), eqsol, ray.x, (int)ray.y);
+	while ((eqsol < (int)ray.x + midcase + 1 && eqsol > (int)ray.x + midcase) ||
+	(eqsol == (double)((int)eqsol)))
+	{
+		printf("\n!H(y)!");
+		if (dir.x != -2)
+			ray.x = eqsol;
+		ray.y = (int)ray.y + dir.y;
+		printf("\nray.y = %.16f; ray.x %.16f");
+		if (ft_collision(map, ray, dir) == 1)
+		{
+			ray.dist = 0;
+			return (ray);
+		}
+		if (dir.y == 0)
+			dir.y = -1;
+		eqsol = (((int)ray.y + dir.y) - eqline.y) / eqline.x;
+		if (dir.x == 0 && ray.x == (double)((int)ray.x) ) //&& ray.x != (double)((int)ray.x))//////////////////////////)
+			midcase = -1;
+		else
+			midcase = 0;
+	}
+	ray.dist = 1;
+	return (ray);
+}
 
 t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, char **map)
 {
@@ -6,25 +119,21 @@ t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, char **map)
 
 	ray.x = pos.x;
 	ray.y = pos.y;
-	while (map[(int)ray.y][(int)ray.x] == '0')
+	printf("\n\n\n\n1111111111");
+	while (ray.x >= 0 && ray.y >= 0)
 	{
-		if (dir.x != -2 && (int)(((int)ray.x + dir.x) * eqline.x + eqline.y) 
-		== (int)ray.y)
-		{
-			ray.x = (int)ray.x + dir.x;
-			ray.y = ((int)ray.x + dir.x) * eqline.x + eqline.y;
-			if (dir.x == 0)
-				dir.x = - 1;
-		}
-		else
-		{
-			if (dir.x != -2)
-				ray.x = ((int)ray.y + dir.y - eqline.y) / eqline.x;
-			ray.y = (int)ray.y + dir.y;
-			if (dir.y == 0)
-				dir.y = -1;
-		}
+		printf("\n\n\n\n\n22");
+		//if (dir.x == -2)
+		ray = ft_Xray(eqline, dir, ray, map);
+		if (ray.dist == 0)
+			break;
+		ray = ft_Yray(eqline, dir, ray, map);
+		printf("\n(ExY) ray.x = %.16f ; ray.y = %.16f ", ray.x, ray.y);
+		if (ray.dist == 0)
+			break;
+		//printf("\nRay.x = %f ; Ray.y = %f ", ray.x, ray.y);
 	}
+	//printf("\n\n\n\n\n3333");
 	return (ray);
 }
 
@@ -49,6 +158,9 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 {
 	double pente;
 	double x0;
+	double sqrx;
+	double sqry;
+	double sqr;
 	t_coor ray;
 	t_coor vecray;
 	t_coor dir;
@@ -64,8 +176,12 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	eqline.y = x0;
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, dir, eqline, map);
-	ray.dist = sqrt(((ray.x - pos.x) * (ray.x - pos.x))  + 
-	((ray.y - pos.y) * (ray.x - pos.x))) * cos(angle);
+	printf("\nRay.x = %.16f Ray.y = %.16f ", ray.x, ray.y);
+	sqrx = ray.x - pos.x;
+	sqry = ray.y - pos.y;
+	sqr = (sqrx * sqrx)  + (sqry * sqry);
+	ray.dist = sqrt(sqr) * cos(angle);
+	printf("\nRayDist = %f ", ray.dist);
 	return (ray);
 }
 
@@ -73,7 +189,7 @@ void	ft_drawcol(int i, int height, t_graph graph)
 {
 	int y;
 
-	printf("Col n°%d, height %d\n", i, height); 
+	printf("height %d\n", height); 
 	y = 0;
 	while(y < (graph.res[1]/2 + height/2))
 	{
@@ -87,20 +203,21 @@ void	ft_projection(t_graph graph, t_coor ray, double distproj, int i)
 {
 	int height;
 	int ncol;
+	t_coor pos;
 
-	printf("Raydist: %f, Distproj: %f\n", ray.dist, distproj);
+	pos = graph.pos;
 	height = (int)((CUB_SIZE / (CUB_SIZE * ray.dist)) * distproj);
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
 	if (ray.x == (double)((int)ray.x))
 	{
-		if (graph.pos.x < ray.x)
+		if (pos.x < ray.x)
 			ft_drawcol(i, height, graph);
 		else
 			ft_drawcol(i, height, graph);
 	}
 	else
 	{
-		if (graph.pos.y < ray.y)
+		if (pos.y < ray.y)
 			ft_drawcol(i, height, graph);
 		else
 			ft_drawcol(i, height, graph);
@@ -118,13 +235,14 @@ void	ft_raymachine(t_coor vect, t_graph graph, char **map)
 	i = 0;
 	distproj = (graph.res[0] / 2) / tan(FOV / 2);
 	angle = (double)FOV / (double)graph.res[0];
-	printf("Vect: x= %f, y= %f && Pos: x= %f, y= %f\n", vect.x, vect.y, graph.pos.x, graph.pos.y);
-	printf("FOV = %d, ResX = %d, ResY = %d, Angle: %f\n", FOV, graph.res[0], graph.res[1], angle);
+	printf("FOV = %d, ResX = %d, Angle: %f\n", FOV, graph.res[0],angle);
 	while (i < graph.res[0])
 	{
-		ray = ft_raycannon(graph.pos, vect, (angle * i) - (FOV / 2), map);
+		printf("angle%d = %.15f ", i, (angle * i) - (FOV / 2));
+		ray = ft_raycannon(graph.pos, vect, (M_PI / 180) * ((angle * i) - (FOV / 2)), map);
 		ft_projection(graph, ray, distproj, i);
 		i++;
 	}
 	return ;
 }
+
