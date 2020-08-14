@@ -69,7 +69,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	return (ray);
 }
 
-void	ft_drawcol(t_win xserv, int i, int height, t_graph graph)
+void	ft_drawcol(int i, int height, t_graph graph)
 {
 	int y;
 
@@ -78,12 +78,12 @@ void	ft_drawcol(t_win xserv, int i, int height, t_graph graph)
 	while(y < (graph.res[1]/2 + height/2))
 	{
 		if(y > (graph.res[1]/2 - height/2))
-			mlx_pixel_put(xserv.mlxp, xserv.winp, i, y, 16777011); 
+			mlx_pixel_put(graph.win.mlxp, graph.win.winp, i, y, 16777011); 
 		y++;
 	}
 }
 
-void	ft_projection(t_graph graph, t_coor ray, double distproj, t_win xserv, t_coor pos, int i)
+void	ft_projection(t_graph graph, t_coor ray, double distproj, int i)
 {
 	int height;
 	int ncol;
@@ -93,17 +93,17 @@ void	ft_projection(t_graph graph, t_coor ray, double distproj, t_win xserv, t_co
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
 	if (ray.x == (double)((int)ray.x))
 	{
-		if (pos.x < ray.x)
-			ft_drawcol(xserv, i, height, graph);
+		if (graph.pos.x < ray.x)
+			ft_drawcol(i, height, graph);
 		else
-			ft_drawcol(xserv, i, height, graph);
+			ft_drawcol(i, height, graph);
 	}
 	else
 	{
-		if (pos.y < ray.y)
-			ft_drawcol(xserv, i, height, graph);
+		if (graph.pos.y < ray.y)
+			ft_drawcol(i, height, graph);
 		else
-			ft_drawcol(xserv, i, height, graph);
+			ft_drawcol(i, height, graph);
 	}
 	return ;
 }
@@ -123,7 +123,7 @@ void	ft_raymachine(t_coor vect, t_graph graph, char **map)
 	while (i < graph.res[0])
 	{
 		ray = ft_raycannon(graph.pos, vect, (angle * i) - (FOV / 2), map);
-		ft_projection(graph, ray, distproj, graph.win, graph.pos, i);
+		ft_projection(graph, ray, distproj, i);
 		i++;
 	}
 	return ;
