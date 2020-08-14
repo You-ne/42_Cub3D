@@ -1,6 +1,6 @@
 
 
-#include "Cub3D.h"
+#include "../Cub3D.h"
 
 int	ft_collision(char **map, t_coor ray, t_coor dir)
 {

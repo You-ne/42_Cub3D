@@ -6,13 +6,13 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/14 08:36:52 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 00:34:45 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-char 	*extractt_path(char *dest, char *str)
+char 	*extract_path(char *dest, char *str)
 {
 	int	i;
 

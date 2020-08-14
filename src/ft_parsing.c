@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/14 08:39:00 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 00:35:18 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	get_sprite(char *info, t_graph *graph)
 	while(info[i] == ' ')
 		i++;
 	if(info[i] == '.' && info[i + 1 ] == '/')
-		graph.S = extract_path(graph.S, info + i);
+		graph->S = extract_path(graph->S, info + i);
 
 }
 
