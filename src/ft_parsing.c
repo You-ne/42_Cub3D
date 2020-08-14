@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/15 00:35:18 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 00:37:39 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	find_info(char *info, t_graph *graph)
 		  get_texture(info + i, graph, 'W');
 		  if (info[i] == 'E')
 		  get_texture(info + i, graph, 'E');
-		  if (info[i] == 'S' && info[i + 1] != 'O')*/
-		  get_sprite(info + i, graph);
+		  if (info[i] == 'S' && info[i + 1] != 'O')
+		  get_sprite(info + i, graph);*/
 		if (info[i] == 'F')
 			get_color(info + i, graph, 'F');
 		if (info[i] == 'C')

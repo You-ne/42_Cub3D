@@ -188,13 +188,17 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 void	ft_drawcol(int i, int height, t_graph graph)
 {
 	int y;
+	t_win	win;
 
-	printf("height %d\n", height); 
+	printf("resx = %d, resy = %d\n", graph.res[0], graph.res[1]);
+	win = graph.win;
 	y = 0;
+	printf("I = %d, Y = %d Height = %d\n", i, y, height);
+	printf("\nResult = %d\n", ((graph.res[1]/2) + (height/2)));
 	while(y < (graph.res[1]/2 + height/2))
 	{
 		if(y > (graph.res[1]/2 - height/2))
-			mlx_pixel_put(graph.win.mlxp, graph.win.winp, i, y, 16777011); 
+			mlx_pixel_put(win.mlxp, win.winp, i, y, 16772864); 
 		y++;
 	}
 }
@@ -204,7 +208,9 @@ void	ft_projection(t_graph graph, t_coor ray, double distproj, int i)
 	int height;
 	int ncol;
 	t_coor pos;
+	void	*test;
 
+	printf("Wall found\n");
 	pos = graph.pos;
 	height = (int)((CUB_SIZE / (CUB_SIZE * ray.dist)) * distproj);
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
