@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/14 08:40:23 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 00:03:53 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_start_display(t_coor vect, t_graph graph, char **map)
 
 	printf(GREEN);
 	printf("\nStarting Raymachine.....\n\n");
-	ft_raymachine(graph.pos, vect, graph, map, xserv);
+	ft_raymachine(vect, graph, map);
 	printf(RED);
 	printf("\nStoping Raymachine.\n\n");
 

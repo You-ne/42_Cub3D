@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/14 06:54:35 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 00:04:14 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 
 void	ft_start_display(t_coor vect, t_graph, char **map);
-void	ft_raymachine(t_coor pos, t_coor vect, t_graph graph, char **map, t_win xserv);
+void	ft_raymachine(t_coor vect, t_graph graph, char **map);
 
 
 #endif

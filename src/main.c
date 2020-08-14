@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/14 08:22:34 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 00:04:32 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 		}
 
 
-		ft_start_display(init_dir(map, find_char(map)), graph, map);
+		ft_start_display(init_dir(map, graph.pos), graph, map);
 	}
 	return(0);
 }

@@ -108,7 +108,7 @@ void	ft_projection(t_graph graph, t_coor ray, double distproj, t_win xserv, t_co
 	return ;
 }
 
-void	ft_raymachine(t_coor pos, t_coor vect, t_graph graph, char **map, t_win xserv)
+void	ft_raymachine(t_coor vect, t_graph graph, char **map)
 {
 	int i;
 	double angle;
@@ -118,12 +118,12 @@ void	ft_raymachine(t_coor pos, t_coor vect, t_graph graph, char **map, t_win xse
 	i = 0;
 	distproj = (graph.res[0] / 2) / tan(FOV / 2);
 	angle = (double)FOV / (double)graph.res[0];
-	printf("Vect: x= %f, y= %f && Pos: x= %f, y= %f\n", vect.x, vect.y, pos.x, pos.y);
+	printf("Vect: x= %f, y= %f && Pos: x= %f, y= %f\n", vect.x, vect.y, graph.pos.x, graph.pos.y);
 	printf("FOV = %d, ResX = %d, ResY = %d, Angle: %f\n", FOV, graph.res[0], graph.res[1], angle);
 	while (i < graph.res[0])
 	{
-		ray = ft_raycannon(pos, vect, (angle * i) - (FOV / 2), map);
-		ft_projection(graph, ray, distproj, xserv, pos, i);
+		ray = ft_raycannon(graph.pos, vect, (angle * i) - (FOV / 2), map);
+		ft_projection(graph, ray, distproj, graph.win, graph.pos, i);
 		i++;
 	}
 	return ;
