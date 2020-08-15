@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/15 00:04:14 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/15 01:48:34 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_graph
 */
 
 //Parameters
-# define FOV	90
+# define FOV	120
 # define CUB_SIZE	64
 
 
@@ -105,6 +105,7 @@ void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 
+char	*extract_path(char *dest, char *src);
 void	ft_start_display(t_coor vect, t_graph, char **map);
 void	ft_raymachine(t_coor vect, t_graph graph, char **map);
 
