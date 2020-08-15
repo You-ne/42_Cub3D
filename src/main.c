@@ -1,4 +1,4 @@
-/* *************cccd ************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/15 00:04:32 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 01:32:49 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ char	**get_line(int fd)
 	return(map);
 }
 
-t_graph	parser(char ***map)
+t_game	parser(char ***map)
 {
 	int	i;
 	int	j;
 	int	k;
-	t_graph graph;
+	t_game game;
 
 	k = 0;
 	i = 0;
@@ -49,7 +49,7 @@ t_graph	parser(char ***map)
 			/* temporaire, rajouter détection mauvaises lignes */
 			if (map[0][i][j] > 65 && map[0][i][j] < 91)
 			{
-				find_info(map[0][i], &graph);
+				find_info(map[0][i], &game);
 				k++;
 				break;
 			}
@@ -59,18 +59,18 @@ t_graph	parser(char ***map)
 
 	}
 	find_map(map, i); 
-	printf("ResX = %d, ResY = %d\n", graph.res[0], graph.res[1]);
-	printf("Floor : R = %d, G = %d, B = %d\n", (int)graph.F[0],(int)graph.F[1], (int)graph.F[2]);	
-	printf("Ceiling : R = %d, G = %d, B = %d\n", (int)graph.C[0],(int)graph.C[1], (int)graph.C[2]);
+	printf("ResX = %d, ResY = %d\n", game.res[0], game.res[1]);
+	printf("Floor : R = %d, G = %d, B = %d\n", (int)game.F[0],(int)game.F[1], (int)game.F[2]);	
+	printf("Ceiling : R = %d, G = %d, B = %d\n", (int)game.C[0],(int)game.C[1], (int)game.C[2]);
 
-	/* verification de t_graph, renvoi d'erreur ? */
-	return (graph);
+	/* verification de t_game, renvoi d'erreur ? */
+	return (game);
 }
 
 int	main(int argc, char **argv)
 {
 	int	fd;
-	t_graph	graph;
+	t_game	game;
 	char	**map;
 	int	i;
 
@@ -81,8 +81,8 @@ int	main(int argc, char **argv)
 		printf("[START PARSING...]\n\n");
 		map = get_line(fd);	
 		close(fd);	
-		graph = parser(&map);
-		graph.pos = find_char(map);
+		game = parser(&map);
+		game.player.pos = find_char(map);
 		printf("\n[PARSING END!!!]\n");
 
 		//Display map for debug
@@ -93,8 +93,8 @@ int	main(int argc, char **argv)
 			i++;
 		}
 
-
-		ft_start_display(init_dir(map, graph.pos), graph, map);
+		game.player.vect = init_dir(map, game.player.pos);
+		ft_start_display(game, map);
 	}
 	return(0);
 }

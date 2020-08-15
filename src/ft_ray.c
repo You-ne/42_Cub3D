@@ -185,25 +185,25 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	return (ray);
 }
 
-void	ft_drawcol(int i, int height, t_graph graph)
+void	ft_drawcol(int i, int height, t_game game)
 {
 	int y;
 	t_win	win;
 
-	printf("resx = %d, resy = %d\n", graph.res[0], graph.res[1]);
-	win = graph.win;
+	printf("resx = %d, resy = %d\n", game.res[0], game.res[1]);
+	win = game.win;
 	y = 0;
 	printf("I = %d, Y = %d Height = %d\n", i, y, height);
-	printf("\nResult = %d\n", ((graph.res[1]/2) + (height/2)));
-	while(y < (graph.res[1]/2 + height/2))
+	printf("\nResult = %d\n", ((game.res[1]/2) + (height/2)));
+	while(y < (game.res[1]/2 + height/2))
 	{
-		if(y > (graph.res[1]/2 - height/2))
+		if(y > (game.res[1]/2 - height/2))
 			mlx_pixel_put(win.mlxp, win.winp, i, y, 16772864); 
 		y++;
 	}
 }
 
-void	ft_projection(t_graph graph, t_coor ray, double distproj, int i)
+void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 {
 	int height;
 	int ncol;
@@ -211,27 +211,27 @@ void	ft_projection(t_graph graph, t_coor ray, double distproj, int i)
 	void	*test;
 
 	printf("Wall found\n");
-	pos = graph.pos;
+	pos = game.player.pos;
 	height = (int)((CUB_SIZE / (CUB_SIZE * ray.dist)) * distproj);
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
 	if (ray.x == (double)((int)ray.x))
 	{
 		if (pos.x < ray.x)
-			ft_drawcol(i, height, graph);
+			ft_drawcol(i, height, game);
 		else
-			ft_drawcol(i, height, graph);
+			ft_drawcol(i, height, game);
 	}
 	else
 	{
 		if (pos.y < ray.y)
-			ft_drawcol(i, height, graph);
+			ft_drawcol(i, height, game);
 		else
-			ft_drawcol(i, height, graph);
+			ft_drawcol(i, height, game);
 	}
 	return ;
 }
 
-void	ft_raymachine(t_coor vect, t_graph graph, char **map)
+void	ft_raymachine(t_game game, char **map)
 {
 	int i;
 	double angle;
@@ -239,14 +239,14 @@ void	ft_raymachine(t_coor vect, t_graph graph, char **map)
 	t_coor ray;
 
 	i = 0;
-	distproj = (graph.res[0] / 2) / tan(FOV / 2);
-	angle = (double)FOV / (double)graph.res[0];
-	printf("FOV = %d, ResX = %d, Angle: %f\n", FOV, graph.res[0],angle);
-	while (i < graph.res[0])
+	distproj = (game.res[0] / 2) / tan(FOV / 2);
+	angle = (double)FOV / (double)game.res[0];
+	printf("FOV = %d, ResX = %d, Angle: %f\n", FOV, game.res[0],angle);
+	while (i < game.res[0])
 	{
 		printf("angle%d = %.15f ", i, (angle * i) - (FOV / 2));
-		ray = ft_raycannon(graph.pos, vect, (M_PI / 180) * ((angle * i) - (FOV / 2)), map);
-		ft_projection(graph, ray, distproj, i);
+		ray = ft_raycannon(game.player.pos, game.player.vect, (M_PI / 180) * ((angle * i) - (FOV / 2)), map);
+		ft_projection(game, ray, distproj, i);
 		i++;
 	}
 	return ;

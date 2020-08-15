@@ -6,13 +6,13 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/15 00:37:39 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 01:16:57 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Cub3D.h"
 
-void	get_res(char *info, t_graph *graph)
+void	get_res(char *info, t_game *game)
 {	
 	int	i;
 	int	j;
@@ -25,12 +25,12 @@ void	get_res(char *info, t_graph *graph)
 		{
 			if (j == 0)
 			{
-				graph->res[0] = ft_atoi(info + i);
+				game->res[0] = ft_atoi(info + i);
 				j++;
 			}
 			else
 			{
-				graph->res[1] = ft_atoi(info + i);
+				game->res[1] = ft_atoi(info + i);
 				return;
 			}
 			while(info[i] > 47 && info[i] < 58)
@@ -41,9 +41,9 @@ void	get_res(char *info, t_graph *graph)
 
 }
 
-/*void	get_texture(char *info, t_graph *graph, char param)
+/*void	get_texture(char *info, t_game *game, char param)
 */
-void	get_sprite(char *info, t_graph *graph)
+void	get_sprite(char *info, t_game *game)
 {
 	int	i;
 
@@ -52,11 +52,11 @@ void	get_sprite(char *info, t_graph *graph)
 	while(info[i] == ' ')
 		i++;
 	if(info[i] == '.' && info[i + 1 ] == '/')
-		graph->S = extract_path(graph->S, info + i);
+		game->S = extract_path(game->S, info + i);
 
 }
 
-void	get_color(char *info, t_graph *graph, char param)
+void	get_color(char *info, t_game *game, char param)
 {
 	int	i;
 	int	j;
@@ -68,9 +68,9 @@ void	get_color(char *info, t_graph *graph, char param)
 		if(info[i] > 47 && info[i] < 58)
 		{
 			if (param == 'F')
-				graph->F[j] = ft_atoi(info + i);
+				game->F[j] = ft_atoi(info + i);
 			if (param == 'C')
-				graph->C[j] = ft_atoi(info + i);
+				game->C[j] = ft_atoi(info + i);
 			j++;
 			while(info[i] > 47 && info[i] < 58 && info [i] != '\0')
 				i++;
@@ -81,7 +81,7 @@ void	get_color(char *info, t_graph *graph, char param)
 	}
 }
 
-void	find_info(char *info, t_graph *graph)
+void	find_info(char *info, t_game *game)
 {
 	int	i;
 
@@ -89,21 +89,21 @@ void	find_info(char *info, t_graph *graph)
 	while (info[i] != '\0')
 	{
 		if (info[i] == 'R')
-			get_res(info + i, graph);
+			get_res(info + i, game);
 		/*if (info[i] == 'N')
-		  get_texture(info + i, graph, 'N');
+		  get_texture(info + i, game, 'N');
 		  if (info[i] == 'S' && info[i + 1] == 'O')
-		  get_texture(info + i, graph, 'S');
+		  get_texture(info + i, game, 'S');
 		  if (info[i] == 'W')
-		  get_texture(info + i, graph, 'W');
+		  get_texture(info + i, game, 'W');
 		  if (info[i] == 'E')
-		  get_texture(info + i, graph, 'E');
+		  get_texture(info + i, game, 'E');
 		  if (info[i] == 'S' && info[i + 1] != 'O')
-		  get_sprite(info + i, graph);*/
+		  get_sprite(info + i, game);*/
 		if (info[i] == 'F')
-			get_color(info + i, graph, 'F');
+			get_color(info + i, game, 'F');
 		if (info[i] == 'C')
-			get_color(info + i, graph, 'C');
+			get_color(info + i, game, 'C');
 		i++;
 	}
 }
