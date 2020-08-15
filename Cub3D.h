@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/15 01:48:34 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 01:37:25 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,32 @@ typedef struct s_window
 	void	*winp;
 }		t_win;
 
-typedef struct s_graph
+typedef struct s_player
+{
+	t_coor pos;
+	t_coor vect;
+}		t_player;
+
+typedef struct s_game
 {
 	int	res[2];
 	int	F[3];
 	int	C[3];
 	t_win	win;
-	t_coor	pos;
+	t_player player;
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
 	char	*S;
-}		t_graph;
+}		t_game;
 
 /*
 **------------------------------- Define ---------------------------------------
 */
 
 //Parameters
-# define FOV	120
+# define FOV		70
 # define CUB_SIZE	64
 
 
@@ -84,7 +90,7 @@ typedef struct s_graph
 # define ESC	0xFF1b
 # define SPACE	0x7780
 # define TAB	0xff89
-# define ENTER	0xff8d
+# define ENTER	0xff
 
 //EVENTS
 # define KEY_PRESS 2
@@ -100,14 +106,14 @@ typedef struct s_graph
 **------------------------------- Prototypes -----------------------------------
 */
 
-void	find_info(char *info, t_graph *graph);
+void	find_info(char *info, t_game *game);
 void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 
 char	*extract_path(char *dest, char *src);
-void	ft_start_display(t_coor vect, t_graph, char **map);
-void	ft_raymachine(t_coor vect, t_graph graph, char **map);
+void	ft_start_display(t_game, char **map);
+void	ft_raymachine(t_game game, char **map);
 
 
 #endif
