@@ -212,7 +212,8 @@ void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 
 	printf("Wall found\n");
 	pos = game.player.pos;
-	height = (int)((CUB_SIZE / (CUB_SIZE * ray.dist)) * distproj);
+	printf("\nray.dist = %f; distproj = ; %f", ray.dist, distproj);
+	height = (int)(distproj / ray.dist);
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
 	if (ray.x == (double)((int)ray.x))
 	{
@@ -239,8 +240,9 @@ void	ft_raymachine(t_game game, char **map)
 	t_coor ray;
 
 	i = 0;
-	distproj = (game.res[0] / 2) / tan(FOV / 2);
-	angle = (double)FOV / (double)game.res[0];
+	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
+	printf("\n distproj = %f; game.res = %f; tan(FOV/2) = %f",  distproj, (double)game.res[0], tan(FOV/2));
+	angle = (double)FOV / game.res[0];
 	printf("FOV = %d, ResX = %d, Angle: %f\n", FOV, game.res[0],angle);
 	while (i < game.res[0])
 	{
