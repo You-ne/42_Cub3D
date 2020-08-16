@@ -48,7 +48,7 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 	double eqsol;
 	int midcase;
 
-	printf("X");
+	//printf("X");
 	midcase = 0;
 	eqsol = ((int)ray.x + dir.x) * eqline.x + eqline.y;
 	eqsol = floor(eqsol * pow(10, 14) + 0.5) / pow(10, 14);
@@ -115,10 +115,12 @@ t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, char **map)
 
 	ray.x = pos.x;
 	ray.y = pos.y;
+//	printf("Ray fired! RayX = %f, RayY = %f\n", ray.x, ray.y);
 	while (ray.x >= 0 && ray.y >= 0)
 	{
-		if (dir.x == -2)
-			ray = ft_Xray(eqline, dir, ray, map);
+		//printf("Calculating ray...\n");
+	//	if (dir.x == -2)
+		ray = ft_Xray(eqline, dir, ray, map);
 		if (ray.dist == 0)
 			break;
 		ray = ft_Yray(eqline, dir, ray, map);
@@ -154,6 +156,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	t_coor dir;
 	t_coor eqline;
 
+//	printf("Cannon firing!\n");
 	pente = 0;
 	vecray.x = (vect.x * cos(angle)) - (vect.y * sin(angle));
 	vecray.y = (vect.x * sin(angle)) + (vect.y * cos(angle));
@@ -165,6 +168,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, dir, eqline, map);
 	ray.dist = ft_pythagore((ray.x - pos.x), (ray.y - pos.y)) * cos(angle);
+//	printf("Cannon Rearming!\n");
 	return (ray);
 }
 
@@ -179,6 +183,13 @@ void	ft_drawcol(int i, int height, t_game game)
 	{
 		if(y > (game.res[1]/2 - height/2))
 			mlx_pixel_put(win.mlxp, win.winp, i, y, 16772864);
+		else
+			mlx_pixel_put(win.mlxp, win.winp, i, y, 0);
+		y++;
+	}
+	while(y < game.res[1] - 1)
+	{
+		mlx_pixel_put(win.mlxp, win.winp, i, y, 0);
 		y++;
 	}
 }
@@ -186,30 +197,32 @@ void	ft_drawcol(int i, int height, t_game game)
 void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 {
 	int height;
+	int oldheight;
 	int ncol;
 	void	*test;
-	double	pyth1;
-	double	pyth2;
+	//double	pyth1;
+	//double	pyth2;
 
-	pyth1 = ft_pythagore(distproj, (game.res[1] / 2));
-	pyth2 = ft_pythagore(ray.dist, (CUB_SIZE / 2));
-	height = CUB_SIZE * (pyth1 / pyth2);
-	//height = (int)(distproj / ray.dist);
+	//pyth1 = ft_pythagore(distproj, (game.res[1] / 2));
+	//pyth2 = ft_pythagore(ray.dist, (CUB_SIZE / 2));
+	//height = CUB_SIZE * (pyth1 / pyth2);
+	oldheight = (int)(distproj / ray.dist);
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
 	if (ray.x == (double)((int)ray.x))
 	{
 		if (game.player.pos.x < ray.x)
-			ft_drawcol(i, height, game);
+			ft_drawcol(i, oldheight, game);
 		else
-			ft_drawcol(i, height, game);
+			ft_drawcol(i, oldheight, game);
 	}
 	else
 	{
 		if (game.player.pos.y < ray.y)
-			ft_drawcol(i, height, game);
+			ft_drawcol(i, oldheight, game);
 		else
-			ft_drawcol(i, height, game);
+			ft_drawcol(i, oldheight, game);
 	}
+	//printf("Old Height = %d, New Height = %d\n", oldheight, height);
 	return ;
 }
 
@@ -220,9 +233,13 @@ void	ft_raymachine(t_game game)
 	double distproj;
 	t_coor ray;
 
+	printf("New Image!\n");
+	printf("PosX = %F, PosY =  %f, VectX = %f, VectY = %f", game.player.pos.x, game.player.pos.y, game.player.vect.x, game.player.vect.y); 
+	printf("Pente = %f\n", game.player.vect.y/game.player.vect.x);
 	i = 0;
 	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
-	angle = (double)FOV / game.res[0];
+	angle = (double)FOV / (double)game.res[0];
+//	printf("Angle = %f, Distrproj =  %f", angle, distproj);
 	while (i < game.res[0])
 	{
 		ray = ft_raycannon(game.player.pos, game.player.vect, 
