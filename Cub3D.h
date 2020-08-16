@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 04:09:05 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 04:43:26 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_game
 //Parameters
 # define FOV		70
 # define CUB_SIZE	64
-# define ROT_UNIT	5
+# define ROT_SPEED	1
 
 //Colors
 # define GREEN	"\e[0;92m"
