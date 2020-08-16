@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 06:59:35 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 11:45:12 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ typedef struct s_window
 	void	*winp;
 }		t_win;
 
+typedef struct s_img
+{
+	void	*img_p;
+	int	endian;
+	int	s_line;
+	int	bpp;
+	char	*img;
+}		t_img;
+
 typedef struct s_player
 {
 	t_coor pos;
@@ -58,6 +67,8 @@ typedef struct s_game
 	int	res[2];
 	int	F[3];
 	int	C[3];
+	int	Fl;
+	int	Ce;
 	t_win	win;
 	t_player player;
 	char	**map;
@@ -75,7 +86,10 @@ typedef struct s_game
 //Parameters
 # define FOV		70
 # define CUB_SIZE	64
-# define ROT_SPEED	1
+# define ROT_SPEED	3
+# define FRONT_SPEED	0.15
+# define BACK_SPEED	0.07
+# define STRAFE_SPEED	0.10
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -92,6 +106,9 @@ typedef struct s_game
 # define SPACE	0x7780
 # define TAB	0xff89
 # define ENTER	0xff
+# define PAGE_UP 0xff55
+# define PAGE_DOWN 0xff56
+# define SHIFT_R 0xffe2
 # define A	0x0041
 # define D	0x0044
 # define E	0x0045
@@ -124,6 +141,7 @@ int	ft_exit(t_win *win);
 char	*extract_path(char *dest, char *src);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game game);
+void	ft_drawcol(int x, int height, t_game game, t_img *img);
 
 
 #endif

@@ -6,43 +6,52 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 07:01:10 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 12:00:27 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Cub3D.h"
+
 int	ft_move(int key, t_game *game)
 {
 	double pente;
 	double angle;
+	double speed;
 
 	pente = game->player.vect.y / game->player.vect.x;
 	angle = atan(pente);
 	if (key == UP || key == Z)
+		speed = FRONT_SPEED;
+	else if (key == DOWN || key == S)
+		speed = BACK_SPEED;
+	if (((key == UP || key == Z) && (game->player.vect.x >= 0)) || 
+	((key == DOWN || key == S) && (game->player.vect.x < 0)))
 	{
-		game->player.pos.x = game->player.pos.x + (MOVE_SPEED * cos(angle));
-		game->player.pos.y = game->player.pos.y + (MOVE_SPEED * sin(angle));
+		game->player.pos.x = game->player.pos.x + (speed * cos(angle));
+		game->player.pos.y = game->player.pos.y + (speed * sin(angle));
 	}
-	if (key == DOWN || key == S)
+	if (((key == UP || key == Z) && (game->player.vect.x < 0)) || 
+	((key == DOWN || key == S) && (game->player.vect.x >= 0)))
 	{
-		game->player.pos.x = game->player.pos.x - (MOVE_SPEED * cos(angle));
-		game->player.pos.y = game->player.pos.y - (MOVE_SPEED * sin(angle));
+		game->player.pos.x = game->player.pos.x - (speed * cos(angle));
+		game->player.pos.y = game->player.pos.y - (BACK_SPEED * sin(angle));
 	}
-	if (key == Q)
+	if (key == PAGE_DOWN)
 	{
-		game->player.pos.x = game->player.pos.x + (MOVE_SPEED * cos(angle +
+		game->player.pos.x = game->player.pos.x + (STRAFE_SPEED * cos(angle +
 		(M_PI / 2)));
-		game->player.pos.y = game->player.pos.y + (MOVE_SPEED * sin(angle +
+		game->player.pos.y = game->player.pos.y + (STRAFE_SPEED * sin(angle +
 		(M_PI / 2)));
 	}
-	if (key == D)
+	if (key == SHIFT_R)
 	{
-		game->player.pos.x = game->player.pos.x - (MOVE_SPEED * cos(angle - 
+		game->player.pos.x = game->player.pos.x + (STRAFE_SPEED * cos(angle - 
 		(M_PI / 2)));
-		game->player.pos.y = game->player.pos.y - (MOVE_SPEED * sin(angle - 
+		game->player.pos.y = game->player.pos.y + (STRAFE_SPEED * sin(angle - 
 		(M_PI / 2)));
 	}
-	printf("\nAngle = %f", angle);
+	//printf("\nAngle = %f", angle);
+//	mlx_clear_window(game->win.mlxp, game->win.winp);
 	ft_raymachine(*game);
 	return(0);
 }
@@ -56,13 +65,13 @@ int	ft_rotate(int side, t_game *game)
 	{
 		game->player.vect.x = (game->player.vect.x * cos(rot)) - (game->player.vect.y * sin(rot));
 		game->player.vect.y = (game->player.vect.x * sin(rot)) + (game->player.vect.y * cos(rot));
-		printf("Rotating %d degrees\n", ROT_SPEED);
+	//	printf("Rotating %d degrees\n", ROT_SPEED);
 	}
 	if (side == -1)
 	{
 		game->player.vect.x = (game->player.vect.x * cos(-1 * rot)) - (game->player.vect.y * sin(-1 * rot));
 		game->player.vect.y = (game->player.vect.x * sin(-1 * rot)) + (game->player.vect.y * cos(-1 * rot));
-		printf("Rotating %d degrees\n", -ROT_SPEED);
+	//	printf("Rotating %d degrees\n", -ROT_SPEED);
 	}
 //	mlx_clear_window(game->win.mlxp, game->win.winp);
 	ft_raymachine(*game);
@@ -71,10 +80,11 @@ int	ft_rotate(int side, t_game *game)
 
 int	keyboard(int key, t_game *game)
 {
-	printf("\nKey pressed!\n\n");
+	//printf("\nKey pressed!\n\n");
 	if(key == ESC)
 		ft_exit(&game->win);
-	if(key == UP || key == DOWN || key == Z || key == S || key == Q || key == D)
+	if(key == UP || key == DOWN || key == Z || key == S || key == Q 
+	|| key == D || SHIFT_R || PAGE_DOWN)
 		ft_move(key, game);
 
 	if(key == A || key == LEFT)

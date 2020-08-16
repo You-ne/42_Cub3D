@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 07:00:06 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 07:21:14 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ void	get_color(char *info, t_game *game, char param)
 		}	
 		i++;
 	}
+	game->Fl = (game->F[0] * 256 * 256) + (game->F[1] * 256) + game->F[2];
+	game->Ce = (game->C[0] * 256 * 256) + (game->C[1] * 256) + game->C[2];
+
+
 }
 
 void	find_info(char *info, t_game *game)

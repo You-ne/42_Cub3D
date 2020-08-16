@@ -171,30 +171,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 //	printf("Cannon Rearming!\n");
 	return (ray);
 }
-
-void	ft_drawcol(int i, int height, t_game game)
-{
-	int y;
-	t_win	win;
-
-	win = game.win;
-	y = 0;
-	while(y < (game.res[1]/2 + height/2))
-	{
-		if(y > (game.res[1]/2 - height/2))
-			mlx_pixel_put(win.mlxp, win.winp, i, y, 16772864);
-		else
-			mlx_pixel_put(win.mlxp, win.winp, i, y, 0);
-		y++;
-	}
-	while(y < game.res[1] - 1)
-	{
-		mlx_pixel_put(win.mlxp, win.winp, i, y, 0);
-		y++;
-	}
-}
-
-void	ft_projection(t_game game, t_coor ray, double distproj, int i)
+void	ft_projection(t_game game, t_coor ray, double distproj, int x, t_img *img)
 {
 	int height;
 	int oldheight;
@@ -211,16 +188,16 @@ void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 	if (ray.x == (double)((int)ray.x))
 	{
 		if (game.player.pos.x < ray.x)
-			ft_drawcol(i, oldheight, game);
+			ft_drawcol(x, oldheight, game, img);
 		else
-			ft_drawcol(i, oldheight, game);
+			ft_drawcol(x, oldheight, game, img);
 	}
 	else
 	{
 		if (game.player.pos.y < ray.y)
-			ft_drawcol(i, oldheight, game);
+			ft_drawcol(x, oldheight, game, img);
 		else
-			ft_drawcol(i, oldheight, game);
+			ft_drawcol(x, oldheight, game, img);
 	}
 	//printf("Old Height = %d, New Height = %d\n", oldheight, height);
 	return ;
@@ -228,25 +205,32 @@ void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 
 void	ft_raymachine(t_game game)
 {
-	int i;
-	double angle;
-	double distproj;
-	t_coor ray;
+	int	x;
+	double	angle;
+	double	distproj;
+	t_coor	ray;
+	t_img	img;
 
-	printf("New Image!\n");
-	printf("PosX = %F, PosY =  %f, VectX = %f, VectY = %f", game.player.pos.x, game.player.pos.y, game.player.vect.x, game.player.vect.y); 
-	printf("Pente = %f\n", game.player.vect.y/game.player.vect.x);
-	i = 0;
+//	printf("New Image!\n");
+//	printf("PosX = %F, PosY =  %f, VectX = %f, VectY = %f\n", game.player.pos.x, game.player.pos.y, game.player.vect.x, game.player.vect.y);
+//	printf("Pente = %f\n", game.player.vect.y/game.player.vect.x);
+	x = 0;
+
+
+	img.img_p = mlx_new_image(game.win.mlxp, game.res[0], game.res[1]);
+	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
+//	printf("Lines of size = %d, Total size = %d\n", img.s_line, img.s_line * game.res[1]);
 	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	angle = (double)FOV / (double)game.res[0];
 //	printf("Angle = %f, Distrproj =  %f", angle, distproj);
-	while (i < game.res[0])
+	while (x < game.res[0])
 	{
 		ray = ft_raycannon(game.player.pos, game.player.vect, 
-		(M_PI / 180) * ((angle * i) - (FOV / 2)), game.map);
-		ft_projection(game, ray, distproj, i);
-		i++;
+		(M_PI / 180) * ((angle * x) - (FOV / 2)), game.map);
+		ft_projection(game, ray, distproj, x, &img);
+		x++;
 	}
+	mlx_put_image_to_window(game.win.mlxp, game.win.winp, img.img_p, 0, 0);
+	mlx_destroy_image(game.win.mlxp, img.img_p);
 	return ;
 }
-
