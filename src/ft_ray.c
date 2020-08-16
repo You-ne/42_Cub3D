@@ -2,6 +2,16 @@
 
 #include "../Cub3D.h"
 
+double	ft_pythagore(double x, double y)
+{
+	double sqr;
+	double dist;
+
+	sqr = (x * x)  + (y * y);
+	dist = sqrt(sqr);
+	return (dist);
+}
+
 int	ft_collision(char **map, t_coor ray, t_coor dir)
 {
 	int i;
@@ -28,9 +38,7 @@ int	ft_collision(char **map, t_coor ray, t_coor dir)
 		if (dir.y <= 0)
 			i = -1;
 		if (map[(int)ray.y + i][(int)ray.x] == '1')
-		{
 			return (1);
-		}
 	}
 	return(0);
 }
@@ -40,10 +48,11 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 	double eqsol;
 	int midcase;
 
+	printf("X");
 	midcase = 0;
 	eqsol = ((int)ray.x + dir.x) * eqline.x + eqline.y;
 	eqsol = floor(eqsol * pow(10, 14) + 0.5) / pow(10, 14);
-	if (dir.y == 0 && ray.y == (double)((int)ray.y) && ray.x != (double)((int)ray.x))//////////////////////////)
+	if (dir.y == 0 && ray.y == (double)((int)ray.y) && ray.x != (double)((int)ray.x))///)
 		midcase = -1;
 	while ((eqsol > (int)ray.y + midcase && eqsol < (int)ray.y + midcase + 1) || 
 	(eqsol == (int)eqsol))
@@ -58,7 +67,7 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 		if (dir.x == 0)
 			dir.x = -1;
 		eqsol = ((int)ray.x + dir.x) * eqline.x + eqline.y;
-		if (dir.y == 0 && ray.y == (double)((int)ray.y) ) //&& ray.x != (double)((int)ray.x))//////////////////////////)
+		if (dir.y == 0 && ray.y == (double)((int)ray.y) ) //&& ray.x != (double)((int)ray.x)))
 			midcase = -1;
 		else
 			midcase = 0;
@@ -91,7 +100,7 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 		if (dir.y == 0)
 			dir.y = -1;
 		eqsol = (((int)ray.y + dir.y) - eqline.y) / eqline.x;
-		if (dir.x == 0 && ray.x == (double)((int)ray.x) ) //&& ray.x != (double)((int)ray.x))//////////////////////////)
+		if (dir.x == 0 && ray.x == (double)((int)ray.x) ) //&& ray.x != (double)((int)ray.x)))
 			midcase = -1;
 		else
 			midcase = 0;
@@ -108,16 +117,14 @@ t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, char **map)
 	ray.y = pos.y;
 	while (ray.x >= 0 && ray.y >= 0)
 	{
-		//if (dir.x == -2)
-		ray = ft_Xray(eqline, dir, ray, map);
+		if (dir.x == -2)
+			ray = ft_Xray(eqline, dir, ray, map);
 		if (ray.dist == 0)
 			break;
 		ray = ft_Yray(eqline, dir, ray, map);
 		if (ray.dist == 0)
 			break;
-		//printf("\nRay.x = %f ; Ray.y = %f ", ray.x, ray.y);
 	}
-	//printf("\n\n\n\n\n3333");
 	return (ray);
 }
 
@@ -142,9 +149,6 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 {
 	double pente;
 	double x0;
-	double sqrx;
-	double sqry;
-	double sqr;
 	t_coor ray;
 	t_coor vecray;
 	t_coor dir;
@@ -160,10 +164,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	eqline.y = x0;
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, dir, eqline, map);
-	sqrx = ray.x - pos.x;
-	sqry = ray.y - pos.y;
-	sqr = (sqrx * sqrx)  + (sqry * sqry);
-	ray.dist = sqrt(sqr) * cos(angle);
+	ray.dist = ft_pythagore((ray.x - pos.x), (ray.y - pos.y)) * cos(angle);
 	return (ray);
 }
 
@@ -177,7 +178,7 @@ void	ft_drawcol(int i, int height, t_game game)
 	while(y < (game.res[1]/2 + height/2))
 	{
 		if(y > (game.res[1]/2 - height/2))
-			mlx_pixel_put(win.mlxp, win.winp, i, y, 16772864); 
+			mlx_pixel_put(win.mlxp, win.winp, i, y, 16772864);
 		y++;
 	}
 }
@@ -186,22 +187,25 @@ void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 {
 	int height;
 	int ncol;
-	t_coor pos;
 	void	*test;
+	double	pyth1;
+	double	pyth2;
 
-	pos = game.player.pos;
-	height = (int)(distproj / ray.dist);
+	pyth1 = ft_pythagore(distproj, (game.res[1] / 2));
+	pyth2 = ft_pythagore(ray.dist, (CUB_SIZE / 2));
+	height = CUB_SIZE * (pyth1 / pyth2);
+	//height = (int)(distproj / ray.dist);
 	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
 	if (ray.x == (double)((int)ray.x))
 	{
-		if (pos.x < ray.x)
+		if (game.player.pos.x < ray.x)
 			ft_drawcol(i, height, game);
 		else
 			ft_drawcol(i, height, game);
 	}
 	else
 	{
-		if (pos.y < ray.y)
+		if (game.player.pos.y < ray.y)
 			ft_drawcol(i, height, game);
 		else
 			ft_drawcol(i, height, game);
@@ -217,16 +221,15 @@ void	ft_raymachine(t_game game)
 	t_coor ray;
 
 	i = 0;
-	printf("New Image\n");
-	printf("Pos X = %f, Pos Y = %f\n", game.player.pos.x, game.player.pos.y);
-	printf("Vect X = %f, Vect Y = %f\n\n", game.player.vect.x, game.player.vect.y);
 	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	angle = (double)FOV / game.res[0];
 	while (i < game.res[0])
 	{
-		ray = ft_raycannon(game.player.pos, game.player.vect, (M_PI / 180) * ((angle * i) - (FOV / 2)), game.map);
+		ray = ft_raycannon(game.player.pos, game.player.vect, 
+		(M_PI / 180) * ((angle * i) - (FOV / 2)), game.map);
 		ft_projection(game, ray, distproj, i);
 		i++;
 	}
 	return ;
 }
+
