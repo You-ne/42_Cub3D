@@ -13,7 +13,38 @@
 # include "../Cub3D.h"
 int	ft_move(int key, t_game *game)
 {
-	
+	double pente;
+	double angle;
+
+	pente = game->player.vect.y / game->player.vect.x;
+	angle = atan(pente);
+	if (key == UP || key == Z)
+	{
+		game->player.pos.x = game->player.pos.x + (MOVE_SPEED * cos(angle));
+		game->player.pos.y = game->player.pos.y + (MOVE_SPEED * sin(angle));
+	}
+	if (key == DOWN || key == S)
+	{
+		game->player.pos.x = game->player.pos.x - (MOVE_SPEED * cos(angle));
+		game->player.pos.y = game->player.pos.y - (MOVE_SPEED * sin(angle));
+	}
+	if (key == Q)
+	{
+		game->player.pos.x = game->player.pos.x + (MOVE_SPEED * cos(angle +
+		(M_PI / 2)));
+		game->player.pos.y = game->player.pos.y + (MOVE_SPEED * sin(angle +
+		(M_PI / 2)));
+	}
+	if (key == D)
+	{
+		game->player.pos.x = game->player.pos.x - (MOVE_SPEED * cos(angle - 
+		(M_PI / 2)));
+		game->player.pos.y = game->player.pos.y - (MOVE_SPEED * sin(angle - 
+		(M_PI / 2)));
+	}
+	printf("\nAngle = %f", angle);
+	ft_raymachine(*game);
+	return(0);
 }
 
 int	ft_rotate(int side, t_game *game)
@@ -43,13 +74,13 @@ int	keyboard(int key, t_game *game)
 	printf("\nKey pressed!\n\n");
 	if(key == ESC)
 		ft_exit(&game->win);
-/*	if(key == UP || key == DOWN || key == Z || key == S || key == Q || key == D)
-		ft_move(game);*/
+	if(key == UP || key == DOWN || key == Z || key == S || key == Q || key == D)
+		ft_move(key, game);
 
 	if(key == A || key == LEFT)
-		ft_rotate(1, game);
-	if(key == E || key == RIGHT)
 		ft_rotate(-1, game);
+	if(key == E || key == RIGHT)
+		ft_rotate(1, game);
 /*	printf("Pos X2 = %f, Pos Y2 = %f\n", game->player.pos.x, game->player.pos.y);
 	printf("Vect X2 = %f, Vect Y2 = %f\n\n", game->player.vect.x, game->player.vect.y);*/
 	if(key == A || key == LEFT)
