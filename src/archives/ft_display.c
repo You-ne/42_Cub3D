@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 04:04:01 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 03:25:40 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_exit(t_win *win)
 	return(0);
 }
 
-void	ft_start_display(t_game game)
+void	ft_start_display(t_game game, char **map)
 {
 
 	printf("\nStarting X Server with resolution %dx%d\n\n", game.res[0], game.res[1]);
@@ -34,7 +34,7 @@ void	ft_start_display(t_game game)
 
 	printf(GREEN);
 	printf("\nStarting Raymachine.....\n\n");
-	ft_raymachine(game);
+	ft_raymachine(game, map);
 	printf(RED);
 	printf("\nStoping Raymachine.\n\n");
 

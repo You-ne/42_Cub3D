@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 01:37:25 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 04:09:05 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ typedef struct s_game
 	int	C[3];
 	t_win	win;
 	t_player player;
+	char	**map;
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	char	*S;
+	char	*SP;
 }		t_game;
 
 /*
@@ -74,7 +75,7 @@ typedef struct s_game
 //Parameters
 # define FOV		70
 # define CUB_SIZE	64
-
+# define ROT_UNIT	5
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -91,6 +92,12 @@ typedef struct s_game
 # define SPACE	0x7780
 # define TAB	0xff89
 # define ENTER	0xff
+# define A	0x0041
+# define D	0x0044
+# define E	0x0045
+# define Q	0x0051
+# define S	0x0053
+# define Z	0x005a
 
 //EVENTS
 # define KEY_PRESS 2
@@ -111,9 +118,12 @@ void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 
+int	keyboard(int key, t_game *game);
+int	ft_exit(t_win *win);
+
 char	*extract_path(char *dest, char *src);
-void	ft_start_display(t_game, char **map);
-void	ft_raymachine(t_game game, char **map);
+void	ft_start_display(t_game);
+void	ft_raymachine(t_game game);
 
 
 #endif

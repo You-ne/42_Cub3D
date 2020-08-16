@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 01:32:49 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/08/16 04:00:03 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,23 @@ char	**get_line(int fd)
 	return(map);
 }
 
-t_game	parser(char ***map)
+int	parser(t_game *game)
 {
 	int	i;
 	int	j;
 	int	k;
-	t_game game;
 
 	k = 0;
 	i = 0;
-	while(map[0][i] != NULL && k < 3)
+	while(game->map[i] != NULL && k < 3)
 	{
 		j = 0;
-		while(map[0][i][j] != '\0')
+		while(game->map[i][j] != '\0')
 		{
 			/* temporaire, rajouter détection mauvaises lignes */
-			if (map[0][i][j] > 65 && map[0][i][j] < 91)
+			if (game->map[i][j] > 65 && game->map[i][j] < 91)
 			{
-				find_info(map[0][i], &game);
+				find_info(game->map[i], game);
 				k++;
 				break;
 			}
@@ -58,20 +57,19 @@ t_game	parser(char ***map)
 		i++;
 
 	}
-	find_map(map, i); 
-	printf("ResX = %d, ResY = %d\n", game.res[0], game.res[1]);
-	printf("Floor : R = %d, G = %d, B = %d\n", (int)game.F[0],(int)game.F[1], (int)game.F[2]);	
-	printf("Ceiling : R = %d, G = %d, B = %d\n", (int)game.C[0],(int)game.C[1], (int)game.C[2]);
+	find_map(&game->map, i); 
+	printf("ResX = %d, ResY = %d\n", game->res[0], game->res[1]);
+	printf("Floor : R = %d, G = %d, B = %d\n", (int)game->F[0],(int)game->F[1], (int)game->F[2]);	
+	printf("Ceiling : R = %d, G = %d, B = %d\n", (int)game->C[0],(int)game->C[1], (int)game->C[2]);
 
 	/* verification de t_game, renvoi d'erreur ? */
-	return (game);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	int	fd;
 	t_game	game;
-	char	**map;
 	int	i;
 
 	i = 0;
@@ -79,22 +77,22 @@ int	main(int argc, char **argv)
 	{
 		fd = open(argv[1], O_RDONLY);
 		printf("[START PARSING...]\n\n");
-		map = get_line(fd);	
+		game.map = get_line(fd);	
 		close(fd);	
-		game = parser(&map);
-		game.player.pos = find_char(map);
+		parser(&game);
+		game.player.pos = find_char(game.map);
 		printf("\n[PARSING END!!!]\n");
 
 		//Display map for debug
 		printf("\nMap:\n");
-		while (map[i] != NULL)
+		while (game.map[i] != NULL)
 		{
-			printf("%s\n", map[i]);
+			printf("%s\n", game.map[i]);
 			i++;
 		}
 
-		game.player.vect = init_dir(map, game.player.pos);
-		ft_start_display(game, map);
+		game.player.vect = init_dir(game.map, game.player.pos);
+		ft_start_display(game);
 	}
 	return(0);
 }

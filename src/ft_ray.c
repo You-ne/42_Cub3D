@@ -232,7 +232,7 @@ void	ft_projection(t_game game, t_coor ray, double distproj, int i)
 	return ;
 }
 
-void	ft_raymachine(t_game game, char **map)
+void	ft_raymachine(t_game game)
 {
 	int i;
 	double angle;
@@ -247,7 +247,7 @@ void	ft_raymachine(t_game game, char **map)
 	while (i < game.res[0])
 	{
 		printf("angle%d = %.15f ", i, (angle * i) - (FOV / 2));
-		ray = ft_raycannon(game.player.pos, game.player.vect, (M_PI / 180) * ((angle * i) - (FOV / 2)), map);
+		ray = ft_raycannon(game.player.pos, game.player.vect, (M_PI / 180) * ((angle * i) - (FOV / 2)), game.map);
 		ft_projection(game, ray, distproj, i);
 		i++;
 	}
