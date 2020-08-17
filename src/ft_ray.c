@@ -12,7 +12,7 @@ double	ft_pythagore(double x, double y)
 	return (dist);
 }
 
-int	ft_collision(char **map, t_coor ray, t_coor dir)
+int	ft_ray_collision(char **map, t_coor ray, t_coor dir)
 {
 	int i;
 
@@ -59,7 +59,7 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 	{
 		ray.x = (int)ray.x + dir.x;
 		ray.y = eqsol;
-		if (ft_collision(map, ray, dir) == 1)
+		if (ft_ray_collision(map, ray, dir) == 1)
 		{
 			ray.dist = 0;
 			return (ray);
@@ -92,7 +92,7 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 		if (dir.x != -2)
 			ray.x = eqsol;
 		ray.y = (int)ray.y + dir.y;
-		if (ft_collision(map, ray, dir) == 1)
+		if (ft_ray_collision(map, ray, dir) == 1)
 		{
 			ray.dist = 0;
 			return (ray);
@@ -167,37 +167,36 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	eqline.y = x0;
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, dir, eqline, map);
-	ray.dist = ft_pythagore((ray.x - pos.x), (ray.y - pos.y)) * cos(angle);
+	if (dir.x == -2)
+		ray.dist = abs(ray.y - pos.y);//////marche pas
+	else
+		ray.dist = ft_pythagore((ray.x - pos.x), (ray.y - pos.y)) * cos(angle);
 //	printf("Cannon Rearming!\n");
 	return (ray);
 }
 void	ft_projection(t_game game, t_coor ray, double distproj, int x, t_img *img)
 {
 	int height;
-	int oldheight;
 	int ncol;
 	void	*test;
-	//double	pyth1;
-	//double	pyth2;
 
-	//pyth1 = ft_pythagore(distproj, (game.res[1] / 2));
-	//pyth2 = ft_pythagore(ray.dist, (CUB_SIZE / 2));
-	//height = CUB_SIZE * (pyth1 / pyth2);
-	oldheight = (int)(distproj / ray.dist);
-	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE;
+	height = (int)(distproj / ray.dist);
+	if (height > game.res[1])
+		height = game.res[1];
+	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE; // Pour texture
 	if (ray.x == (double)((int)ray.x))
 	{
 		if (game.player.pos.x < ray.x)
-			ft_drawcol(x, oldheight, game, img);
+			ft_drawcol(x, height, game, img);
 		else
-			ft_drawcol(x, oldheight, game, img);
+			ft_drawcol(x, height, game, img);
 	}
 	else
 	{
 		if (game.player.pos.y < ray.y)
-			ft_drawcol(x, oldheight, game, img);
+			ft_drawcol(x, height, game, img);
 		else
-			ft_drawcol(x, oldheight, game, img);
+			ft_drawcol(x, height, game, img);
 	}
 	//printf("Old Height = %d, New Height = %d\n", oldheight, height);
 	return ;

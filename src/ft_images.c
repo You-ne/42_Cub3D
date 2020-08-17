@@ -44,7 +44,10 @@ void	ft_drawcol(int x, int height, t_game game, t_img *img)
 	while(y < (game.res[1]/2 + height/2))
 	{
 		if(y > (game.res[1]/2 - height/2))
+		{
+			//printf("\nY = %i", y);
 			ft_pixel_put(game.win, img, x, y, 16772864);
+		}
 		else
 			ft_pixel_put(game.win, img, x, y, game.Fl);
 		y++;

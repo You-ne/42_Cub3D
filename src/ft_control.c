@@ -12,6 +12,25 @@
 
 # include "../Cub3D.h"
 
+int	ft_player_collision(int key, t_coor pos, t_coor vect, char **map)
+{
+	if ((int)pos.x + 0.05 > pos.x)
+	{
+		
+	}
+	if ((int)pos.x + (1 - 0.05) < pos.x)
+	{
+	}
+	if ((int)pos.y + 0.05 > pos.y)
+	{
+	}
+	if ((int)pos.y + (1 - 0.05) < pos.y)
+	{
+	}
+
+
+}
+
 int	ft_move(int key, t_game *game)
 {
 	double pente;
@@ -24,6 +43,8 @@ int	ft_move(int key, t_game *game)
 		speed = FRONT_SPEED;
 	else if (key == DOWN || key == S)
 		speed = BACK_SPEED;
+	if (ft_player_collision(key, game->player.pos, game->player.vect, game->map) == 1)
+		speed = 0;
 	if (((key == UP || key == Z) && (game->player.vect.x >= 0)) || 
 	((key == DOWN || key == S) && (game->player.vect.x < 0)))
 	{
@@ -36,18 +57,21 @@ int	ft_move(int key, t_game *game)
 		game->player.pos.x = game->player.pos.x - (speed * cos(angle));
 		game->player.pos.y = game->player.pos.y - (BACK_SPEED * sin(angle));
 	}
-	if (key == PAGE_DOWN)
+	if (key == PAGE_DOWN) //&& (game->player.vect.y >= 0)) || 
+//	(key == SHIFT_R && (g)))
 	{
+	//printf("test bug pas lateral");
 		game->player.pos.x = game->player.pos.x + (STRAFE_SPEED * cos(angle +
 		(M_PI / 2)));
 		game->player.pos.y = game->player.pos.y + (STRAFE_SPEED * sin(angle +
 		(M_PI / 2)));
 	}
-	if (key == SHIFT_R)
+	if (key == SHIFT_R)// && (game->player.vect.y < 0)) || 
+//	(key == SHIFT_R && (game->player.vect.y >= 0)))
 	{
-		game->player.pos.x = game->player.pos.x + (STRAFE_SPEED * cos(angle - 
+		game->player.pos.x = game->player.pos.x - (STRAFE_SPEED * cos(angle + 
 		(M_PI / 2)));
-		game->player.pos.y = game->player.pos.y + (STRAFE_SPEED * sin(angle - 
+		game->player.pos.y = game->player.pos.y - (STRAFE_SPEED * sin(angle + 
 		(M_PI / 2)));
 	}
 	//printf("\nAngle = %f", angle);
