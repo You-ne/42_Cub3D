@@ -14,21 +14,44 @@
 
 int	ft_player_collision(int key, t_coor pos, t_coor vect, char **map)
 {
-	if ((int)pos.x + 0.05 > pos.x)
+	if (((int)pos.x + 0.05 > pos.x) && map[(int)pos.y][(int)round(pos.x) - 1] == '1')
 	{
-		
+		if (vect.x < 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
+	((key == DOWN || key == S) && (vect.x < 0))))
+			return (1);
+		if (vect.x > 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
+	((key == DOWN || key == S) && (vect.x >= 0))))
+			return (1);
 	}
-	if ((int)pos.x + (1 - 0.05) < pos.x)
+	if (((int)pos.x + (1 - 0.05) < pos.x) && map[(int)pos.y][(int)round(pos.x)] == '1')
 	{
+		if (vect.x > 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
+	((key == DOWN || key == S) && (vect.x < 0))))
+			return (1);
+		if (vect.x < 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
+	((key == DOWN || key == S) && (vect.x >= 0))))
+			return (1);
 	}
-	if ((int)pos.y + 0.05 > pos.y)
+	if (((int)pos.y + 0.05 > pos.y) && map[(int)round(pos.y) - 1][(int)pos.x] == '1')
 	{
+		if (vect.y < 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
+	((key == DOWN || key == S) && (vect.x < 0))))
+			return (1);
+		if (vect.y > 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
+	((key == DOWN || key == S) && (vect.x >= 0))))
+			return (1);
 	}
-	if ((int)pos.y + (1 - 0.05) < pos.y)
+	if (((int)pos.y + (1 - 0.05) < pos.y) && map[(int)round(pos.y)][(int)pos.x] == '1')
 	{
-	}
+		if (vect.y > 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
+	((key == DOWN || key == S) && (vect.x < 0))))
+			return (1);
+		if (vect.y < 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
+	((key == DOWN || key == S) && (vect.x >= 0))))
+			return (1);
 
-
+	}
+	return (0);
 }
 
 int	ft_move(int key, t_game *game)
