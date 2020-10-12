@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 11:45:12 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/12 13:30:50 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,15 @@ typedef struct s_window
 typedef struct s_img
 {
 	void	*img_p;
-	int	endian;
-	int	s_line;
-	int	bpp;
 	char	*img;
+	char	*path;
+
+	int		endian;
+	int		s_line;
+	int		bpp;
+
+	int		width;
+	int		length;
 }		t_img;
 
 typedef struct s_player
@@ -64,19 +69,24 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	int	res[2];
-	int	F[3];
+	int	res[2]; // resolution X * Y
+
+	int	F[3]; // RGB colors
 	int	C[3];
-	int	Fl;
+	
+	int	Fl; // Int colors
 	int	Ce;
+
+	char	**map;
+	
 	t_win	win;
 	t_player player;
-	char	**map;
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	char	*SP;
+
+	t_img	NO; //Textures and Sprite
+	t_img	SO;
+	t_img	WE;
+	t_img	EA;
+	t_img	SP;
 }		t_game;
 
 /*
@@ -86,7 +96,7 @@ typedef struct s_game
 //Parameters
 # define FOV		70
 # define CUB_SIZE	64
-# define ROT_SPEED	3
+# define ROT_SPEED	1
 # define FRONT_SPEED	0.15
 # define BACK_SPEED	0.07
 # define STRAFE_SPEED	0.10
@@ -126,6 +136,7 @@ typedef struct s_game
 # define KEY_RELEASE_M 1L << 1
 # define BUTTON_PRESS_M 1L << 2
 # define BUTTON_RELEASE_M 1L << 3
+
 /*
 **------------------------------- Prototypes -----------------------------------
 */

@@ -6,14 +6,13 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 07:23:11 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/12 13:33:23 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
-#include "../Gnl/get_next_line.h"
 
-char	**get_line(int fd)
+char	**extract_map(int fd)
 {
 	int	i;
 	char	*tmp;
@@ -55,14 +54,12 @@ int	parser(t_game *game)
 			j++;
 		}
 		i++;
-
 	}
 	find_map(&game->map, i); 
 	printf("ResX = %d, ResY = %d\n", game->res[0], game->res[1]);
-	printf("Floor: R = %d, G = %d, B = %d\n", (int)game->F[0],(int)game->F[1], (int)game->F[2]);	
-	printf("Ceiling: R = %d, G = %d, B = %d\n", (int)game->C[0],(int)game->C[1], (int)game->C[2]);	
-	printf("Floor Color = %d\n Ceiling Color = %d\n", game->Fl, game->Ce);
-
+	printf("Floor: R = %d, G = %d, B = %d\n", (int)game->F[0],(int)game->F[1], (int)game->F[2]);
+	printf("Ceiling: R = %d, G = %d, B = %d\n", (int)game->C[0],(int)game->C[1], (int)game->C[2]);
+	printf("Floor Color = %d\nCeiling Color = %d\n", game->Fl, game->Ce);
 	/* verification de t_game, renvoi d'erreur ? */
 	return (0);
 }
@@ -78,8 +75,8 @@ int	main(int argc, char **argv)
 	{
 		fd = open(argv[1], O_RDONLY);
 		printf("[START PARSING...]\n\n");
-		game.map = get_line(fd);	
-		close(fd);	
+		game.map = extract_map(fd);
+		close(fd);
 		parser(&game);
 		game.player.pos = find_char(game.map);
 		printf("\n[PARSING END!!!]\n");

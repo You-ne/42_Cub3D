@@ -10,7 +10,7 @@ CFLAGS= -I$(INC) -O3 -I..
 
 LFLAGS= -lmlx -lXext -lX11 -lm -lbsd
 
-NAME= ./src/cub3D
+NAME= ./cub3D
 
 SRC =	./src/main.c \
 		./src/ft_control.c \
@@ -20,7 +20,6 @@ SRC =	./src/main.c \
 		./src/ft_map.c \
 		./src/ft_parsing.c \
 		./src/ft_ray.c \
-		./src/ft_textures.c \
 		./src/ft_utils.c \
 		./Gnl/get_next_line_utils.c \
 		./Gnl/get_next_line.c \

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 11:39:08 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/09 04:26:07 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ void	ft_pixel_put(t_win win, t_img *img, int x, int y, int color)
 	char	green;
 	char	blue;
 
-	blue = (char)(color & 255);
+	red = (char)(color & 255);
 	green = (char)((color >> 8) & 255);
-	red = (char)((color >> 16) & 255);
+	blue = (char)((color >> 16) & 255);
+
 /*	printf("Line Size = %d\n", img->s_line);
 	printf("Tryng to put a pixel in x = %d, y = %d, with color %d, Index = %d\n", x, y, color, (x*4)+(y*(img->s_line)*4));*/
+
 /*	red = 215;
 	blue = 15;
 	green = 100;*/
+
 	if (img->img != NULL)
 	{
 		img->img[((x * 4) + (y * img->s_line))] = red;
@@ -46,15 +49,15 @@ void	ft_drawcol(int x, int height, t_game game, t_img *img)
 		if(y > (game.res[1]/2 - height/2))
 		{
 			//printf("\nY = %i", y);
-			ft_pixel_put(game.win, img, x, y, 16772864);
+			ft_pixel_put(game.win, img, x, y, 3348736);
 		}
 		else
-			ft_pixel_put(game.win, img, x, y, game.Fl);
+			ft_pixel_put(game.win, img, x, y, game.Ce);
 		y++;
 	}
 	while(y < game.res[1])
 	{
-		ft_pixel_put(game.win, img, x, y, game.Ce);
+		ft_pixel_put(game.win, img, x, y, game.Fl);
 		y++;
 	}
 }

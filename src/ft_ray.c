@@ -109,17 +109,39 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, char **map)
 	return (ray);
 }
 
+t_coor ft_vertical_ray(t_coor ray, t_coor dir, char **map)
+{
+	while (ft_ray_collision(map, ray, dir) != 1)
+	{
+		if (dir.y > 0)
+			ray.y = (double)((int)ray.y + 1);
+		else
+		{
+			if (ray.y == (double)((int)ray.y))
+				ray.y = (double)((int)ray.y - 1);
+			else
+				ray.y = (double)((int)ray.y);
+		}
+	}
+	return (ray);
+}
+
 t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, char **map)
 {
 	t_coor ray;
 
 	ray.x = pos.x;
 	ray.y = pos.y;
+	ray.dist = -1;
 //	printf("Ray fired! RayX = %f, RayY = %f\n", ray.x, ray.y);
 	while (ray.x >= 0 && ray.y >= 0)
 	{
 		//printf("Calculating ray...\n");
-	//	if (dir.x == -2)
+		if (dir.x == -2)
+		{
+			ray = ft_vertical_ray(ray, dir, map);
+			break;
+		}
 		ray = ft_Xray(eqline, dir, ray, map);
 		if (ray.dist == 0)
 			break;
@@ -168,7 +190,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, dir, eqline, map);
 	if (dir.x == -2)
-		ray.dist = abs(ray.y - pos.y);//////marche pas
+		ray.dist = (ray.y - pos.y) < 0 ? -(ray.y - pos.y) : (ray.y - pos.y);
 	else
 		ray.dist = ft_pythagore((ray.x - pos.x), (ray.y - pos.y)) * cos(angle);
 //	printf("Cannon Rearming!\n");
