@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/12 13:31:36 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:21:45 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ void	get_res(char *info, t_game *game)
 		}
 		i++;
 	}
-
 }
 
-void	save_texture_path(char *info, t_game *game, char param)
+void	save_texture(char *info, t_game *game, char param)
 {
 	int	i;
 
@@ -51,17 +50,17 @@ void	save_texture_path(char *info, t_game *game, char param)
 	if (info[i] == '.' && info[i + 1 ] == '/')
 	{
 		if (param == 'N')
-		game->NO.path = extract_path(game->NO.path, info + i);
+		game->NO.path = extract_texture(game, info + i, "NO");
 		if (param == 'S')
-		game->SO.path = extract_path(game->SO.path, info + i);
+		game->SO.path = extract_texture(game, info + i, "SO");
 		if (param == 'W')
-		game->WE.path = extract_path(game->WE.path, info + i);
+		game->WE.path = extract_texture(game, info + i, "WE");
 		if (param == 'E')
-		game->EA.path = extract_path(game->EA.path, info + i);
+		game->EA.path = extract_texture(game, info + i, "EA");
 	}
 }
 
-void	save_sprite_path(char *info, t_game *game)
+void	save_sprite(char *info, t_game *game)
 {
 	int	i;
 
@@ -69,7 +68,7 @@ void	save_sprite_path(char *info, t_game *game)
 	while (info[i] == ' ')
 		i++;
 	if (info[i] == '.' && info[i + 1 ] == '/')
-		game->SP.path = extract_path(game->SP.path, info + i);
+		game->SP.path = extract_texture(game, info + i, "SP");
 }
 
 void	get_color(char *info, t_game *game, char param)
@@ -109,15 +108,15 @@ void	find_info(char *info, t_game *game)
 		if (info[i] == 'R')
 			get_res(info + i, game);
 		if (info[i] == 'N')
-			save_texture_path(info + i, game, 'N');
+			save_texture(info + i, game, 'N');
 		if (info[i] == 'S' && info[i + 1] == 'O')
-			save_texture_path(info + i, game, 'S');
+			save_texture(info + i, game, 'S');
 		if (info[i] == 'W')
-			save_texture_path(info + i, game, 'W');
+			save_texture(info + i, game, 'W');
 		if (info[i] == 'E')
-			save_texture_path(info + i, game, 'E');
+			save_texture(info + i, game, 'E');
 		if (info[i] == 'S' && info[i + 1] == 'P')
-			save_sprite_path(info + i, game);
+			save_sprite(info + i, game);
 		if (info[i] == 'F')
 			get_color(info + i, game, 'F');
 		if (info[i] == 'C')

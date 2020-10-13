@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_ctostr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 17:07:41 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:17:23 by yotillar         ###   ########.fr       */
+/*   Created: 2020/10/13 19:54:09 by yotillar          #+#    #+#             */
+/*   Updated: 2020/10/13 19:55:16 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+# include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
+char		*ft_ctostr(int size, char c)
+{
+	int		i;
+	char	*dest;
 
-int			get_next_line(int fd, char **line);
-int			ft_len(char *s);
-void		ft_del(char **tab);
-void		ft_cpy(char *s1, char *s2, int n);
-char		*ft_strdup_gnl(char *src);
-#endif
+	i = 0;
+	if (!(dest = malloc(sizeof(char) * (size + 1))) || size < 0)
+		return 0;
+	while (i < size)
+	{
+		dest[i] = c;
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}

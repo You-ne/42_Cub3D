@@ -1,63 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strmcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 18:19:46 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:16:31 by yotillar         ###   ########.fr       */
+/*   Created: 2020/10/13 19:28:14 by yotillar          #+#    #+#             */
+/*   Updated: 2020/10/13 20:09:02 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int			ft_len(char *s)
+char		*ft_strmcat(char *src, char *add)
 {
-	int		len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-void		ft_del(char **tab)
-{
-	if (*tab != NULL)
-	{
-		free(*tab);
-		*tab = NULL;
-	}
-}
-
-void		ft_cpy(char *s1, char *s2, int n)
-{
-	while (n > 0)
-	{
-		*s1 = *s2;
-		s1++;
-		s2++;
-		n--;
-	}
-}
-
-char		*ft_strdup_gnl(char *src)
-{
-	int		i;
 	char	*dest;
+	int		i;
+	int		j;
+	int		size;
 
+	size = ft_strlen(src) + ft_strlen(add);
 	i = 0;
-	while (src[i])
-		i++;
-	if (!(dest = (char *)malloc(sizeof(*dest) * (i + 1))))
+	j = 0;
+	if (!(dest = malloc(sizeof(char) * size + 1)) || !src || !add)
 		return (NULL);
-	i = 0;
-	while (src[i])
+	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
 		i++;
 	}
-	dest[i] = '\0';
+	while (add[j] != '\0')
+	{
+		dest[i] = add[j];
+		i++;
+		j++;
+	}
+	dest[size] = '\0';
+	free(src);
 	return (dest);
 }
+

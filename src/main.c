@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/12 13:33:23 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 20:44:51 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**extract_map(int fd)
 		return (NULL);
 	while(get_next_line(fd, &tmp) > 0)
 	{
-		map[i] = ft_strdup(tmp);
+		map[i] = ft_strdup_gnl(tmp);
 		i++;
 	}
 	map[i] = NULL;
@@ -55,7 +55,7 @@ int	parser(t_game *game)
 		}
 		i++;
 	}
-	find_map(&game->map, i); 
+	find_map(&game->map, i);
 	printf("ResX = %d, ResY = %d\n", game->res[0], game->res[1]);
 	printf("Floor: R = %d, G = %d, B = %d\n", (int)game->F[0],(int)game->F[1], (int)game->F[2]);
 	printf("Ceiling: R = %d, G = %d, B = %d\n", (int)game->C[0],(int)game->C[1], (int)game->C[2]);
@@ -82,13 +82,12 @@ int	main(int argc, char **argv)
 		printf("\n[PARSING END!!!]\n");
 
 		//Display map for debug
-		printf("\nMap:\n");
+		printf("\nTRIMMED LAYOUT:\n");
 		while (game.map[i] != NULL)
 		{
 			printf("%s\n", game.map[i]);
 			i++;
 		}
-
 		game.player.vect = init_dir(game.map, game.player.pos);
 		ft_start_display(game);
 	}

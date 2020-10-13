@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/12 13:30:50 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 20:19:16 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# include <limits.h>
 # include "./Gnl/get_next_line.h"
 # include "./Libft/libft.h"
 
@@ -57,8 +58,8 @@ typedef struct s_img
 	int		s_line;
 	int		bpp;
 
-	int		width;
-	int		length;
+	int		*width;
+	int		*length;
 }		t_img;
 
 typedef struct s_player
@@ -149,10 +150,14 @@ t_coor	init_dir(char **map, t_coor coor);
 int	keyboard(int key, t_game *game);
 int	ft_exit(t_win *win);
 
-char	*extract_path(char *dest, char *src);
+char	*ft_ctostr(int size, char c);
+char	*ft_strmcat(char *str1, char *str2);
+char	*ft_strdup(const char *str);
+char	*extract_texture(t_game *game, char *str, char *img);
+char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game game);
-void	ft_drawcol(int x, int height, t_game game, t_img *img);
+void	ft_drawcol(int x, char *col, t_game game, t_img *img);
 
 
 #endif

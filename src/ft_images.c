@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/09 04:26:07 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:40:50 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,33 @@ void	ft_pixel_put(t_win win, t_img *img, int x, int y, int color)
 	}
 }
 
-void	ft_drawcol(int x, int height, t_game game, t_img *img)
+void	ft_texture_put(t_win win, t_img *img, char *col, int x, int y)
+{
+	if (img->img != NULL)
+	{
+		img->img[((x * img->bpp) + (y * img->s_line))] = col[0];
+		img->img[((x * img->bpp + 1) + (y * img->s_line))] = col[1];
+		img->img[((x * img->bpp + 2) + (y * img->s_line))] = col[2];
+	}
+}
+
+void	ft_drawcol(int x, char *col, t_game game, t_img *img)
 {
 	int y;
-	//t_win	win;
+	int count;
 
-	//win = game.win;
 	y = 0;
-	while(y < (game.res[1]/2 + height/2))
+	while(y < (game.res[1]/2 + ((ft_strlen(col)/img->bpp)/2)))
 	{
-		if(y > (game.res[1]/2 - height/2))
+		if(y > (game.res[1]/2 - ((ft_strlen(col)/img->bpp)/2)))
 		{
 			//printf("\nY = %i", y);
-			ft_pixel_put(game.win, img, x, y, 3348736);
+			//if textures loaded :
+			count = 0;
+			ft_texture_put(game.win, img, col + (count * img->bpp), x, y);
+			count++;
+			//else :
+			//ft_pixel_put(game.win, img, x, y, 3348736);
 		}
 		else
 			ft_pixel_put(game.win, img, x, y, game.Ce);

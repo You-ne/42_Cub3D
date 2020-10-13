@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:32:45 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/12 09:32:07 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 20:16:57 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int		ft_test(char **tab, char *buf, char **line)
 		final = ft_end(*tab);
 	if (final > -1)
 	{
-		*line = ft_strdup(*tab);
+		*line = ft_strdup_gnl(*tab);
 		tmp = *tab;
-		*tab = ft_strdup((*tab + final + 1));
+		*tab = ft_strdup_gnl((*tab + final + 1));
 		ft_del(&tmp);
 		return (1);
 	}
@@ -87,7 +87,7 @@ int		get_next_line(int fd, char **line)
 		return (1);
 	else if (tab[fd] != NULL && ft_len(tab[fd]) > 0)
 	{
-		*line = ft_strdup(tab[fd]);
+		*line = ft_strdup_gnl(tab[fd]);
 		ft_del(&tab[fd]);
 	}
 	ft_del(&tab[fd]);
