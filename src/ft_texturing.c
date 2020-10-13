@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:39:13 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 19:56:47 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 21:20:51 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*ft_extract_col_texture(t_img texture, int ncol)
 
 	i = ncol * texture.bpp;
 	dest = ft_strdup("");
+	printf("Texture : %s\n", texture.img);
 	while (i > ft_strlen(texture.img))
 	{
 		add = ft_strdup("");

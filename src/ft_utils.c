@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:04:56 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 22:12:41 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,38 @@ char	*extract_texture(t_game *game, char *str, char *img)
 {
 	int		i;
 	char	*path;
-	i = 0;
-	while (str[i] != ' ')
-		i++;
-	if (!(path = (char*)malloc(sizeof(char) * i + 1)))
-		return (NULL);
-	i = 0;
-	while (str[i] != ' ')
-		path[i] = str[i++];
-	path[i] = '\0';
-	if (img == "NO")
+	int *a;
+	int *b;
+	
+	*a = 64;
+	*b = 64;
+	while (*str == ' ')
+		str++;
+	path = ft_strdup(str);
+	printf("EXTRACTING TEXTURES...\n\n");
+	printf("IMG = %s\n\n", img);
+	printf("Path: %s\n\n", path);
+	if (img[0] == 'N' && img[1] == 'O')
 	{
-		game->NO.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->NO.width, game->NO.length);
-		mlx_get_data_addr(game->NO.img_p, &game->NO.bpp, &game->NO.s_line, &game->NO.endian);
-		}
-	if (img == "WE")
+		printf("NO texture :");
+		game->NO.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, a, b);
+		//game->NO.img = mlx_get_data_addr(game->NO.img_p, &game->NO.bpp, &game->NO.s_line, &game->NO.endian);
+		//printf("%s\n\n", game->NO.img);
+	}
+	if (img[0] == 'W' && img[1] == 'E')
 	{
-		game->WE.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->WE.width, game->WE.length);
-		mlx_get_data_addr(game->WE.img_p, &game->WE.bpp, &game->WE.s_line, &game->WE.endian);
+		game->WE.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->WE.width, game->WE.height);
+		game->WE.img = mlx_get_data_addr(game->WE.img_p, &game->WE.bpp, &game->WE.s_line, &game->WE.endian);
 		}
-	if (img == "EA")
+	if (img[0] == 'E' && img[1] == 'A')
 	{
-		game->EA.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->EA.width, game->EA.length);
-		mlx_get_data_addr(game->EA.img_p, &game->EA.bpp, &game->EA.s_line, &game->EA.endian);
-		}
-	if (img == "SO")
+		game->EA.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->EA.width, game->EA.height);
+		game->EA.img = mlx_get_data_addr(game->EA.img_p, &game->EA.bpp, &game->EA.s_line, &game->EA.endian);
+	}
+	if (img[0] == 'S' && img[1] == 'O')
 	{
-		game->SO.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->SO.width, game->SO.length);
-		mlx_get_data_addr(game->SO.img_p, &game->SO.bpp, &game->SO.s_line, &game->SO.endian);
-		}
+		game->SO.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, game->SO.width, game->SO.height);
+		game->SO.img = mlx_get_data_addr(game->SO.img_p, &game->SO.bpp, &game->SO.s_line, &game->SO.endian);
+	}
 	return (path);
 }

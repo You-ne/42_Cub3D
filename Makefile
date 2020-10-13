@@ -6,7 +6,7 @@ CC=gcc
 
 CFLAGS= -I$(INC) -O3 -I..
 
-LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -g3 -fsanitize=address
+LFLAGS= -lmlx -lXext -lX11 -lm -lbsd #-g3 -fsanitize=address
 
 NAME= ./cub3D
 

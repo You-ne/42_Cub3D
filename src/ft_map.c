@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/12 12:00:55 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 21:00:54 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ void	find_map(char ***map, int line)
 	int	end;
 	int	i;
 
+	i = 0;
 	line++;
 	while(map[0][line][i] != '\0')
 	{
+		printf("%d\n", i);
 		if(map[0][line][i] == '1')
 		{
 			end = line;

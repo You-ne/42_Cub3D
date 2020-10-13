@@ -1,8 +1,8 @@
 R 1536 864
 
 F 0, 102, 51
-C 0, 204, 204
 
+C 0, 204, 204
 NO ../sprites/brown_shulker_box.xpm
 WE ../sprites/brown_shulker_box.xpm
 EA ../sprites/brown_shulker_box.xpm

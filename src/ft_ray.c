@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:32:33 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 21:25:48 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ void	ft_projection(t_game game, t_coor ray, int x, t_img *img)
 	void	*test;
 	double distproj;
 
+	printf("Texture 1: %s\n", game.NO.img);
 	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	height = (int)(distproj / ray.dist);
 	if (height > game.res[1])

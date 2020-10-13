@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 19:40:50 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 20:54:34 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	ft_drawcol(int x, char *col, t_game game, t_img *img)
 		{
 			//printf("\nY = %i", y);
 			//if textures loaded :
-			count = 0;
+			/*count = 0;
 			ft_texture_put(game.win, img, col + (count * img->bpp), x, y);
-			count++;
+			count++;*/
 			//else :
-			//ft_pixel_put(game.win, img, x, y, 3348736);
+			ft_pixel_put(game.win, img, x, y, 3348736);
 		}
 		else
 			ft_pixel_put(game.win, img, x, y, game.Ce);

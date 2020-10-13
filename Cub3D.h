@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:19:16 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 22:03:23 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_img
 	int		bpp;
 
 	int		*width;
-	int		*length;
+	int		*height;
 }		t_img;
 
 typedef struct s_player

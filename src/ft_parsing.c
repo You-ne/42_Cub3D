@@ -6,14 +6,14 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 19:21:45 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 21:49:50 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Cub3D.h"
 
 void	get_res(char *info, t_game *game)
-{	
+{
 	int	i;
 	int	j;
 
@@ -45,18 +45,19 @@ void	save_texture(char *info, t_game *game, char param)
 	int	i;
 
 	i = 0;
+	printf("Texture at : %s\n\n", info);
 	while (info[i] == ' ')
 		i++;
-	if (info[i] == '.' && info[i + 1 ] == '/')
+	if (info[i] == '.')
 	{
 		if (param == 'N')
-		game->NO.path = extract_texture(game, info + i, "NO");
+			game->NO.path = extract_texture(game, info + i, "NO");
 		if (param == 'S')
-		game->SO.path = extract_texture(game, info + i, "SO");
+			game->SO.path = extract_texture(game, info + i, "SO");
 		if (param == 'W')
-		game->WE.path = extract_texture(game, info + i, "WE");
+			game->WE.path = extract_texture(game, info + i, "WE");
 		if (param == 'E')
-		game->EA.path = extract_texture(game, info + i, "EA");
+			game->EA.path = extract_texture(game, info + i, "EA");
 	}
 }
 
@@ -107,16 +108,16 @@ void	find_info(char *info, t_game *game)
 	{
 		if (info[i] == 'R')
 			get_res(info + i, game);
-		if (info[i] == 'N')
-			save_texture(info + i, game, 'N');
+		if (info[i] == 'N' && info[i+1] == 'O')
+			save_texture(info + i + 2, game, 'N');
 		if (info[i] == 'S' && info[i + 1] == 'O')
-			save_texture(info + i, game, 'S');
-		if (info[i] == 'W')
-			save_texture(info + i, game, 'W');
-		if (info[i] == 'E')
-			save_texture(info + i, game, 'E');
+			save_texture(info + i + 2, game, 'S');
+		if (info[i] == 'W' && info[i+1] == 'E')
+			save_texture(info + i + 2, game, 'W');
+		if (info[i] == 'E' && info[i+1] == 'A')
+			save_texture(info + i + 2, game, 'E');
 		if (info[i] == 'S' && info[i + 1] == 'P')
-			save_sprite(info + i, game);
+			save_sprite(info + i + 2, game);
 		if (info[i] == 'F')
 			get_color(info + i, game, 'F');
 		if (info[i] == 'C')

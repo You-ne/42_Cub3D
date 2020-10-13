@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:44:51 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/10/13 21:07:02 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parser(t_game *game)
 
 	k = 0;
 	i = 0;
-	while(game->map[i] != NULL && k < 3)
+	while(game->map[i] != NULL && k < 7)
 	{
 		j = 0;
 		while(game->map[i][j] != '\0')
@@ -66,9 +66,9 @@ int	parser(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	int	fd;
+	int		fd;
 	t_game	game;
-	int	i;
+	int		i;
 
 	i = 0;
 	if(argc ==  2)
@@ -85,7 +85,7 @@ int	main(int argc, char **argv)
 		printf("\nTRIMMED LAYOUT:\n");
 		while (game.map[i] != NULL)
 		{
-			printf("%s\n", game.map[i]);
+			printf("%d:%s\n", i, game.map[i]);
 			i++;
 		}
 		game.player.vect = init_dir(game.map, game.player.pos);
