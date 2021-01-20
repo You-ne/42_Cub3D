@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 22:03:23 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/01/08 01:29:38 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include <string.h>
 # include <math.h>
 # include <limits.h>
-# include "./Gnl/get_next_line.h"
-# include "./Libft/libft.h"
+# include "./src/Gnl/get_next_line.h"
+# include "./src/Libft/libft.h"
 
 /*
 **------------------------------- Structures -----------------------------------
@@ -58,8 +58,8 @@ typedef struct s_img
 	int		s_line;
 	int		bpp;
 
-	int		*width;
-	int		*height;
+	int		width;
+	int		height;
 }		t_img;
 
 typedef struct s_player
@@ -95,7 +95,7 @@ typedef struct s_game
 */
 
 //Parameters
-# define FOV		70
+# define FOV		60
 # define CUB_SIZE	64
 # define ROT_SPEED	1
 # define FRONT_SPEED	0.15
@@ -143,6 +143,7 @@ typedef struct s_game
 */
 
 void	find_info(char *info, t_game *game);
+void	get_res(char *info, t_game *game);
 void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
@@ -154,10 +155,11 @@ char	*ft_ctostr(int size, char c);
 char	*ft_strmcat(char *str1, char *str2);
 char	*ft_strdup(const char *str);
 char	*extract_texture(t_game *game, char *str, char *img);
+char	**extract_map(int fd);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game game);
-void	ft_drawcol(int x, char *col, t_game game, t_img *img);
+void	ft_drawcol(t_coor heightncol, t_img texture, t_game game, t_img *img);
 
 
 #endif

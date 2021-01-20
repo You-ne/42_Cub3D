@@ -1,0 +1,105 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_texturing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/14 08:39:13 by yotillar          #+#    #+#             */
+/*   Updated: 2020/12/11 21:21:52 by yotillar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include "../Cub3D.h"
+
+int		pixel_cmp(char *texcol, int i, int chpp) /* NEW !! */
+{
+	int j;
+
+	j = 0;
+	while (j < chpp)
+	{
+		if (texcol[i + j] != texcol[i + j + chpp])
+			return (0);
+		j++;
+	}
+	return (1);
+}
+
+char	*ft_extract_col_texture(t_img texture, int ncol) /* MODIFIED !! */
+{
+	int i;
+	int j;
+	int k;
+	char *dest;
+	char *add;
+	char *add2;
+
+	k = 0;
+	i = ncol * (texture.bpp / 8);
+	if (!(dest = malloc(sizeof(char) * texture.height * (texture.bpp / 8))))
+		return (NULL);
+	while (i < texture.s_line * texture.height)
+	{
+		j = 0;
+		while (j < (texture.bpp / 8))
+			dest[k++] = texture.img[i + j++];
+		i = i + texture.s_line;
+	}
+	return (dest);
+}
+
+char	*ft_resize_col_texture(t_img texture, int height, int ncol) /* MODIFIED !! */
+{
+	int i;
+	int j;
+	int k;
+	int count;
+	char *dest;
+	char *texcol;
+	int chpp;
+	int n;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	count = 1;
+	chpp = texture.bpp / 8;
+	//printf("Texture : %s; len: %i\n", texture.img, ft_strlen(texture.img));
+	texcol = ft_extract_col_texture(texture, ncol);
+	if (!(dest = malloc(sizeof(char) * (height * chpp + 1))))
+		return (NULL);
+	//printf("\nHeight: %i; ncol: %i\n\n", height, ncol);
+	while (i < texture.height * chpp)
+	{
+		if (i < texture.height * (chpp - 1) && pixel_cmp(texcol, i, chpp) == 1)
+			count++;
+		else
+		{
+			j = 0;
+			//j < (int)(round((height * count) / texture.height)) ||
+			while (j < (int)(round((height * count) / texture.height)) ||
+			(int)(k / chpp) < (int)round((height * (i / chpp)) / texture.height))
+			{
+				//printf("h_k: %i; h_i: %i: bpp: %i\n", (int)(k / chpp), (int)(height * (i / chpp)/ texture.height), chpp);
+				n = 0;
+				while (n < chpp)
+					dest[n + k] = texcol[i + n++];
+				k = k + chpp;
+				j++;
+			}
+			count = 1;
+		}
+		i = i + chpp;
+	}
+	while (k / chpp < height)
+	{
+		n = 0;
+		while (n < chpp)
+			dest[n + k] = texcol[i - chpp + n++];
+		k = k + chpp;
+	}
+	dest[height * chpp] = '\0';
+	free(texcol);
+	return (dest);
+}

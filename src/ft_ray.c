@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 21:25:48 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/01/07 23:56:21 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_ray_collision(char **map, t_coor ray, t_coor dir)
 	{
 		if (dir.x <= 0)
 			i = -1;
-		printf("RayX = %f, RayY = %f\n\n", ray.x, ray.y);
+		//printf("RayX = %f, RayY = %f\n\n", ray.x, ray.y);
 		if (map[(int)ray.y][(int)ray.x + i] == '1')
 			return (1);
 	}
@@ -210,32 +210,43 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, char **map)
 
 void	ft_projection(t_game game, t_coor ray, int x, t_img *img)
 {
-	int height;
-	int ncol;
+	int		height;
+	int		ncol;
 	void	*test;
-	double distproj;
+	double	distproj;
+	t_coor	heightncol;
 
-	printf("Texture 1: %s\n", game.NO.img);
 	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
-	height = (int)(distproj / ray.dist);
-	if (height > game.res[1])
-		height = game.res[1];
-	ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE; // Pour texture
+	heightncol.y = (double)(int)(distproj / ray.dist);
+	//ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE; // Texture change avec distance
+	heightncol.x = (double)x;
 	if (ray.x == (double)((int)ray.x))
 	{
 		if (game.player.pos.x < ray.x)
-			ft_drawcol(x, ft_resize_col_texture(game.WE, height, ncol), game, img);
+		{
+			heightncol.dist = (double)(((int)(game.WE.width * ray.y)) % game.WE.width);
+			ft_drawcol(heightncol, game.WE, game, img);
+		}
 		else
-			ft_drawcol(x, ft_resize_col_texture(game.EA, height, ncol), game, img);
+		{
+			heightncol.dist = (double)(((int)(game.EA.width * ray.y)) % game.EA.width);
+			ft_drawcol(heightncol, game.EA, game, img);
+		}
 	}
 	else
 	{
 		if (game.player.pos.y < ray.y)
-			ft_drawcol(x, ft_resize_col_texture(game.NO, height , ncol), game, img);
+		{
+			heightncol.dist = (double)(((int)(game.NO.width * ray.x)) % game.NO.width);
+			ft_drawcol(heightncol, game.NO, game, img);
+		}
 		else
-			ft_drawcol(x, ft_resize_col_texture(game.SO, height, ncol), game, img);
+		{
+			heightncol.dist = (double)(((int)(game.SO.width * ray.x)) % game.SO.width);
+			ft_drawcol(heightncol, game.SO, game, img);
+		}
 	}
-	//printf("Old Height = %d, New Height = %d\n", oldheight, height);
+	//printf("  ncol = %f\n", heightncol.dist);
 	return ;
 }
 

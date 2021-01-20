@@ -6,7 +6,7 @@ CC=gcc
 
 CFLAGS= -I$(INC) -O3 -I..
 
-LFLAGS= -lmlx -lXext -lX11 -lm -lbsd #-g3 -fsanitize=address
+LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -g3 -fsanitize=address
 
 NAME= ./cub3D
 
@@ -19,16 +19,15 @@ SRC =	./src/main.c \
 		./src/ft_parsing.c \
 		./src/ft_ray.c \
 		./src/ft_utils.c \
-		./src/ft_texturing.c \
-		./Gnl/get_next_line_utils.c \
-		./Gnl/get_next_line.c \
-		./Libft/ft_atoi.c \
-		./Libft/ft_strmcat.c \
-		./Libft/ft_strlen.c \
-		./Libft/ft_substr.c \
-		./Libft/ft_ctostr.c \
-		./Libft/ft_strncmp.c \
-		./Libft/ft_strdup.c \
+		./src/Gnl/get_next_line_utils.c \
+		./src/Gnl/get_next_line.c \
+		./src/Libft/ft_atoi.c \
+		./src/Libft/ft_strmcat.c \
+		./src/Libft/ft_strlen.c \
+		./src/Libft/ft_substr.c \
+		./src/Libft/ft_ctostr.c \
+		./src/Libft/ft_strncmp.c \
+		./src/Libft/ft_strdup.c \
 
 all	:$(NAME)
 

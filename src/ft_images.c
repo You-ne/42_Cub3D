@@ -6,13 +6,14 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:54:34 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/01/08 00:47:52 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	ft_pixel_put(t_win win, t_img *img, int x, int y, int color)
+void	ft_pixel_put(t_img *img, int x, int y, int color)
+
 {
 	char	red;
 	char	green;
@@ -29,49 +30,64 @@ void	ft_pixel_put(t_win win, t_img *img, int x, int y, int color)
 	blue = 15;
 	green = 100;*/
 
-	if (img->img != NULL)
-	{
-		img->img[((x * 4) + (y * img->s_line))] = red;
-		img->img[((x * 4 + 1) + (y * img->s_line))] = green;
-		img->img[((x * 4 + 2) + (y * img->s_line))] = blue;
-	}
+	char	*dst;                                                               /*pad compris l'utilite */
+
+	dst = (char *)img->img + ((y * img->s_line) + (x * 4));
+	
+	*(dst) = red;
+	*(dst + 1) = green;
+	*(dst + 2) = blue;
+
+
+//	if (img->img != NULL)
+//	{
+//		img->img[((x * 4) + (y * img->s_line))] = (int)red;
+//		img->img[((x * 4 + 1) + (y * img->s_line))] = (int)green;
+//		img->img[((x * 4 + 2) + (y * img->s_line))] = (int)blue;
+//	}
 }
 
-void	ft_texture_put(t_win win, t_img *img, char *col, int x, int y)
+void	ft_texture_put(t_img *img, char *texture, int x, int y)
 {
-	if (img->img != NULL)
-	{
-		img->img[((x * img->bpp) + (y * img->s_line))] = col[0];
-		img->img[((x * img->bpp + 1) + (y * img->s_line))] = col[1];
-		img->img[((x * img->bpp + 2) + (y * img->s_line))] = col[2];
-	}
+	img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = *texture;
+	img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
+	img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = *(texture + 2);
+	img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
 }
 
-void	ft_drawcol(int x, char *col, t_game game, t_img *img)
+void	ft_drawcol(t_coor heightncol, t_img tex, t_game game, t_img *img)
 {
 	int y;
 	int count;
+	int i;
 
 	y = 0;
-	while(y < (game.res[1]/2 + ((ft_strlen(col)/img->bpp)/2)))
+	count = 0;
+	//printf("\n\n!!!!!!\n\n", (int)(round(heightncol.dist)));
+	if (heightncol.y > game.res[1])
 	{
-		if(y > (game.res[1]/2 - ((ft_strlen(col)/img->bpp)/2)))
+		count = (heightncol.y - game.res[1]) / 2;
+		heightncol.y = game.res[1];
+	}
+	while(y < (game.res[1] / 2 + (heightncol.y / 2)))
+	{
+		if(y > (game.res[1] / 2 - (heightncol.y / 2)))
 		{
-			//printf("\nY = %i", y);
-			//if textures loaded :
-			/*count = 0;
-			ft_texture_put(game.win, img, col + (count * img->bpp), x, y);
-			count++;*/
-			//else :
-			ft_pixel_put(game.win, img, x, y, 3348736);
+			//printf("%i;\n\n", (int)(round(((tex.height * count) / heightncol.y))));
+			i = (int)round(((double)tex.height / heightncol.y) * (double)count);
+			i = i * tex.s_line;
+			i = i + ((int)(round(heightncol.dist)) * (tex.bpp / 8));
+			//printf(" %i + %i |", ((int)(round(heightncol.dist))), (int)(round(((tex.height * count) / heightncol.y))));
+			ft_texture_put(img, &tex.img[i], heightncol.x, y);
+			count++;
 		}
 		else
-			ft_pixel_put(game.win, img, x, y, game.Ce);
+			ft_pixel_put(img, heightncol.x, y, game.Ce);
 		y++;
 	}
 	while(y < game.res[1])
 	{
-		ft_pixel_put(game.win, img, x, y, game.Fl);
-		y++;
+		ft_pixel_put(img, heightncol.x, y++, game.Fl);
+		//y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/09 06:12:21 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/12/11 20:42:32 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	ft_start_display(t_game game)
 
 	printf("\nStarting X Server with resolution %dx%d\n\n", game.res[0], game.res[1]);
 
-	game.win.mlxp = mlx_init();
-	game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
+//pq en commnentaire?
+//	game.win.mlxp = mlx_init();
+//	game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
 
 	printf(GREEN);
 	printf("\nStarting Raymachine.....\n\n");

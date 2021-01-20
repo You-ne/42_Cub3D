@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 07:25:27 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/12 12:59:43 by yotillar         ###   ########.fr       */
+/*   Updated: 2020/11/24 00:40:08 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_coor	find_char(char **map)
 				coor.x = (double)(j) + 0.5;
 				coor.y = (double)(i) + 0.5;
 				coor.dist = 0;
-				return(coor);
+				return (coor);
 			}
 			j++;
 		}

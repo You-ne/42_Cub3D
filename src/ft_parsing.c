@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 21:49:50 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/01/08 01:29:23 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	save_texture(char *info, t_game *game, char param)
 		i++;
 	if (info[i] == '.')
 	{
+		i = i + 2;
 		if (param == 'N')
 			game->NO.path = extract_texture(game, info + i, "NO");
 		if (param == 'S')
@@ -99,6 +100,7 @@ void	get_color(char *info, t_game *game, char param)
 	game->Ce = (game->C[0] * 256 * 256) + (game->C[1] * 256) + game->C[2];
 }
 
+
 void	find_info(char *info, t_game *game)
 {
 	int	i;
@@ -106,9 +108,11 @@ void	find_info(char *info, t_game *game)
 	i = 0;
 	while (info[i] != '\0')
 	{
-		if (info[i] == 'R')
-			get_res(info + i, game);
-		if (info[i] == 'N' && info[i+1] == 'O')
+		if (info[i] == 'F')
+			get_color(info + i, game, 'F');
+		if (info[i] == 'C')
+			get_color(info + i, game, 'C');
+		if (info[i] == 'N' && info[i + 1] == 'O')
 			save_texture(info + i + 2, game, 'N');
 		if (info[i] == 'S' && info[i + 1] == 'O')
 			save_texture(info + i + 2, game, 'S');
@@ -118,10 +122,6 @@ void	find_info(char *info, t_game *game)
 			save_texture(info + i + 2, game, 'E');
 		if (info[i] == 'S' && info[i + 1] == 'P')
 			save_sprite(info + i + 2, game);
-		if (info[i] == 'F')
-			get_color(info + i, game, 'F');
-		if (info[i] == 'C')
-			get_color(info + i, game, 'C');
 		i++;
 	}
 }

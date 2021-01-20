@@ -3,10 +3,10 @@ R 1536 864
 F 0, 102, 51
 
 C 0, 204, 204
-NO ../sprites/brown_shulker_box.xpm
-WE ../sprites/brown_shulker_box.xpm
-EA ../sprites/brown_shulker_box.xpm
-SO ../sprites/brown_shulker_box.xpm
+NO ./sprites/bookshelf.xpm
+WE ./sprites/wall4.xpm
+EA ./sprites/dark_oak_log.xpm
+SO ./sprites/brown_shulker_box.xpm
 
 111111111111111111111111111111111111111111111111111111111111111111
 100000000000000000000000000000000000000000000000000000000000000001
