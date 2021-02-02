@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/08 01:32:23 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/01/31 16:03:52 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parser(t_game *game)
 
 	k = 0;
 	i = 0;
-	while(game->map[i] != NULL && k < 7)
+	while(game->map[i] != NULL && k < 11)
 	{
 		j = 0;
 		while(game->map[i][j] != '\0')

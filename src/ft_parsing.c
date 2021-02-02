@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/08 01:29:23 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:45:44 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ void	save_texture(char *info, t_game *game, char param)
 	{
 		i = i + 2;
 		if (param == 'N')
-			game->NO.path = extract_texture(game, info + i, "NO");
+			extract_texture(game, info + i, "NO", '\0');
 		if (param == 'S')
-			game->SO.path = extract_texture(game, info + i, "SO");
+			extract_texture(game, info + i, "SO", '\0');
 		if (param == 'W')
-			game->WE.path = extract_texture(game, info + i, "WE");
+			extract_texture(game, info + i, "WE", '\0');
 		if (param == 'E')
-			game->EA.path = extract_texture(game, info + i, "EA");
+			extract_texture(game, info + i, "EA", '\0');
 	}
 }
 
-void	save_sprite(char *info, t_game *game)
+void	save_sprite(char *info, t_game *game, char chr)
 {
 	int	i;
 
@@ -70,7 +70,7 @@ void	save_sprite(char *info, t_game *game)
 	while (info[i] == ' ')
 		i++;
 	if (info[i] == '.' && info[i + 1 ] == '/')
-		game->SP.path = extract_texture(game, info + i, "SP");
+		extract_texture(game, info + i, "SP", chr);
 }
 
 void	get_color(char *info, t_game *game, char param)
@@ -106,6 +106,7 @@ void	find_info(char *info, t_game *game)
 	int	i;
 
 	i = 0;
+	printf("INFO=%s\n", info);
 	while (info[i] != '\0')
 	{
 		if (info[i] == 'F')
@@ -121,7 +122,7 @@ void	find_info(char *info, t_game *game)
 		if (info[i] == 'E' && info[i+1] == 'A')
 			save_texture(info + i + 2, game, 'E');
 		if (info[i] == 'S' && info[i + 1] == 'P')
-			save_sprite(info + i + 2, game);
+			save_sprite(info + i + 3, game, info[i + 2]);
 		i++;
 	}
 }

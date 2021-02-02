@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/08 01:29:38 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/02 19:48:21 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@
 
 typedef struct s_coor
 {
-	double	x;
-	double	y;
-	double	dist;
+	double			x;
+	double			y;
+	double			dist;
+	struct s_coor	*next;
 }		t_coor;
 
 typedef struct s_window
@@ -50,16 +51,19 @@ typedef struct s_window
 
 typedef struct s_img
 {
-	void	*img_p;
-	char	*img;
-	char	*path;
+	void			*img_p;
+	char			*img;
+	char			*path;
 
-	int		endian;
-	int		s_line;
-	int		bpp;
+	int				endian;
+	int				s_line;
+	int				bpp;
 
-	int		width;
-	int		height;
+	int				width;
+	int				height;
+
+	char			chr;
+	struct s_img	*next;
 }		t_img;
 
 typedef struct s_player
@@ -95,12 +99,17 @@ typedef struct s_game
 */
 
 //Parameters
+# define LINUX		1
 # define FOV		60
 # define CUB_SIZE	64
 # define ROT_SPEED	1
 # define FRONT_SPEED	0.15
-# define BACK_SPEED	0.07
+# define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.10
+# define SP2_SIZE		0.30
+# define SP3_SIZE		1.20
+# define SP4_SIZE		1.00
+# define SP5_SIZE		0.70
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -147,6 +156,8 @@ void	get_res(char *info, t_game *game);
 void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
+t_img	find_sprite(t_game game, char chr);
+double	find_size_sp(char chr);
 
 int	keyboard(int key, t_game *game);
 int	ft_exit(t_win *win);
@@ -154,12 +165,12 @@ int	ft_exit(t_win *win);
 char	*ft_ctostr(int size, char c);
 char	*ft_strmcat(char *str1, char *str2);
 char	*ft_strdup(const char *str);
-char	*extract_texture(t_game *game, char *str, char *img);
+void	extract_texture(t_game *game, char *str, char *img, char chr);
 char	**extract_map(int fd);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game game);
-void	ft_drawcol(t_coor heightncol, t_img texture, t_game game, t_img *img);
+void	ft_drawcol(t_coor *heightncol, t_img texture, t_game game, t_img *img);
 
 
 #endif

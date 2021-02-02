@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/08 00:47:52 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/01 23:33:58 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 	char	*dst;                                                               /*pad compris l'utilite */
 
 	dst = (char *)img->img + ((y * img->s_line) + (x * 4));
-	
-	*(dst) = red;
-	*(dst + 1) = green;
-	*(dst + 2) = blue;
+	*(int*)dst = color;
+//	*(dst) = red;
+//	*(dst + 1) = green;
+//	*(dst + 2) = blue;
 
 
 //	if (img->img != NULL)
@@ -47,15 +47,88 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 //	}
 }
 
-void	ft_texture_put(t_img *img, char *texture, int x, int y)
+double find_size_sp(char chr)
 {
-	img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = *texture;
-	img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
-	img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = *(texture + 2);
-	img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
+	if (chr == '2')
+		return (SP2_SIZE);
+	if (chr == '3')
+		return (SP3_SIZE);
+	if (chr == '4')
+		return (SP4_SIZE);
+	if (chr == '5')
+		return (SP5_SIZE);
 }
 
-void	ft_drawcol(t_coor heightncol, t_img tex, t_game game, t_img *img)
+t_img find_sprite(t_game game, char chr)
+{
+	t_img *tex;
+
+	tex = &game.SP;
+	while (tex->chr != chr)
+	{
+	//printf("\nnext=%p;tex.chr='%c';chr=%c\n", tex->next, tex->chr, chr);
+//		if (tex.next == NULL)
+//			return (NULL);
+		tex = tex->next;
+	}
+	return (*tex);
+}
+
+void	ft_texture_put(t_img *img, int x, int y, char *texture)
+{
+	//printf("%d ; ", (int)*(texture + 3));
+	if (LINUX != 1 || (LINUX == 1 && (*texture != 0 || *(texture + 1) != 0 ||
+	*(texture + 2) != 0)))
+	{
+		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = *texture;
+		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
+		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = *(texture + 2);
+		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
+	}
+}
+
+void	ft_drawcol_sp(t_coor *heightncol, t_game game, t_img *img, int x)
+{
+	int y;
+	int count;
+	int i;
+	t_img tex;
+	double size;
+
+	y = 0;
+	count = 0;
+	size = find_size_sp(((int)heightncol->dist) + '0');
+	//printf("\n\n!!!%c;%f!!!\n\n", ((int)heightncol->dist) + '0', heightncol->dist);
+	tex = find_sprite(game, ((int)heightncol->dist) + '0');
+	if (heightncol->y > game.res[1])
+	{
+		count = (heightncol->y - game.res[1]) * size;
+		heightncol->y = (int)round(game.res[1] * size);
+	}
+	while((double)y <= ((game.res[1] / 2) + ((heightncol->y * (1 / size)) / 2)))
+	{
+		//printf("%i;\n\n", (int)(round(((tex.height * count) / heightncol.y))));
+		if (y >= ((game.res[1] / 2) + ((heightncol->y * (1 / size)) / 2)) - heightncol->y)
+		{
+			i = (int)round(((double)tex.height / heightncol->y) * (double)count);
+			i = i * tex.s_line;
+			i = i + ((int)(round(heightncol->x)) * (tex.bpp / 8));
+			ft_texture_put(img, x, y, &tex.img[i]);
+			count++;
+		}
+		y++;
+	}
+	//printf("!!next=%p; heightncol.dist=%f\n", heightncol->next, heightncol->dist);
+	if (heightncol->next != 0x0)
+	{
+		//printf("SPRIIITE!!\n");
+		ft_drawcol_sp(heightncol->next, game, img, x);
+	}
+	free(heightncol);  //// NE FONCTIONNE PAS, GROSSE FUITE DE MEMOIRE !!!
+}
+
+
+void	ft_drawcol(t_coor *heightncol, t_img tex, t_game game, t_img *img)
 {
 	int y;
 	int count;
@@ -64,30 +137,37 @@ void	ft_drawcol(t_coor heightncol, t_img tex, t_game game, t_img *img)
 	y = 0;
 	count = 0;
 	//printf("\n\n!!!!!!\n\n", (int)(round(heightncol.dist)));
-	if (heightncol.y > game.res[1])
+	if (heightncol->y > game.res[1])
 	{
-		count = (heightncol.y - game.res[1]) / 2;
-		heightncol.y = game.res[1];
+		count = (heightncol->y - game.res[1]) / 2;
+		heightncol->y = game.res[1];
 	}
-	while(y < (game.res[1] / 2 + (heightncol.y / 2)))
+	while(y < (game.res[1] / 2 + (heightncol->y / 2)))
 	{
-		if(y > (game.res[1] / 2 - (heightncol.y / 2)))
+		if(y > (game.res[1] / 2 - (heightncol->y / 2)))
 		{
 			//printf("%i;\n\n", (int)(round(((tex.height * count) / heightncol.y))));
-			i = (int)round(((double)tex.height / heightncol.y) * (double)count);
+			i = (int)(((double)tex.height / heightncol->y) * (double)count);
 			i = i * tex.s_line;
-			i = i + ((int)(round(heightncol.dist)) * (tex.bpp / 8));
+			i = i + ((int)(round(heightncol->x)) * (tex.bpp / 8));
 			//printf(" %i + %i |", ((int)(round(heightncol.dist))), (int)(round(((tex.height * count) / heightncol.y))));
-			ft_texture_put(img, &tex.img[i], heightncol.x, y);
+			ft_texture_put(img, heightncol->dist, y, &tex.img[i]);
 			count++;
 		}
 		else
-			ft_pixel_put(img, heightncol.x, y, game.Ce);
+			ft_pixel_put(img, heightncol->dist, y, game.Ce);
 		y++;
 	}
 	while(y < game.res[1])
 	{
-		ft_pixel_put(img, heightncol.x, y++, game.Fl);
+		ft_pixel_put(img, heightncol->dist, y++, game.Fl);
 		//y++;
 	}
+	//printf("\n\n\nnext=%p; heightncol.dist=%f\n", heightncol.next, heightncol.dist);
+	if (heightncol->next != 0x0)
+	{
+		//printf("SPRIIITE!!\n");
+		ft_drawcol_sp(heightncol->next, game, img, heightncol->dist);
+	}
 }
+
