@@ -6,12 +6,12 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2020/08/16 12:00:27 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/03 00:07:42 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Cub3D.h"
-
+/*
 int	ft_player_collision(int key, t_coor pos, t_coor vect, char **map)
 {
 	if (((int)pos.x + 0.05 > pos.x) && map[(int)pos.y][(int)round(pos.x) - 1] == '1')
@@ -53,7 +53,8 @@ int	ft_player_collision(int key, t_coor pos, t_coor vect, char **map)
 	}
 	return (0);
 }
-
+*/
+/*
 int	ft_move(int key, t_game *game)
 {
 	double pente;
@@ -80,7 +81,7 @@ int	ft_move(int key, t_game *game)
 		game->player.pos.x = game->player.pos.x - (speed * cos(angle));
 		game->player.pos.y = game->player.pos.y - (BACK_SPEED * sin(angle));
 	}
-	if (key == PAGE_DOWN) //&& (game->player.vect.y >= 0)) || 
+	if (key == D) //&& (game->player.vect.y >= 0)) || 
 //	(key == SHIFT_R && (g)))
 	{
 	//printf("test bug pas lateral");
@@ -89,7 +90,7 @@ int	ft_move(int key, t_game *game)
 		game->player.pos.y = game->player.pos.y + (STRAFE_SPEED * sin(angle +
 		(M_PI / 2)));
 	}
-	if (key == SHIFT_R)// && (game->player.vect.y < 0)) || 
+	if (key == SHIFT_R || key == A)// && (game->player.vect.y < 0)) || 
 //	(key == SHIFT_R && (game->player.vect.y >= 0)))
 	{
 		game->player.pos.x = game->player.pos.x - (STRAFE_SPEED * cos(angle + 
@@ -124,23 +125,108 @@ int	ft_rotate(int side, t_game *game)
 	ft_raymachine(*game);
 	return (0);
 }
-
+*/
+/*
 int	keyboard(int key, t_game *game)
 {
 	//printf("\nKey pressed!\n\n");
 	if(key == ESC)
 		ft_exit(&game->win);
-	if(key == UP || key == DOWN || key == Z || key == S || key == Q 
+	if(key == UP || key == DOWN || key == Z || key == S || key == A 
 	|| key == D || SHIFT_R || PAGE_DOWN)
 		ft_move(key, game);
 
-	if(key == A || key == LEFT)
+	if(key == Q || key == LEFT)
 		ft_rotate(-1, game);
 	if(key == E || key == RIGHT)
 		ft_rotate(1, game);
-/*	printf("Pos X2 = %f, Pos Y2 = %f\n", game->player.pos.x, game->player.pos.y);
-	printf("Vect X2 = %f, Vect Y2 = %f\n\n", game->player.vect.x, game->player.vect.y);*/
+	printf("Pos X2 = %f, Pos Y2 = %f\n", game->player.pos.x, game->player.pos.y);
+	printf("Vect X2 = %f, Vect Y2 = %f\n\n", game->player.vect.x, game->player.vect.y);
 	if(key == A || key == LEFT)
 	// do fire, sprint, pause
 	return (0);
+}
+*/
+
+void	rotating(t_coor *vect, float angle)
+{
+	double x;
+	double y;
+
+	x = vect->x;
+	y = vect->y;
+	
+	printf("Angle= %f\n", angle);
+	printf("X= %f, Y= %f\n\n", vect->x, vect->y);
+	vect->x = (x * cos(angle)) - (y * sin(angle));
+	vect->y = (x * sin(angle) + y * cos(angle));
+	printf("X2= %f, float angle)Y2= %f\n\n", vect->x, vect->y);
+}
+
+int		key_release(int keycode, t_game *game)
+{
+	if (keycode == ESC)
+		ft_exit(&game->win);
+	else if (keycode == LEFT)
+		game->left  = 0;
+	else if (keycode == UP)
+		game->up = 0;
+	else if (keycode == RIGHT)
+		game->right = 0;
+	else if (keycode == DOWN)
+		game->down = 0;
+	else if (keycode == SHIFT_R)
+		game->sprint = 0;
+	else if (keycode == Z)
+		game->up = 0;
+	else if (keycode == A)
+		game->left = 0;
+	else if (keycode == S)
+		game->down = 0;
+	else if (keycode == D)
+		game->right = 0;
+	else if (keycode == Q)
+		game->rot_left = 0;
+	else if (keycode == E)
+		game->rot_right = 0;
+}
+
+int		key_press(int keycode, t_game *game)
+{
+	if (keycode == LEFT)
+		game->left  = 1;
+	else if (keycode == UP)
+		game->up = 1;
+	else if (keycode == RIGHT)
+		game->right = 1;
+	else if (keycode == DOWN)
+		game->down = 1;
+	else if (keycode == SHIFT_R)
+		game->sprint = 1;
+	else if (keycode == Z)
+		game->up = 1;
+	else if (keycode == A)
+		game->left = 1;
+	else if (keycode == S)
+		game->down = 1;
+	else if (keycode == D)
+		game->right = 1;
+	else if (keycode == Q)
+		game->rot_left = 1;
+	else if (keycode == E)
+		game->rot_right = 1;
+}
+
+void	apply_mvmt(t_game *game)
+{
+	int		bud;
+
+	bud = 0;
+	(game->rot_left == 1) ? (rotating(&game->player.vect, (ROT_SPEED * -1))) : bud--;
+	(game->rot_right == 1) ? (rotating(&game->player.vect, ROT_SPEED)) : bud--;
+	/*(game_sprint == 1) ? : bud--;
+	(game_left == 1) ? : bud--;
+	(game_right == 1) ? : bud--;
+	(game_up == 1) ? : bud++;
+	(game_down == 1) ? : bud--;*/
 }

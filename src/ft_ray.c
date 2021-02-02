@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/02 20:36:24 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/02 23:54:26 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_sprite_col(t_coor sp, t_coor eqray, t_img tex, t_coor pos)
 		col = (int)((double)tex.width * (((size / 2) + eq2.dist) / size));
 	else if (a.x == sp.x && a.y == sp.y)
 		col = (int)((double)tex.width * 0.5);
-	printf("!!DIST=%f;COL=%d;texwidth=%d!!\n!!sp.x=%f;sp.y=%f;a.x=%f;a.y=%f!!\n\n",eq2.dist, col, tex.width, sp.x, sp.y, eqray.x, a.y);
+	//printf("!!DIST=%f;COL=%d;texwidth=%d!!\n!!sp.x=%f;sp.y=%f;a.x=%f;a.y=%f!!\n\n",eq2.dist, col, tex.width, sp.x, sp.y, eqray.x, a.y);
 	return (col);
 }
 
@@ -151,7 +151,7 @@ char	ft_ray_collision(char **map, t_coor ray, t_coor dir)
 	return(0);
 }
 
-t_coor *ft_add_sprite(t_game game, t_coor ray, t_coor dir, t_coor eqline)
+t_coor *ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline)
 {
 	t_coor *sp;
 	t_img tex;
@@ -160,26 +160,26 @@ t_coor *ft_add_sprite(t_game game, t_coor ray, t_coor dir, t_coor eqline)
 
 	sp = (struct s_coor*)malloc(sizeof(struct s_coor));
 
-	*sp = ft_sprite_dist(game.map, ray, dir, game.player.pos);
-	tex = find_sprite(game, ft_ray_collision(game.map, ray, dir));
-	vect.x = game.player.pos.x - sp->x;
-	vect.y = game.player.pos.y - sp->y;
-	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
-	vect.dist = (vect.x * game.player.vect.x) + (vect.y * game.player.vect.y);
+	*sp = ft_sprite_dist(game->map, ray, dir, game->player.pos);
+	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
+	vect.x = game->player.pos.x - sp->x;
+	vect.y = game->player.pos.y - sp->y;
+	distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
+	vect.dist = (vect.x * game->player.vect.x) + (vect.y * game->player.vect.y);
 	vect.dist = vect.dist / (ft_pythagore(vect.x, vect.y) * 
-	ft_pythagore(game.player.vect.x, game.player.vect.y));
+	ft_pythagore(game->player.vect.x, game->player.vect.y));
 	sp->dist = fabs(vect.dist) * sp->dist;
 	if (ray.dist == -3)
-		sp->x = (double)ft_vertical_sprite_col(*sp, ray, tex, game.player.pos);
+		sp->x = (double)ft_vertical_sprite_col(*sp, ray, tex, game->player.pos);
 	else
-		sp->x = (double)ft_sprite_col(*sp, eqline, tex, game.player.pos);
+		sp->x = (double)ft_sprite_col(*sp, eqline, tex, game->player.pos);
 	sp->y = round((distproj / sp->dist) * find_size_sp(tex.chr));
 	sp->next = ray.next;
 //	printf("sp.x=%f; sp.y=%f\n", sp->x, sp->y);
 	return (sp);
 }
 
-t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
+t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 {
 	double eqsol;
 	int midcase;
@@ -197,16 +197,16 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
 		ray.x = (int)ray.x + dir.x;
 		ray.y = eqsol;
 		
-		if (ft_ray_collision(game.map, ray, dir) == '1')
+		if (ft_ray_collision(game->map, ray, dir) == '1')
 		{
 			ray.dist = -1;
 			return (ray);
 		}
-		else if (ft_ray_collision(game.map, ray, dir) > '1' &&
-		ft_ray_collision(game.map, ray, dir) <= '9')
+		else if (ft_ray_collision(game->map, ray, dir) > '1' &&
+		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)(ft_ray_collision(game.map, ray, dir) - '0');
+			sp->dist = (double)(ft_ray_collision(game->map, ray, dir) - '0');
 			if (sp->x != -1)
 				ray.next = sp;
 		}
@@ -222,7 +222,7 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
 	return (ray);
 }
 
-t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
+t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 {
 	double eqsol;
 	int midcase;
@@ -239,16 +239,16 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
 		if (dir.x != -2)
 			ray.x = eqsol;
 		ray.y = (int)ray.y + dir.y;
-		if (ft_ray_collision(game.map, ray, dir) == '1')
+		if (ft_ray_collision(game->map, ray, dir) == '1')
 		{
 			ray.dist = -1;
 			return (ray);
 		}
-		else if (ft_ray_collision(game.map, ray, dir) > '1' &&
-		ft_ray_collision(game.map, ray, dir) <= '9')
+		else if (ft_ray_collision(game->map, ray, dir) > '1' &&
+		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)(ft_ray_collision(game.map, ray, dir) - '0');
+			sp->dist = (double)(ft_ray_collision(game->map, ray, dir) - '0');
 			if (sp->x != -1)
 				ray.next = sp;
 		}
@@ -264,18 +264,18 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
 	return (ray);
 }
 
-t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
+t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 {
 	t_coor *sp;
 
-	while (ft_ray_collision(game.map, ray, dir) != '1')
+	while (ft_ray_collision(game->map, ray, dir) != '1')
 	{
-		if (ft_ray_collision(game.map, ray, dir) > '1' &&
-		ft_ray_collision(game.map, ray, dir) <= '9')
+		if (ft_ray_collision(game->map, ray, dir) > '1' &&
+		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			ray.dist = -3;
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)(ft_ray_collision(game.map, ray, dir) - '0');
+			sp->dist = (double)(ft_ray_collision(game->map, ray, dir) - '0');
 			if (sp->x != -1)
 				ray.next = sp;
 		}
@@ -292,7 +292,7 @@ t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game game)
 	return (ray);
 }
 
-t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, t_game game)
+t_coor	ft_ray(t_coor pos, t_coor dir, t_coor eqline, t_game *game)
 {
 	t_coor ray;
 
@@ -336,7 +336,7 @@ t_coor	ft_dirsteps(t_coor vecray)
 	return (dir);
 }
 
-t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, t_game game)
+t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, t_game *game)
 {
 	double pente;
 	double x0;
@@ -364,7 +364,7 @@ t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, t_game game)
 	return (ray);
 }
 
-void	ft_projection(t_game game, t_coor ray, int x, t_img *img)
+void	ft_projection(t_game *game, t_coor ray, int x, t_img *img)
 {
 	int		height;
 	int		ncol;
@@ -372,42 +372,42 @@ void	ft_projection(t_game game, t_coor ray, int x, t_img *img)
 	double	distproj;
 	t_coor	heightncol;
 
-	distproj = ((double)(game.res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
+	distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	heightncol.y = (double)(int)(distproj / ray.dist);
 	//ncol = ((int)(CUB_SIZE * ray.dist)) % CUB_SIZE; // Texture change avec distance
 	heightncol.dist = (double)x;
 	heightncol.next = ray.next;
 	if (ray.x == (double)((int)ray.x))
 	{
-		if (game.player.pos.x < ray.x)
+		if (game->player.pos.x < ray.x)
 		{
-			heightncol.x = (double)(((int)(game.WE.width * ray.y)) % game.WE.width);
-			ft_drawcol(&heightncol, game.WE, game, img);
+			heightncol.x = (double)(((int)(game->WE.width * ray.y)) % game->WE.width);
+			ft_drawcol(&heightncol, game->WE, game, img);
 		}
 		else
 		{
-			heightncol.x = (double)(((int)(game.EA.width * ray.y)) % game.EA.width);
-			ft_drawcol(&heightncol, game.EA, game, img);
+			heightncol.x = (double)(((int)(game->EA.width * ray.y)) % game->EA.width);
+			ft_drawcol(&heightncol, game->EA, game, img);
 		}
 	}
 	else
 	{
-		if (game.player.pos.y < ray.y)
+		if (game->player.pos.y < ray.y)
 		{
-			heightncol.x = (double)(((int)(game.NO.width * ray.x)) % game.NO.width);
-			ft_drawcol(&heightncol, game.NO, game, img);
+			heightncol.x = (double)(((int)(game->NO.width * ray.x)) % game->NO.width);
+			ft_drawcol(&heightncol, game->NO, game, img);
 		}
 		else
 		{
-			heightncol.x = (double)(((int)(game.SO.width * ray.x)) % game.SO.width);
-			ft_drawcol(&heightncol, game.SO, game, img);
+			heightncol.x = (double)(((int)(game->SO.width * ray.x)) % game->SO.width);
+			ft_drawcol(&heightncol, game->SO, game, img);
 		}
 	}
 	//printf("  ncol = %f\n", heightncol.dist);
 	return ;
 }
 
-void	ft_raymachine(t_game game)
+void	ft_raymachine(t_game *game)
 {
 	int	x;
 	double	angle;
@@ -420,19 +420,18 @@ void	ft_raymachine(t_game game)
 //	printf("Pente = %f\n", game.player.vect.y/game.player.vect.x);
 	x = 0;
 
-	img.img_p = mlx_new_image(game.win.mlxp, game.res[0], game.res[1]);
+	apply_mvmt(game);
+	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
-//	printf("Lines of size = %d, Total size = %d\n", img.s_line, img.s_line * game.res[1]);
-	angle = (double)FOV / (double)game.res[0];
-//	printf("Angle = %f, Distrproj =  %f", angle, distproj);
-	while (x < game.res[0])
+	angle = (double)FOV / (double)game->res[0];
+	while (x < game->res[0])
 	{
-		ray = ft_raycannon(game.player.pos, game.player.vect, 
+		ray = ft_raycannon(game->player.pos, game->player.vect, 
 		(M_PI / 180) * ((angle * x) - (FOV / 2)), game);
 		ft_projection(game, ray, x, &img);
 		x++;
 	}
-	mlx_put_image_to_window(game.win.mlxp, game.win.winp, img.img_p, 0, 0);
-	mlx_destroy_image(game.win.mlxp, img.img_p);
+	mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
+	mlx_destroy_image(game->win.mlxp, img.img_p);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/02 19:48:21 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/03 00:07:49 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,14 @@ typedef struct s_game
 	int	Fl; // Int colors
 	int	Ce;
 
+	int	up;
+	int	down;
+	int	left;
+	int	rot_left;
+	int	right;
+	int	rot_right;
+	int	sprint;
+
 	char	**map;
 	
 	t_win	win;
@@ -102,7 +110,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 # define CUB_SIZE	64
-# define ROT_SPEED	1
+# define ROT_SPEED	0.01
 # define FRONT_SPEED	0.15
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.10
@@ -118,23 +126,18 @@ typedef struct s_game
 
 //KEY CODES
 
-# define LEFT	0xff51
-# define UP	0xff52
-# define RIGHT	0xff53
-# define DOWN	0xff54
-# define ESC	0xFF1b
-# define SPACE	0x7780
-# define TAB	0xff89
-# define ENTER	0xff
-# define PAGE_UP 0xff55
-# define PAGE_DOWN 0xff56
-# define SHIFT_R 0xffe2
-# define A	0x0041
-# define D	0x0044
-# define E	0x0045
-# define Q	0x0051
-# define S	0x0053
-# define Z	0x005a
+# define LEFT		65361
+# define UP			65362
+# define RIGHT		65363
+# define DOWN		65364
+# define ESC		65307
+# define SHIFT_R	0xffe2
+# define Z			119 /* but its W */
+# define A			97
+# define S			115
+# define D			100
+# define Q			113
+# define E			101
 
 //EVENTS
 # define KEY_PRESS 2
@@ -156,11 +159,13 @@ void	get_res(char *info, t_game *game);
 void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
-t_img	find_sprite(t_game game, char chr);
+t_img	find_sprite(t_game *game, char chr);
 double	find_size_sp(char chr);
 
-int	keyboard(int key, t_game *game);
-int	ft_exit(t_win *win);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+void	apply_mvmt(t_game *game);
+int		ft_exit(t_win *win);
 
 char	*ft_ctostr(int size, char c);
 char	*ft_strmcat(char *str1, char *str2);
@@ -169,8 +174,8 @@ void	extract_texture(t_game *game, char *str, char *img, char chr);
 char	**extract_map(int fd);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
-void	ft_raymachine(t_game game);
-void	ft_drawcol(t_coor *heightncol, t_img texture, t_game game, t_img *img);
+void	ft_raymachine(t_game *game);
+void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
 
 
 #endif
