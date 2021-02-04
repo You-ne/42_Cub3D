@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/31 16:03:52 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/04 00:32:56 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,9 @@ int	main(int argc, char **argv)
 		printf("[START PARSING...]\n\n");
 		parser(&game);
 		game.player.pos = find_char(game.map);
+		//change_map(&game, (int)game.player.pos.x, (int)game.player.pos.y, '0');
+		game.player.pv = 100.0;
+		printf("X=%f; Y=%f\n", game.player.pos.x, game.player.pos.y);
 		printf("\n[PARSING END!!!]\n");
 
 		//Display map for debug

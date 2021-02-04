@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/02 22:44:18 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/04 01:30:33 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,13 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 //	}
 }
 
-double find_size_sp(char chr)
-{
-	if (chr == '2')
-		return (SP2_SIZE);
-	if (chr == '3')
-		return (SP3_SIZE);
-	if (chr == '4')
-		return (SP4_SIZE);
-	if (chr == '5')
-		return (SP5_SIZE);
-}
-
 t_img find_sprite(t_game *game, char chr)
 {
 	t_img *tex;
 
 	tex = &game->SP;
 	while (tex->chr != chr)
-	{
-	//printf("\nnext=%p;tex.chr='%c';chr=%c\n", tex->next, tex->chr, chr);
-//		if (tex.next == NULL)
-//			return (NULL);
 		tex = tex->next;
-	}
 	return (*tex);
 }
 
@@ -97,18 +80,18 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 
 	y = 0;
 	count = 0;
-	size = find_size_sp(((int)heightncol->dist) + '0');
-	//printf("\n\n!!!%c;%f!!!\n\n", ((int)heightncol->dist) + '0', heightncol->dist);
-	tex = find_sprite(game, ((int)heightncol->dist) + '0');
-	if (heightncol->y > game->res[1])
+	size = sp_size((char)((int)heightncol->dist));
+//	printf("\n\n!!!%f!!!\n\n", (int)(game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2));
+	tex = find_sprite(game, (char)((int)heightncol->dist));
+	if ((game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2) -
+	heightncol->y < 0)
+		count = -1 * (int)((game->res[1] / 2) + ((heightncol->y *
+		(1 / size)) / 2) - heightncol->y);
+	while((double)y <= ((game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2))
+	&& y < game->res[1])
 	{
-		count = (heightncol->y - game->res[1]) * size;
-		heightncol->y = (int)round(game->res[1] * size);
-	}
-	while((double)y <= ((game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2)))
-	{
-		//printf("%i;\n\n", (int)(round(((tex.height * count) / heightncol.y))));
-		if (y >= ((game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2)) - heightncol->y)
+//		printf("Y=%i; hauteur=%f; res=%i; count=%i\n\n", y, ((game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2)) - heightncol->y, game->res[1], count);
+		if (y > ((game->res[1] / 2) + ((heightncol->y * (1 / size)) / 2)) - heightncol->y)
 		{
 			i = (int)round(((double)tex.height / heightncol->y) * (double)count);
 			i = i * tex.s_line;
@@ -124,7 +107,7 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 		//printf("SPRIIITE!!\n");
 		ft_drawcol_sp(heightncol->next, game, img, x);
 	}
-	free(heightncol);  //// NE FONCTIONNE PAS, GROSSE FUITE DE MEMOIRE !!!
+	//free(heightncol);  //// NE FONCTIONNE PAS, GROSSE FUITE DE MEMOIRE !!!
 }
 
 
@@ -136,9 +119,10 @@ void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 
 	y = 0;
 	count = 0;
+	double distproj;
 	//printf("\n\n!!!!!!\n\n", (int)(round(heightncol.dist)));
 	if (heightncol->y > game->res[1])
-		count = (heightncol->y - game->res[1]) / 2;
+		count = (int)(heightncol->y - game->res[1]) / 2;
 	while((y < (game->res[1] / 2 + (heightncol->y / 2)) && y < game->res[1]))
 	{
 		if(y > (game->res[1] / 2 - (heightncol->y / 2)))
@@ -164,7 +148,28 @@ void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 	if (heightncol->next != 0x0)
 	{
 		//printf("SPRIIITE!!\n");
+		t_img tex;
 		ft_drawcol_sp(heightncol->next, game, img, heightncol->dist);
+		if (game->map[(int)game->player.pos.y][(int)game->player.pos.x] != '0' &&
+		game->map[(int)game->player.pos.y][(int)game->player.pos.x] != 'N' &&
+		game->map[(int)game->player.pos.y][(int)game->player.pos.x] != 'S' &&
+		game->map[(int)game->player.pos.y][(int)game->player.pos.x] != 'E' &&
+		game->map[(int)game->player.pos.y][(int)game->player.pos.x] != 'W')
+		{
+			tex = find_sprite(game, game->map[(int)game->player.pos.y][(int)game->player.pos.x]);
+			count = (int)heightncol->dist;
+			distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
+			heightncol->y = (double)(int)(distproj / 0.3);
+			heightncol->x = ((sp_size(game->map[(int)game->player.pos.y][(int)game->player.pos.x])
+			- 0.3) / 2) + ((count / game->res[0]) * 0.3);
+			//heightncol->x = (double)(heightncol->x / 
+			//sp_size(game->map[(int)game->player.pos.y][(int)game->player.pos.x]));
+			heightncol->dist = (double)(int)(game->map[(int)game->player.pos.y][(int)game->player.pos.x]);
+			heightncol->x = (double)((int)(heightncol->x * (tex.width)) % tex.width);
+			heightncol->next = 0x0;
+			//printf("Y=%f; X=%f; DIST/X=%f;\n", heightncol->y, heightncol->x, heightncol->dist);
+			ft_drawcol_sp(heightncol, game, img, count);
+		}
 	}
 }
 

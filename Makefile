@@ -11,6 +11,8 @@ LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -g3 -fsanitize=address
 NAME= ./cub3D
 
 SRC =	./src/main.c \
+		./src/param_sprites.c \
+		./src/events.c \
 		./src/ft_control.c \
 		./src/ft_coor.c \
 		./src/ft_display.c \

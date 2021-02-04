@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/03 00:07:49 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/03 22:50:29 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_player
 {
 	t_coor pos;
 	t_coor vect;
+
+	float pv;
 }		t_player;
 
 typedef struct s_game
@@ -110,14 +112,12 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 # define CUB_SIZE	64
-# define ROT_SPEED	0.01
+
+# define ROT_SPEED		0.040
 # define FRONT_SPEED	0.15
 # define BACK_SPEED		0.07
-# define STRAFE_SPEED	0.10
-# define SP2_SIZE		0.30
-# define SP3_SIZE		1.20
-# define SP4_SIZE		1.00
-# define SP5_SIZE		0.70
+# define STRAFE_SPEED	0.07
+# define SPRINT_SPEED	0.22
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -160,7 +160,13 @@ void	find_map(char ***map, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 t_img	find_sprite(t_game *game, char chr);
-double	find_size_sp(char chr);
+
+void	sp_events(t_game *game);
+double	sp_size(char chr);
+int		sp_collision(int x, int y, char **map);
+void	teleportation(t_player *player, double x, double y);
+void	change_map(t_game *game, int x, int y, char chr);
+void	change_pv(t_player *player, float pv);
 
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);

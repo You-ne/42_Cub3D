@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/02 23:54:26 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/03 23:29:44 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_vertical_sprite_col(t_coor sp, t_coor ray, t_img tex, t_coor pos)
 	double dist;
 	double size;
 
-	size = find_size_sp(tex.chr);
+	size = sp_size(tex.chr);
 	a.x = ray.x;
 	if (pos.y < sp.y)
 		a.y = ray.y + 0.5;
@@ -57,7 +57,7 @@ int	ft_sprite_col(t_coor sp, t_coor eqray, t_img tex, t_coor pos)
 	t_coor a;
 	double size;
 
-	size = find_size_sp(tex.chr);
+	size = sp_size(tex.chr);
 	if (eqray.x != 0.0)
 	{
 		eq2.x = - (1.0 / eqray.x);
@@ -164,18 +164,18 @@ t_coor *ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline)
 	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
 	vect.x = game->player.pos.x - sp->x;
 	vect.y = game->player.pos.y - sp->y;
-	distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	vect.dist = (vect.x * game->player.vect.x) + (vect.y * game->player.vect.y);
-	vect.dist = vect.dist / (ft_pythagore(vect.x, vect.y) * 
+	vect.dist = vect.dist / (ft_pythagore(vect.x, vect.y) *
 	ft_pythagore(game->player.vect.x, game->player.vect.y));
 	sp->dist = fabs(vect.dist) * sp->dist;
 	if (ray.dist == -3)
 		sp->x = (double)ft_vertical_sprite_col(*sp, ray, tex, game->player.pos);
 	else
 		sp->x = (double)ft_sprite_col(*sp, eqline, tex, game->player.pos);
-	sp->y = round((distproj / sp->dist) * find_size_sp(tex.chr));
+	distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
+	sp->y = round((distproj / sp->dist) * sp_size(tex.chr));
 	sp->next = ray.next;
-//	printf("sp.x=%f; sp.y=%f\n", sp->x, sp->y);
+//	printf("&&&&sp.y=%f&&&&\n", sp->y);
 	return (sp);
 }
 
@@ -206,7 +206,8 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)(ft_ray_collision(game->map, ray, dir) - '0');
+			sp->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
+			//printf("SP=%f", sp->dist);
 			if (sp->x != -1)
 				ray.next = sp;
 		}
@@ -248,7 +249,7 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)(ft_ray_collision(game->map, ray, dir) - '0');
+			sp->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
 			if (sp->x != -1)
 				ray.next = sp;
 		}
@@ -275,7 +276,8 @@ t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		{
 			ray.dist = -3;
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)(ft_ray_collision(game->map, ray, dir) - '0');
+			sp->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
+			//printf("SP=%f", sp->dist);
 			if (sp->x != -1)
 				ray.next = sp;
 		}

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/03 00:07:42 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/03 21:41:36 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,113 +54,46 @@ int	ft_player_collision(int key, t_coor pos, t_coor vect, char **map)
 	return (0);
 }
 */
-/*
-int	ft_move(int key, t_game *game)
+
+void	move(t_player *player, char **map, float speed, int frontnback)
 {
 	double pente;
 	double angle;
-	double speed;
+	float x;
+	float y;
 
-	pente = game->player.vect.y / game->player.vect.x;
+
+	pente = player->vect.y / player->vect.x;
 	angle = atan(pente);
-	if (key == UP || key == Z)
-		speed = FRONT_SPEED;
-	else if (key == DOWN || key == S)
-		speed = BACK_SPEED;
-	if (ft_player_collision(key, game->player.pos, game->player.vect, game->map) == 1)
-		speed = 0;
-	if (((key == UP || key == Z) && (game->player.vect.x >= 0)) || 
-	((key == DOWN || key == S) && (game->player.vect.x < 0)))
+	if (frontnback == 1)
 	{
-		game->player.pos.x = game->player.pos.x + (speed * cos(angle));
-		game->player.pos.y = game->player.pos.y + (speed * sin(angle));
+		x = player->pos.x + (speed * cos(angle) * (player->vect.x < 0 ? -1 : 1));
+		y = player->pos.y + (speed * sin(angle) * (player->vect.x < 0 ? -1 : 1));
 	}
-	if (((key == UP || key == Z) && (game->player.vect.x < 0)) || 
-	((key == DOWN || key == S) && (game->player.vect.x >= 0)))
+	else
 	{
-		game->player.pos.x = game->player.pos.x - (speed * cos(angle));
-		game->player.pos.y = game->player.pos.y - (BACK_SPEED * sin(angle));
+		x = player->pos.x + (speed * cos(angle + (M_PI / 2)) * 
+		(player->vect.x < 0 ? -1 : 1));
+		y = player->pos.y + (speed * sin(angle + (M_PI / 2)) * 
+		(player->vect.x < 0 ? -1 : 1));
 	}
-	if (key == D) //&& (game->player.vect.y >= 0)) || 
-//	(key == SHIFT_R && (g)))
+	if (sp_collision((int)x, (int)y, map) == 0)
 	{
-	//printf("test bug pas lateral");
-		game->player.pos.x = game->player.pos.x + (STRAFE_SPEED * cos(angle +
-		(M_PI / 2)));
-		game->player.pos.y = game->player.pos.y + (STRAFE_SPEED * sin(angle +
-		(M_PI / 2)));
+		player->pos.x = x;
+		player->pos.y = y;
 	}
-	if (key == SHIFT_R || key == A)// && (game->player.vect.y < 0)) || 
-//	(key == SHIFT_R && (game->player.vect.y >= 0)))
-	{
-		game->player.pos.x = game->player.pos.x - (STRAFE_SPEED * cos(angle + 
-		(M_PI / 2)));
-		game->player.pos.y = game->player.pos.y - (STRAFE_SPEED * sin(angle + 
-		(M_PI / 2)));
-	}
-	//printf("\nAngle = %f", angle);
-//	mlx_clear_window(game->win.mlxp, game->win.winp);
-	ft_raymachine(*game);
-	return(0);
 }
 
-int	ft_rotate(int side, t_game *game)
-{
-	double	rot;
-
-	rot = ROT_SPEED * (M_PI / 180);
-	if (side == 1)
-	{
-		game->player.vect.x = (game->player.vect.x * cos(rot)) - (game->player.vect.y * sin(rot));
-		game->player.vect.y = (game->player.vect.x * sin(rot)) + (game->player.vect.y * cos(rot));
-	//	printf("Rotating %d degrees\n", ROT_SPEED);
-	}
-	if (side == -1)
-	{
-		game->player.vect.x = (game->player.vect.x * cos(-1 * rot)) - (game->player.vect.y * sin(-1 * rot));
-		game->player.vect.y = (game->player.vect.x * sin(-1 * rot)) + (game->player.vect.y * cos(-1 * rot));
-	//	printf("Rotating %d degrees\n", -ROT_SPEED);
-	}
-//	mlx_clear_window(game->win.mlxp, game->win.winp);
-	ft_raymachine(*game);
-	return (0);
-}
-*/
-/*
-int	keyboard(int key, t_game *game)
-{
-	//printf("\nKey pressed!\n\n");
-	if(key == ESC)
-		ft_exit(&game->win);
-	if(key == UP || key == DOWN || key == Z || key == S || key == A 
-	|| key == D || SHIFT_R || PAGE_DOWN)
-		ft_move(key, game);
-
-	if(key == Q || key == LEFT)
-		ft_rotate(-1, game);
-	if(key == E || key == RIGHT)
-		ft_rotate(1, game);
-	printf("Pos X2 = %f, Pos Y2 = %f\n", game->player.pos.x, game->player.pos.y);
-	printf("Vect X2 = %f, Vect Y2 = %f\n\n", game->player.vect.x, game->player.vect.y);
-	if(key == A || key == LEFT)
-	// do fire, sprint, pause
-	return (0);
-}
-*/
-
-void	rotating(t_coor *vect, float angle)
+void	rotation(t_coor *vect, float angle)
 {
 	double x;
 	double y;
 
 	x = vect->x;
 	y = vect->y;
-	
-	printf("Angle= %f\n", angle);
-	printf("X= %f, Y= %f\n\n", vect->x, vect->y);
+
 	vect->x = (x * cos(angle)) - (y * sin(angle));
 	vect->y = (x * sin(angle) + y * cos(angle));
-	printf("X2= %f, float angle)Y2= %f\n\n", vect->x, vect->y);
 }
 
 int		key_release(int keycode, t_game *game)
@@ -222,11 +155,12 @@ void	apply_mvmt(t_game *game)
 	int		bud;
 
 	bud = 0;
-	(game->rot_left == 1) ? (rotating(&game->player.vect, (ROT_SPEED * -1))) : bud--;
-	(game->rot_right == 1) ? (rotating(&game->player.vect, ROT_SPEED)) : bud--;
-	/*(game_sprint == 1) ? : bud--;
-	(game_left == 1) ? : bud--;
-	(game_right == 1) ? : bud--;
-	(game_up == 1) ? : bud++;
-	(game_down == 1) ? : bud--;*/
+	(game->rot_left == 1) ? (rotation(&game->player.vect, (-ROT_SPEED))) : bud--;
+	(game->rot_right == 1) ? (rotation(&game->player.vect, ROT_SPEED)) : bud--;
+	(game->left == 1) ? move(&game->player, game->map, -STRAFE_SPEED, 0) : bud++;
+	(game->right == 1) ? move(&game->player, game->map, STRAFE_SPEED, 0) : bud++;
+	(game->up == 1) ? move(&game->player, game->map, FRONT_SPEED, 1) : bud++;
+	(game->down == 1) ? move(&game->player, game->map, -FRONT_SPEED, 1) : bud++;
+	if (game->sprint == 1 && game->up == 1)
+		move(&game->player, game->map, SPRINT_SPEED, 1);
 }
