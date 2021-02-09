@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 00:30:44 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/09 03:24:31 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,28 @@ void	rotation(t_coor *vect, float angle)
 int		key_release(int keycode, t_game *game)
 {
 	if (keycode == ESC)
-		ft_exit(&game->win);
+		ft_exit(keycode, game);
+	else if (keycode == LEFT)
+		game->left  = 0;
+	else if (keycode == UP)
+		game->up = 0;
+	else if (keycode == RIGHT)
+		game->right = 0;
+	else if (keycode == DOWN)
+		game->down = 0;
 	else if (keycode == SHIFT_R)
 		game->sprint = 0;
-	else if (keycode == Z || keycode == UP)
+	else if (keycode == Z)
 		game->up = 0;
-	else if (keycode == Q)
+	else if (keycode == A)
 		game->left = 0;
-	else if (keycode == S || keycode == DOWN)
+	else if (keycode == S)
 		game->down = 0;
 	else if (keycode == D)
 		game->right = 0;
-	else if (keycode == LEFT)
+	else if (keycode == Q)
 		game->rot_left = 0;
-	else if (keycode == RIGHT)
+	else if (keycode == E)
 		game->rot_right = 0;
 	else if (keycode == SPACE)
 		game->fire = 0;
@@ -121,35 +129,39 @@ int		key_release(int keycode, t_game *game)
 int		key_press(int keycode, t_game *game)
 {
 	static int i;
-
-//	printf("FIRE=%i\n\n", game->fire);
-
-	if (keycode == SHIFT_R)
-		game->sprint = 1;
-	else if (keycode == UP || keycode == Z)
+	
+	if (keycode == LEFT)
+		game->left  = 1;
+	else if (keycode == UP)
 		game->up = 1;
-	else if (keycode == Q)
+	else if (keycode == RIGHT)
+		game->right = 1;
+	else if (keycode == DOWN)
+		game->down = 1;
+	else if (keycode == SHIFT_R)
+		game->sprint = 1;
+	else if (keycode == Z)
+		game->up = 1;
+	else if (keycode == A)
 		game->left = 1;
-	else if (keycode == S || keycode == DOWN)
+	else if (keycode == S)
 		game->down = 1;
 	else if (keycode == D)
 		game->right = 1;
-	else if (keycode == LEFT)
+	else if (keycode == Q)
 		game->rot_left = 1;
-	else if (keycode == RIGHT)
+	else if (keycode == E)
 		game->rot_right = 1;
-	else if (keycode == X && game->accroupi == 0)
-		game->accroupi = 1;
-	else if (keycode == X && game->accroupi == 1)
-		game->accroupi = 0;
+	else if (keycode == X && game->tilt == 0)
+		game->tilt = 1;
+	else if (keycode == X && game->tilt == 1)
+		game->tilt = 0;
 	if (keycode == SPACE)
 	{
-		//printf("%i\n", i);
 		if (i != 1)
 			game->fire_t1 = clock();
 		game->fire = 1;
 		i = 1;
-//		printf("FIRE=%i\n\n", game->fire);
 	}
 	else
 		i = 0;
@@ -162,10 +174,10 @@ void	apply_mvmt(t_game *game)
 	bud = 0;
 	(game->rot_left == 1) ? (rotation(&game->player.vect, (-ROT_SPEED))) : bud--;
 	(game->rot_right == 1) ? (rotation(&game->player.vect, ROT_SPEED)) : bud--;
-	(game->left == 1) ? move(&game->player, game->map, -(STRAFE_SPEED ), 0) : bud++;
-	(game->right == 1) ? move(&game->player, game->map, (STRAFE_SPEED), 0) : bud++;
+	(game->left == 1) ? move(&game->player, game->map, -STRAFE_SPEED, 0) : bud++;
+	(game->right == 1) ? move(&game->player, game->map, STRAFE_SPEED, 0) : bud++;
 	(game->up == 1) ? move(&game->player, game->map, FRONT_SPEED, 1) : bud++;
-	(game->down == 1) ? move(&game->player, game->map, -(FRONT_SPEED), 1) : bud++;
+	(game->down == 1) ? move(&game->player, game->map, -FRONT_SPEED, 1) : bud++;
 	if (game->sprint == 1 && game->up == 1)
 		move(&game->player, game->map, SPRINT_SPEED, 1);
 }

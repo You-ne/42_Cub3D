@@ -21,6 +21,8 @@ SRC =	./src/main.c \
 		./src/ft_parsing.c \
 		./src/ft_ray.c \
 		./src/ft_utils.c \
+		./src/ft_clean.c \
+		./src/ft_check.c \
 		./src/Gnl/get_next_line_utils.c \
 		./src/Gnl/get_next_line.c \
 		./src/Libft/ft_atoi.c \
@@ -30,6 +32,8 @@ SRC =	./src/main.c \
 		./src/Libft/ft_ctostr.c \
 		./src/Libft/ft_strncmp.c \
 		./src/Libft/ft_strdup.c \
+		./src/Libft/ft_putstr_fd.c \
+		./src/Libft/ft_strrchr.c \
 
 all	:$(NAME)
 

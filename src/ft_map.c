@@ -6,63 +6,71 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 21:00:54 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/09 02:49:38 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Cub3D.h"
 
-
-void	free_map(char ***old_map)
+int		verify_char(t_game *game, int y, int x)
 {
-	free(old_map[0][1]);
-	free(*old_map);
+	if (in_str(game->map[y][x], "NEWS02345") && (!game->map[y + 1] || !game->map[y][x + 1]))
+		return (0);
+	else if (in_str(game->map[y][x], "NEWS02345") &&
+	(game->map[y][x + 1] == ' ' || game->map[y][x - 1] == ' '
+	|| game->map[y + 1][x] == ' ' || game->map[y - 1][x] == ' '))
+		return (0);
+	return (1);
 }
 
-/*void	verify_map(char ***map, t_coor * coor);*/
-
-void	get_map(char ***map, int line, int nlines)
+void	verify_map(t_game *game)
 {
-	/** gére erreurs malloc */
-	char	***new;
-	char	***tmp;
-	int	i;
+	int		i;
+	int		j;
 
 	i = 0;
-	if(!(new = (char***)malloc(sizeof(char**) * 1)))
-		return;
-	if(!(*new = (char**)malloc(sizeof(char*) * (nlines + 1))))
-		return;
-	while(map[0][line] != NULL)
+	while (game->map[i] != NULL)
 	{
-		new[0][i++] = ft_strdup(map[0][line++]);
-	}
-	new[0][i] = NULL;
-	*tmp = *map;
-	map[0] = new[0];
-	free_map(tmp);
-}
-
-void	find_map(char ***map, int line)
-{
-	int	end;
-	int	i;
-
-	i = 0;
-	line++;
-	while(map[0][line][i] != '\0')
-	{
-		printf("%d\n", i);
-		if(map[0][line][i] == '1')
+		j = 0;
+		while (game->map[i][j])
 		{
-			end = line;
-			while(map[0][end] != NULL)
-				end++;
-			get_map(map, line, end - line);
-			/*	verify_map(map, coor);*/
-			return;
+			if (!verify_char(game, i, j))
+				ft_error("Map not closed!\n", game);
+			j++;
 		}
 		i++;
 	}
-	line++;
+}
+
+void	get_map(t_game *game, int line, int nlines) // good size
+{
+	char	**new;
+	int	i;
+
+	i = 0;
+	if(!(new = (char**)malloc(sizeof(char*) * (nlines + 1))))
+		return;
+	while(game->map[line] != NULL)
+	{
+		if (!is_str_charset(" NEWS012345", game->map[line]) || !in_str('1', game->map[line]))
+			ft_error("Incorrect line in map layout!\n", game);
+		new[i++] = ft_strdup(game->map[line++]);
+	}
+	new[i] = NULL;
+	i = 0;
+	while (game->map[i] != NULL)
+		free(game->map[i++]);
+	free(game->map);
+	game->map = new;
+}
+
+void	find_map(t_game *game, int line) // good size
+{
+	int		end;
+
+	end = line;
+	while(game->map[end] != NULL)
+		end++;
+	get_map(game, line, end - line);
+	verify_map(game);
 }

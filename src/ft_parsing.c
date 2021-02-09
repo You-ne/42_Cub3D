@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/05 04:37:09 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/09 03:53:35 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	get_res(char *info, t_game *game)
 	}
 }
 
-void	save_texture(char *info, t_game *game, char param)
+int		save_texture(char *info, t_game *game, char param)//, char *done)
 {
 	int	i;
 
@@ -60,23 +60,29 @@ void	save_texture(char *info, t_game *game, char param)
 		if (param == 'E')
 			extract_texture(game, info + i, "EA", '\0');
 		if (param == 'Y')
-			extract_texture(game, info + i, "SKY", '\0');
-
+			extract_texture(game, info + i, "KY", '\0');
 	}
+	else
+		ft_error("Please enter a valid path for textures !!\n", game);
+	return (0);
 }
 
-void	save_sprite(char *info, t_game *game, char chr)
+int		save_sprite(char *info, t_game *game, char chr)//, char *done)
 {
 	int	i;
 
 	i = 0;
+//	printf("Line: %s\n", info);
 	while (info[i] == ' ')
 		i++;
 	if (info[i] == '.' && info[i + 1 ] == '/')
 		extract_texture(game, info + i, "SP", chr);
+	else
+		ft_error("Please enter a valid path for sprites textures !!\n", game);
+	return (0);
 }
 
-void	get_color(char *info, t_game *game, char param)
+int		get_color(char *info, t_game *game, char param)//, char *done)
 {
 	int	i;
 	int	j;
@@ -88,9 +94,17 @@ void	get_color(char *info, t_game *game, char param)
 		if(info[i] > 47 && info[i] < 58)
 		{
 			if (param == 'F')
+			{
 				game->F[j] = ft_atoi(info + i);
+				if (game->F[j] < 0 || game->F[j] > 255)
+					ft_error("Floor color code out of range ! \n", game);
+			}
 			if (param == 'C')
+			{
 				game->C[j] = ft_atoi(info + i);
+				if (game->C[j] < 0 || game->C[j] > 255)
+					ft_error("Ceiling color code out of range ! \n", game);
+			}
 			j++;
 			while(info[i] > 47 && info[i] < 58 && info [i] != '\0')
 				i++;
@@ -99,35 +113,39 @@ void	get_color(char *info, t_game *game, char param)
 		}	
 		i++;
 	}
+	if (j != 3)
+		ft_error("There's a problem with Floor or Ceiling color !\n", game);
 	game->Fl = (game->F[0] * 256 * 256) + (game->F[1] * 256) + game->F[2];
 	game->Ce = (game->C[0] * 256 * 256) + (game->C[1] * 256) + game->C[2];
+	return (0);
 }
 
 
 void	find_info(char *info, t_game *game)
 {
 	int	i;
+	int found;
 
 	i = 0;
-	printf("INFO=%s\n", info);
+	found = 0;
 	while (info[i] != '\0')
 	{
-		if (info[i] == 'F')
-			get_color(info + i, game, 'F');
-		if (info[i] == 'C')
-			get_color(info + i, game, 'C');
-		if (info[i] == 'N' && info[i + 1] == 'O')
-			save_texture(info + i + 2, game, 'N');
-		if (info[i] == 'S' && info[i + 1] == 'O')
-			save_texture(info + i + 2, game, 'S');
-		if (info[i] == 'W' && info[i+1] == 'E')
-			save_texture(info + i + 2, game, 'W');
-		if (info[i] == 'E' && info[i+1] == 'A')
-			save_texture(info + i + 2, game, 'E');
-		if (info[i] == 'S' && info[i + 1] == 'P')
-			save_sprite(info + i + 3, game, info[i + 2]);
-		if (info[i] == 'S' && info[i + 1] == 'K' && info[i + 2] == 'Y')
-			save_texture(info + i + 3, game, 'Y');
+		if (info[i] == 'F' && found == 0)
+			get_color(info + i, game, 'F') ? found++ : found++;
+		if (info[i] == 'C' && found == 0)
+			get_color(info + i, game, 'C') ? found++ : found++;
+		if (info[i] == 'N' && info[i + 1] == 'O' && found == 0)
+			save_texture(info + i + 2, game, 'N') ? found++ : found++;
+		if (info[i] == 'S' && info[i + 1] == 'O' && found == 0)
+			save_texture(info + i + 2, game, 'S') ? found++ : found++;
+		if (info[i] == 'W' && info[i+1] == 'E' && found == 0)
+			save_texture(info + i + 2, game, 'W') ? found++ : found++;
+		if (info[i] == 'E' && info[i+1] == 'A' && found == 0)
+			save_texture(info + i + 2, game, 'E') ? found++ : found++;
+		if (info[i] == 'S' && info[i + 1] != 'O' && found == 0)
+			save_sprite(info + i + 2, game, info[i + 1]) ? found++ : found++;
+		if (info[i] == 'K' && info[i + 1] == 'Y')
+			save_texture(info + i + 2, game, 'Y') ? found++ : found++;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 00:34:01 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/09 03:46:21 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include <time.h>
 # include <mlx.h>
-
 //# include "./minilibx/mlx_int.h"
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -79,37 +78,37 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	int	res[2]; // resolution X * Y
+	int			bmp;
+	int			res[2]; // resolution X * Y
 
-	int	F[3]; // RGB colors
-	int	C[3];
+	int			F[3]; // RGB colors
+	int			C[3];
 	
-	int	Fl; // Int colors
-	int	Ce;
+	int			Fl; // Int colors
+	int			Ce;
 
-	int	up;
-	int	down;
-	int	left;
-	int	rot_left;
-	int	right;
-	int	rot_right;
-	int	sprint;
-	int	accroupi;
-	int	fire;
-	clock_t fire_t1;
+	int			up;
+	int			down;
+	int			left;
+	int			rot_left;
+	int			right;
+	int			rot_right;
+	int			sprint;
+	int			tilt;
+	int			fire;
+	clock_t		fire_t1;
 
-
-	char	**map;
+	char		**map;
 	
-	t_win	win;
-	t_player player;
+	t_win		win;
+	t_player	player;
 
-	t_img	SKY;
-	t_img	NO; //Textures and Sprite
-	t_img	SO;
-	t_img	WE;
-	t_img	EA;
-	t_img	SP;
+	t_img		SKY;
+	t_img		NO; //Textures and Sprite
+	t_img		SO;
+	t_img		WE;
+	t_img		EA;
+	t_img		SP;
 }		t_game;
 
 /*
@@ -119,13 +118,14 @@ typedef struct s_game
 //Parameters
 # define LINUX		1
 # define FOV		60
+# define CUB_SIZE	64
+# define NB_PARAMS	7 + 5
 
 # define ROT_SPEED		0.07
 # define FRONT_SPEED	0.15
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
-# define ACC_SPEED		-0.05
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -140,7 +140,7 @@ typedef struct s_game
 # define DOWN		65364
 # define ESC		65307
 # define SHIFT_R	0xffe2
-# define Z			0x7a
+# define Z			119 /* but its W */
 # define A			97
 # define S			115
 # define D			100
@@ -163,10 +163,12 @@ typedef struct s_game
 /*
 **------------------------------- Prototypes -----------------------------------
 */
+void	check_args(t_game *game, char **argv, int argc);
+void	check_fd(t_game *game, char *argv);
 
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);
-void	find_map(char ***map, int line);
+void	find_map(t_game *game, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 t_img	find_sprite(t_game *game, char chr);
@@ -175,6 +177,7 @@ void	draw_sky(t_game *game, t_img *img);
 void	draw_life(t_game *game, t_img *img);
 void	draw_weapon(t_game *game, t_img *img, t_img *tex);
 t_img	*weapon_fire_animation(t_game *game, t_img *);
+void	weapon_fire(t_game *game);
 
 void	sp_events(t_game *game);
 double	sp_size(char chr);
@@ -182,23 +185,26 @@ int		sp_collision(int x, int y, char **map);
 void	teleportation(t_player *player, double x, double y);
 void	change_map(t_game *game, int x, int y, char chr);
 void	change_pv(t_player *player, float pv);
-void	weapon_fire(t_game *game);
 
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 void	apply_mvmt(t_game *game);
-int		ft_exit(t_win *win);
+
+void	ft_error(const char *str, t_game *game);
+int		ft_exit(int keycode, t_game *game);
 
 char	*ft_ctostr(int size, char c);
 char	*ft_strmcat(char *str1, char *str2);
 char	*ft_strdup(const char *str);
+int		is_str_charset(char *charset, char *str);
+int		in_str(char c, char *str);
+
 void	extract_texture(t_game *game, char *str, char *img, char chr);
-char	**extract_map(int fd);
+void	extract_file(char *path, t_game *game);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game *game);
 t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, t_game *game);
 void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
-
 
 #endif

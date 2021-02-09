@@ -6,22 +6,11 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 00:30:55 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/09 03:27:40 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
-
-int		ft_exit(t_win *win)
-{
-	printf("\nExit attempt. \n");
-	mlx_destroy_window(win->mlxp, win->winp);
-	printf(RED);
-	printf("Window closed\n");
-	printf(RESET);
-	exit(0);
-	return(0);
-}
 
 int		next_frame(t_game *game)
 {
@@ -44,8 +33,8 @@ void	ft_start_display(t_game game)
 	
 	mlx_hook(game.win.winp, 2, KEY_PRESS_M, key_press, &game);
 	mlx_hook(game.win.winp, 3, KEY_RELEASE_M, key_release, &game);
-	mlx_hook(game.win.winp, 17, (1L<<17), ft_exit, &game.win);
-//	printf("%.2f PV\n\n", game.player.pv);
+	mlx_hook(game.win.winp, 17, (1L<<17), ft_exit, &game);
+	printf("%.2f PV\n\n", game.player.pv);
 	mlx_loop_hook(game.win.mlxp, next_frame, &game);
 	mlx_loop(game.win.mlxp);
 	printf("\nXserv start looping, waiting for events:\n\n");

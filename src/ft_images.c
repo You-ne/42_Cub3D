@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 01:06:28 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/09 03:37:19 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	size = sp_size((char)((int)heightncol->dist));
 	tex = find_sprite(game, (char)((int)heightncol->dist));
 	xy.x = x;
-	if (game->accroupi == 0)
+	if (game->tilt == 0)
 		mid = game->res[1] / 2;
 	else
 		mid = game->res[1] / 4;
@@ -137,7 +137,7 @@ void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 	double distproj;
 	if (heightncol->y > game->res[1])
 		count = (int)(heightncol->y - game->res[1]) / 2;
-	if (game->accroupi == 0)
+	if (game->tilt == 0)
 		mid = game->res[1] / 2;
 	else
 		mid = game->res[1] / 4;
@@ -170,7 +170,7 @@ void draw_sky(t_game *game, t_img *img)
 	angle = game->player.vect.y / game->player.vect.x;
 	angle = atan(angle);
 	angle = (angle * 180) / M_PI;
-	if (game->accroupi == 0)
+	if (game->tilt == 0)
 		mid = game->res[1] / 2;
 	else
 		mid = game->res[1] / 4;

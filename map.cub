@@ -7,11 +7,11 @@ NO ./sprites/bookshelf.xpm
 WE ./sprites/S.xpm
 EA ./sprites/dark_oak_log.xpm
 SO ./sprites/brown_shulker_box.xpm
-SP2 ./sprites/chat.xpm
-SP3 ./sprites/SPRITE.xpm
-SP4 ./sprites/barrel.xpm
-SP5 ./sprites/orc07.xpm
-SKY ./sprites/xpm_texts/skybox.xpm
+S2 ./sprites/chat.xpm
+S3 ./sprites/SPRITE.xpm
+S4 ./sprites/barrel.xpm
+S5 ./sprites/orc07.xpm
+KY ./sprites/xpm_texts/skybox.xpm
 
 1111111111111111111111111111111111111111111111111 1111111111111111
 140000000000000000000000000000000000000000000000010001444444444441

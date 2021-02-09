@@ -6,32 +6,43 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/08 23:28:48 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/09 04:02:17 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-char	**extract_map(int fd)
+void	extract_file(char *path, t_game *game) // good length
 {
-	int	i;
+	int		fd;
+	int		i;
+	int		size;
 	char	*tmp;
 	char	**map;
 
 	i = 0;
-	/* gérer taille */
-	if(!(map = (char**)malloc(sizeof(char*) * 1500)))
-		return (NULL);
+	size = 0;
+	fd = open(path, O_RDONLY);
 	while(get_next_line(fd, &tmp) > 0)
 	{
-		map[i] = ft_strdup_gnl(tmp);
-		i++;
+		free(tmp);
+		size++;
 	}
-	map[i] = NULL;
-	return(map);
+	close(fd);
+	fd = open(path, O_RDONLY);
+	if(!(game->map = (char**)malloc(sizeof(char*) * (size + 1))))
+		ft_error("A problem occured during file extraction...\n", game);
+	while(get_next_line(fd, &tmp) > 0)
+	{
+		game->map[i] = ft_strdup_gnl(tmp);
+		i++;
+		free(tmp);
+	}
+	game->map[i] = NULL;
 }
 
-int	parser(t_game *game)
+
+int	parser(t_game *game) //too long
 {
 	int	i;
 	int	j;
@@ -39,53 +50,37 @@ int	parser(t_game *game)
 
 	k = 0;
 	i = 0;
-	while(game->map[i] != NULL && k < 12)
-	{
-		j = 0;
-		while(game->map[i][j] != '\0')
-		{
-			/* temporaire, rajouter détection mauvaises lignes */
-			if (game->map[i][j] > 65 && game->map[i][j] < 91)
-			{
-				find_info(game->map[i], game);
-				k++;
-				break;
-			}
-			j++;
-		}
-		i++;
-	}
-	find_map(&game->map, i);
-
-	printf("ResX = %d, ResY = %d\n", game->res[0], game->res[1]);
-	printf("Floor: R = %d, G = %d, B = %d\n", (int)game->F[0],(int)game->F[1], (int)game->F[2]);
-	printf("Ceiling: R = %d, G = %d, B = %d\n", (int)game->C[0],(int)game->C[1], (int)game->C[2]);
-	printf("Floor Color = %d\nCeiling Color = %d\n", game->Fl, game->Ce);
-	/* verification de t_game, renvoi d'erreur ? */
-	return (0);
-}
-
-void	find_res(t_game *game)
-{
-	int j;
-	int i;
-
-	j = 0;
-	i = 0;
 	while(game->map[i] != NULL)
 	{
 		j = 0;
 		while(game->map[i][j] != '\0')
 		{
-			if (game->map[i][j] == 'R')
+			/* temporaire, rajouter détection mauvaises lignes */
+			if (game->map[i][j] == '1')
 			{
-				get_res(game->map[i], game);
-				return;
+				if (k != NB_PARAMS)
+					ft_error("Less parameters fetched than needed !! \n", game);
+				find_map(game, i);
+				return (0);
 			}
-			j++;
+			else if (game->map[i][j] > 65 && game->map[i][j] < 91)
+			{
+				k++;
+				if (k > NB_PARAMS)
+					ft_error("Too much parameters !!\n", game);
+				find_info(game->map[i], game);
+				break;
+			}
+			else if (game->map[i][j] == ' ')
+				j++;
+			else
+				ft_error("Invalid map line\n\n", game);
 		}
 		i++;
 	}
+if (k < NB_PARAMS)
+	ft_error("Not enough parameters!! \n", game);
+	return (0);
 }
 
 t_img	*get_weapon(t_game *game)
@@ -111,39 +106,56 @@ t_img	*get_weapon(t_game *game)
 	return (weapon);
 }
 
+void	find_res(t_game *game)
+{
+	int j;
+	int i;
+
+	j = 0;
+	i = 0;
+	while(game->map[i] != NULL)
+	{
+		j = 0;
+		while(game->map[i][j] != '\0')
+		{
+			if (game->map[i][j] == 'R')
+			{
+				get_res(game->map[i], game); //may change get_res
+				return;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int		fd;
+//	int		fd;
 	t_game	game;
 	int		i;
 
 	i = 0;
-	if(argc ==  2)
-	{
-		fd = open(argv[1], O_RDONLY);
-		game.map = extract_map(fd);
-		close(fd);
-		find_res(&game);
-		game.win.mlxp = mlx_init();
-		game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
-		printf("[START PARSING...]\n\n");
-		parser(&game);
-		game.player.pos = find_char(game.map);
-//		change_map(&game, (int)game.player.pos.x, (int)game.player.pos.y, '0');
-		game.player.pv = 100.0;
-		game.player.weapon = get_weapon(&game);
-		printf("X=%f; Y=%f\n", game.player.pos.x, game.player.pos.y);
-		printf("\n[PARSING END!!!]\n");
+	check_args(&game, argv, argc);
+	check_fd(&game, argv[1]);
+	extract_file(argv[1], &game);
+	find_res(&game);
+	game.win.mlxp = mlx_init();
+	game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
+	parser(&game);
+	game.player.pos = find_char(game.map);
+	//change_map(&game, (int)game.player.pos.x, (int)game.player.pos.y, '0');
+	game.player.weapon = get_weapon(&game);
+	game.player.pv = 100.0;
 
-		//Display map for debug
-		printf("\nTRIMMED LAYOUT:\n");
-		while (game.map[i] != NULL)
-		{
-			printf("%d:%s\n", i, game.map[i]);
-			i++;
-		}
-		game.player.vect = init_dir(game.map, game.player.pos);
-		ft_start_display(game);
+	//Display map for debug
+	printf("\nTRIMMED LAYOUT:\n");
+	while (game.map[i] != NULL)
+	{
+		printf("%d:%s\n", i, game.map[i]);
+		i++;
 	}
+	game.player.vect = init_dir(game.map, game.player.pos);
+	ft_start_display(game);
 	return(0);
 }
