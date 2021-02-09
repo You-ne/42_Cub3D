@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/31 15:45:44 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/05 04:37:09 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	save_texture(char *info, t_game *game, char param)
 			extract_texture(game, info + i, "WE", '\0');
 		if (param == 'E')
 			extract_texture(game, info + i, "EA", '\0');
+		if (param == 'Y')
+			extract_texture(game, info + i, "SKY", '\0');
+
 	}
 }
 
@@ -123,6 +126,8 @@ void	find_info(char *info, t_game *game)
 			save_texture(info + i + 2, game, 'E');
 		if (info[i] == 'S' && info[i + 1] == 'P')
 			save_sprite(info + i + 3, game, info[i + 2]);
+		if (info[i] == 'S' && info[i + 1] == 'K' && info[i + 2] == 'Y')
+			save_texture(info + i + 3, game, 'Y');
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/03 22:50:29 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/09 00:34:01 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 **------------------------------- Headers --------------------------------------
 */
 
+# include <time.h>
 # include <mlx.h>
+
 //# include "./minilibx/mlx_int.h"
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -72,6 +74,7 @@ typedef struct s_player
 	t_coor vect;
 
 	float pv;
+	t_img *weapon;
 }		t_player;
 
 typedef struct s_game
@@ -91,12 +94,17 @@ typedef struct s_game
 	int	right;
 	int	rot_right;
 	int	sprint;
+	int	accroupi;
+	int	fire;
+	clock_t fire_t1;
+
 
 	char	**map;
 	
 	t_win	win;
 	t_player player;
 
+	t_img	SKY;
 	t_img	NO; //Textures and Sprite
 	t_img	SO;
 	t_img	WE;
@@ -111,13 +119,13 @@ typedef struct s_game
 //Parameters
 # define LINUX		1
 # define FOV		60
-# define CUB_SIZE	64
 
-# define ROT_SPEED		0.040
+# define ROT_SPEED		0.07
 # define FRONT_SPEED	0.15
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
+# define ACC_SPEED		-0.05
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -132,12 +140,14 @@ typedef struct s_game
 # define DOWN		65364
 # define ESC		65307
 # define SHIFT_R	0xffe2
-# define Z			119 /* but its W */
+# define Z			0x7a
 # define A			97
 # define S			115
 # define D			100
 # define Q			113
 # define E			101
+# define X			0x78
+# define SPACE		0x20
 
 //EVENTS
 # define KEY_PRESS 2
@@ -161,12 +171,18 @@ t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 t_img	find_sprite(t_game *game, char chr);
 
+void	draw_sky(t_game *game, t_img *img);
+void	draw_life(t_game *game, t_img *img);
+void	draw_weapon(t_game *game, t_img *img, t_img *tex);
+t_img	*weapon_fire_animation(t_game *game, t_img *);
+
 void	sp_events(t_game *game);
 double	sp_size(char chr);
 int		sp_collision(int x, int y, char **map);
 void	teleportation(t_player *player, double x, double y);
 void	change_map(t_game *game, int x, int y, char chr);
 void	change_pv(t_player *player, float pv);
+void	weapon_fire(t_game *game);
 
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
@@ -181,6 +197,7 @@ char	**extract_map(int fd);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game *game);
+t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, t_game *game);
 void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
 
 

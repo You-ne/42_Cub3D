@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/03 23:29:44 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/08 04:08:57 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_sprite_col(t_coor sp, t_coor eqray, t_img tex, t_coor pos)
 	double size;
 
 	size = sp_size(tex.chr);
-	if (eqray.x != 0.0)
+	if (eqray.x > 0.000001 || eqray.x < -0.000001)
 	{
 		eq2.x = - (1.0 / eqray.x);
 		eq2.y = sp.y - (eq2.x * sp.x);
@@ -67,7 +67,11 @@ int	ft_sprite_col(t_coor sp, t_coor eqray, t_img tex, t_coor pos)
 		eq2.dist = ft_pythagore(a.x - sp.x, a.y - sp.y);
 	}
 	else
+	{
+		a.x = sp.x;
+		a.y = sp.y + (pos.y - sp.y);
 		eq2.dist = fabs(pos.y - sp.y);
+	}
 	if (eq2.dist > size / 2)
 		return (-1);
 	if (((int)pos.x == (int)sp.x &&
@@ -156,11 +160,13 @@ t_coor *ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline)
 	t_coor *sp;
 	t_img tex;
 	t_coor vect;
+	t_coor tmp;
 	double distproj;
 
 	sp = (struct s_coor*)malloc(sizeof(struct s_coor));
 
 	*sp = ft_sprite_dist(game->map, ray, dir, game->player.pos);
+	tmp = *sp;
 	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
 	vect.x = game->player.pos.x - sp->x;
 	vect.y = game->player.pos.y - sp->y;
@@ -174,6 +180,7 @@ t_coor *ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline)
 		sp->x = (double)ft_sprite_col(*sp, eqline, tex, game->player.pos);
 	distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	sp->y = round((distproj / sp->dist) * sp_size(tex.chr));
+	sp->dist = ((double)((int)tmp.x) / 1000) + ((double)((int)tmp.y) / 1000000);
 	sp->next = ray.next;
 //	printf("&&&&sp.y=%f&&&&\n", sp->y);
 	return (sp);
@@ -206,7 +213,7 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
+			sp->dist = sp->dist + (double)((int)ft_ray_collision(game->map, ray, dir));
 			//printf("SP=%f", sp->dist);
 			if (sp->x != -1)
 				ray.next = sp;
@@ -249,7 +256,7 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		ft_ray_collision(game->map, ray, dir) <= '9')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
+			sp->dist = sp->dist + (double)((int)ft_ray_collision(game->map, ray, dir));
 			if (sp->x != -1)
 				ray.next = sp;
 		}
@@ -276,7 +283,7 @@ t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		{
 			ray.dist = -3;
 			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
+			sp->dist = sp->dist + (double)((int)ft_ray_collision(game->map, ray, dir));
 			//printf("SP=%f", sp->dist);
 			if (sp->x != -1)
 				ray.next = sp;
@@ -416,6 +423,7 @@ void	ft_raymachine(t_game *game)
 	double	distproj;
 	t_coor	ray;
 	t_img	img;
+	t_img	weapon;
 
 //	printf("New Image!\n");
 //	printf("PosX = %F, PosY =  %f, VectX = %f, VectY = %f\n", game.player.pos.x, game.player.pos.y, game.player.vect.x, game.player.vect.y);
@@ -425,6 +433,7 @@ void	ft_raymachine(t_game *game)
 	apply_mvmt(game);
 	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
+	draw_sky(game, &img);
 	angle = (double)FOV / (double)game->res[0];
 	while (x < game->res[0])
 	{
@@ -433,6 +442,8 @@ void	ft_raymachine(t_game *game)
 		ft_projection(game, ray, x, &img);
 		x++;
 	}
+	draw_life(game, &img);
+	draw_weapon(game, &img, weapon_fire_animation(game, game->player.weapon));
 	mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
 	mlx_destroy_image(game->win.mlxp, img.img_p);
 	return ;

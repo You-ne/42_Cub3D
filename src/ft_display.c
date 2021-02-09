@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/03 23:11:13 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/09 00:30:55 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_start_display(t_game game)
 	mlx_hook(game.win.winp, 2, KEY_PRESS_M, key_press, &game);
 	mlx_hook(game.win.winp, 3, KEY_RELEASE_M, key_release, &game);
 	mlx_hook(game.win.winp, 17, (1L<<17), ft_exit, &game.win);
-	printf("%.2f PV\n\n", game.player.pv);
+//	printf("%.2f PV\n\n", game.player.pv);
 	mlx_loop_hook(game.win.mlxp, next_frame, &game);
 	mlx_loop(game.win.mlxp);
 	printf("\nXserv start looping, waiting for events:\n\n");

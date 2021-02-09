@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/01/31 16:01:59 by amanchon         ###   ########.fr       */
+/*   Updated: 2021/02/05 04:38:14 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	extract_texture(t_game *game, char *str, char *img, char chr)
 				tmp = tmp->next;
 			tmp->next = tex;
 		}
+	}
+	if (img[0] == 'S' && img[1] == 'K' && img[2] == 'Y')
+	{
+		game->SKY.img_p = mlx_xpm_file_to_image(game->win.mlxp, path, &game->SKY.width, &game->SKY.height);
+		game->SKY.img = mlx_get_data_addr(game->SKY.img_p, &game->SKY.bpp, &game->SKY.s_line, &game->SKY.endian);
+		game->SKY.path = path;
 	}
 	return ;
 }
