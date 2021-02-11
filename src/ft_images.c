@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 03:37:19 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/11 23:10:10 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ t_img find_sprite(t_game *game, char chr)
 
 	tex = &game->SP;
 	while (tex->chr != chr)
+	{
+//		printf("CHR=%c, TEX_CHAR=%c\n", chr, tex->chr);
 		tex = tex->next;
+	}
 	return (*tex);
 }
 
@@ -73,6 +76,15 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = texture[i + 2];
 		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = texture[i + 3];
 	}
+	else if (LINUX != 1 || (LINUX == 1 && (texture[i] == 0 && 
+	texture[i + 1] == 0 && texture[i + 2] == 0)))
+	{
+		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 0;
+	}
+
 }
 
 void	ft_texture_put(t_img *img, int x, int y, char *texture)
@@ -82,6 +94,30 @@ void	ft_texture_put(t_img *img, int x, int y, char *texture)
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = *(texture + 2);
 		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
+}
+
+t_img	enemy_fire_animation(t_game *game, t_img *enemy)
+{
+	clock_t	t2;
+	float	centisec;
+	t_coor tir;
+
+	t2 = clock();
+	centisec = ((double)(t2 - game->enemy_fire_t1) / CLOCKS_PER_SEC) * 100;
+	if ((int)centisec % 100 < 11)
+	{
+		if (game->enemy_fire == 0)
+		{
+			system("aplay -N -q ./sprites/gun_shot.wav &");
+			change_pv(&game->player, -10);
+		}
+		game->enemy_fire = 1;
+		return (*(enemy->next));
+	}
+	else
+		game->enemy_fire = 0;
+
+	return (*enemy);
 }
 
 void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
@@ -97,16 +133,15 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	count = 0;
 	size = sp_size((char)((int)heightncol->dist));
 	tex = find_sprite(game, (char)((int)heightncol->dist));
+	if ((char)((int)heightncol->dist) == '@')
+		tex = enemy_fire_animation(game, &tex);
 	xy.x = x;
-	if (game->tilt == 0)
-		mid = game->res[1] / 2;
-	else
-		mid = game->res[1] / 4;
+	mid = game->tilt + (int)(game->res[1] / 2);
 	if (mid + ((heightncol->y * (1 / size)) / 2) -
 	heightncol->y < 0)
 		count = -1 * (int)(mid + ((heightncol->y *
 		(1 / size)) / 2) - heightncol->y);
-	while((double)xy.y <= (mid + ((heightncol->y * (1 / size)) / 2))
+	while ((double)xy.y <= (mid + ((heightncol->y * (1 / size)) / 2))
 	&& xy.y < game->res[1])
 	{
 		if (xy.y > (mid + ((heightncol->y * (1 / size)) / 2)) - heightncol->y)
@@ -135,15 +170,12 @@ void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 	y = 0;
 	count = 0;
 	double distproj;
-	if (heightncol->y > game->res[1])
-		count = (int)(heightncol->y - game->res[1]) / 2;
-	if (game->tilt == 0)
-		mid = game->res[1] / 2;
-	else
-		mid = game->res[1] / 4;
+	if (((int)(heightncol->y - game->res[1]) / 2) - game->tilt > 0)
+		count = ((int)(heightncol->y - game->res[1]) / 2) - game->tilt;
+	mid = game->tilt + (int)(game->res[1] / 2);
 	while ((y < (mid + (heightncol->y / 2)) && y < game->res[1]))
 	{
-		if (y > (mid - (heightncol->y / 2)))
+		if (y > mid - (int)(heightncol->y / 2))
 		{
 			i = (int)(((double)tex.height / heightncol->y) * (double)count);
 			i = i * tex.s_line;
@@ -162,6 +194,7 @@ void draw_sky(t_game *game, t_img *img)
 	int x;
 	int y;
 	int i;
+	int count;
 	float xtex;
 	float angle;
 	int mid;
@@ -170,15 +203,12 @@ void draw_sky(t_game *game, t_img *img)
 	angle = game->player.vect.y / game->player.vect.x;
 	angle = atan(angle);
 	angle = (angle * 180) / M_PI;
-	if (game->tilt == 0)
-		mid = game->res[1] / 2;
-	else
-		mid = game->res[1] / 4;
-
+	mid = game->tilt + (int)(game->res[1] / 2);
 	if (game->player.vect.x < 0)
 		angle = angle + 180;
 	while (x < game->res[0])
 	{
+		count = (int)(game->res[1]) - game->tilt;
 		y = 0;
 		xtex = (double)game->SKY.width * ((angle - (FOV / 2)) / 360);
 		xtex = xtex + (((double)x / (double)game->res[0]) * ((double)game->SKY.width * ((double)FOV / 360.0)));
@@ -194,7 +224,8 @@ void draw_sky(t_game *game, t_img *img)
 					ft_pixel_put(img, x, y, game->Fl);
 				else
 				{
-					i = (int)(((double)game->SKY.height / (double)game->res[1]) * (double)y);
+					i = (int)(((double)game->SKY.height / ((double)game->res[1] * 1.5)) * (double)count);
+					//printf("I=%i; Height=%i; Count=%i\n", i, game->res[1], count);
 					i = i * game->SKY.s_line;
 					i = i + ((int)(xtex)) * (game->SKY.bpp / 8);
 					ft_texture_put(img, x, y, &game->SKY.img[i]);
@@ -202,6 +233,7 @@ void draw_sky(t_game *game, t_img *img)
 			}
 			else
 				ft_pixel_put(img, x, y, game->Fl);
+			count = count + 1;
 			y++;
 		}
 		x++;
@@ -245,6 +277,7 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 {
 	clock_t	t2;
 	float	centisec;
+	t_coor tir;
 
 	if (game->fire == 1)
 	{
@@ -253,9 +286,17 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 //		printf("Centisec=%f; t1=%ld; t2=%ld; CPS=%ld\n\n", centisec, (long)game->fire_t1, (long)t2, CLOCKS_PER_SEC);
 		if ((int)centisec % 33 < 11)
 		{
-			weapon_fire(game);
+			tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
+			if (game->player.fire == 0)
+			{
+				system("aplay -N -q ./sprites/gun_shot.wav &");
+				weapon_fire(game, &tir);
+			}
+			game->player.fire = 1;
 			return (weapon->next);
 		}
+		else
+			game->player.fire = 0;
 		if ((int)centisec % 33 >= 11 && (int)centisec % 33 < 22)
 			return (weapon->next->next);
 	}

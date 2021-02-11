@@ -6,28 +6,44 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/09 02:10:52 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/11 07:39:54 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	weapon_fire(t_game *game)
+void	weapon_fire(t_game *game, t_coor *tir)
 {
-	t_coor	tir;
+	int x;
+	int y;
+	int mid;
+	t_coor *tir2;
 
-	tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
-	if (tir.next != NULL)
+	mid = game->tilt + (int)(game->res[1] / 2);
+	tir2 = tir;
+//	system("aplay ./sprites/gun_shot.wav $");
+//	tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
+	if (tir->next != NULL)
 	{
-		while (tir.next != NULL)
-			tir = *tir.next;
-		if ((char)((int)tir.dist) != '5')
+		while (tir->next->next != NULL)
+				tir = tir->next;
+		if ((int)game->res[1] / 2 > mid + ((tir->next->y * 
+		(1 / sp_size((char)((int)tir->next->dist)) / 2))) ||
+		game->res[1] / 2 < mid + ((tir->next->y * 
+		(1 / sp_size((char)((int)tir->next->dist))) / 2)) - tir->next->y)
+		{
+			tir->next = NULL;
+			weapon_fire(game, tir2);
 			return ;
-		tir.dist = (tir.dist - (int)tir.dist) * 1000.0;
-		tir.x = (int)tir.dist;
-		tir.dist = (tir.dist - (int)tir.dist) * 1000.0;
-		tir.y = round(tir.dist);
-		change_map(game, (int)tir.x, (int)tir.y, '0');
+		}
+		if ((char)((int)tir->next->dist) != '5' && (char)((int)tir->next->dist) != '2'
+		&& (char)((int)tir->next->dist) != '@')
+			return ;
+		tir->next->dist = (tir->next->dist - (int)tir->next->dist) * 1000.0;
+		x = (int)tir->next->dist;
+		tir->next->dist = (tir->next->dist - (int)tir->next->dist) * 1000.0;
+		y = round(tir->next->dist);
+		change_map(game, x, y, '0');
 	}
 }
 

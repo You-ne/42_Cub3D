@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 03:46:21 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/11 06:11:03 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	t_coor pos;
-	t_coor vect;
+	t_coor	pos;
+	t_coor	vect;
 
-	float pv;
-	t_img *weapon;
+	float	pv;
+	t_img	*weapon;
+	int		fire;
 }		t_player;
 
 typedef struct s_game
@@ -95,11 +96,15 @@ typedef struct s_game
 	int			rot_right;
 	int			sprint;
 	int			tilt;
+
 	int			fire;
 	clock_t		fire_t1;
 
 	char		**map;
-	
+
+	int			enemy_fire;
+	clock_t		enemy_fire_t1;
+
 	t_win		win;
 	t_player	player;
 
@@ -122,10 +127,21 @@ typedef struct s_game
 # define NB_PARAMS	7 + 5
 
 # define ROT_SPEED		0.07
+# define ZROT_SPEED		2
 # define FRONT_SPEED	0.15
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
+
+# define W1 "./sprites/M2GFB0.xpm"
+# define W2 "./sprites/M2GFA0.xpm"
+# define W3 "./sprites/M2GFC0.xpm"
+
+# define E1 "./sprites/enemy_aim.xpm"
+# define E2 "./sprites/enemy_shoot.xpm"
+
+# define D1 "./sprites/doors_close.xpm"
+# define D2 "./sprites/doors_open.xpm"
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -147,6 +163,8 @@ typedef struct s_game
 # define Q			113
 # define E			101
 # define X			0x78
+# define TC			0x63
+# define T			0x74
 # define SPACE		0x20
 
 //EVENTS
@@ -177,7 +195,7 @@ void	draw_sky(t_game *game, t_img *img);
 void	draw_life(t_game *game, t_img *img);
 void	draw_weapon(t_game *game, t_img *img, t_img *tex);
 t_img	*weapon_fire_animation(t_game *game, t_img *);
-void	weapon_fire(t_game *game);
+void	weapon_fire(t_game *game, t_coor *tir);
 
 void	sp_events(t_game *game);
 double	sp_size(char chr);

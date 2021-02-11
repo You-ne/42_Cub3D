@@ -6,54 +6,11 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 03:24:31 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/11 06:03:27 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Cub3D.h"
-/*
-int	ft_player_collision(int key, t_coor pos, t_coor vect, char **map)
-{
-	if (((int)pos.x + 0.05 > pos.x) && map[(int)pos.y][(int)round(pos.x) - 1] == '1')
-	{
-		if (vect.x < 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
-	((key == DOWN || key == S) && (vect.x < 0))))
-			return (1);
-		if (vect.x > 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
-	((key == DOWN || key == S) && (vect.x >= 0))))
-			return (1);
-	}
-	if (((int)pos.x + (1 - 0.05) < pos.x) && map[(int)pos.y][(int)round(pos.x)] == '1')
-	{
-		if (vect.x > 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
-	((key == DOWN || key == S) && (vect.x < 0))))
-			return (1);
-		if (vect.x < 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
-	((key == DOWN || key == S) && (vect.x >= 0))))
-			return (1);
-	}
-	if (((int)pos.y + 0.05 > pos.y) && map[(int)round(pos.y) - 1][(int)pos.x] == '1')
-	{
-		if (vect.y < 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
-	((key == DOWN || key == S) && (vect.x < 0))))
-			return (1);
-		if (vect.y > 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
-	((key == DOWN || key == S) && (vect.x >= 0))))
-			return (1);
-	}
-	if (((int)pos.y + (1 - 0.05) < pos.y) && map[(int)round(pos.y)][(int)pos.x] == '1')
-	{
-		if (vect.y > 0 && (((key == UP || key == Z) && (vect.x >= 0)) || 
-	((key == DOWN || key == S) && (vect.x < 0))))
-			return (1);
-		if (vect.y < 0 && (((key == UP || key == Z) && (vect.x < 0)) || 
-	((key == DOWN || key == S) && (vect.x >= 0))))
-			return (1);
-
-	}
-	return (0);
-}
-*/
 
 void	move(t_player *player, char **map, float speed, int frontnback)
 {
@@ -96,6 +53,34 @@ void	rotation(t_coor *vect, float angle)
 	vect->y = (x * sin(angle) + y * cos(angle));
 }
 
+void	open_door(t_game *game)
+{
+	if (game->player.vect.x >= 0 &&
+	game->map[(int)game->player.pos.y][(int)game->player.pos.x + 1] == 'P')
+		change_map(game, (int)game->player.pos.x + 1, (int)game->player.pos.y, 'p');
+	else if (game->player.vect.x < 0 &&
+	game->map[(int)game->player.pos.y][(int)game->player.pos.x - 1] == 'P')
+		change_map(game, (int)game->player.pos.x - 1, (int)game->player.pos.y, 'p');
+	else if (game->player.vect.y >= 0 &&
+	game->map[(int)game->player.pos.y + 1][(int)game->player.pos.x] == 'P')
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y + 1, 'p');
+	else if (game->player.vect.y < 0 &&
+	game->map[(int)game->player.pos.y - 1][(int)game->player.pos.x] == 'P')
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y - 1, 'p');
+	else if (game->player.vect.x >= 0 &&
+	game->map[(int)game->player.pos.y][(int)game->player.pos.x + 1] == 'p')
+		change_map(game, (int)game->player.pos.x + 1, (int)game->player.pos.y, 'P');
+	else if (game->player.vect.x < 0 &&
+	game->map[(int)game->player.pos.y][(int)game->player.pos.x - 1] == 'p')
+		change_map(game, (int)game->player.pos.x - 1, (int)game->player.pos.y, 'P');
+	else if (game->player.vect.y >= 0 &&
+	game->map[(int)game->player.pos.y + 1][(int)game->player.pos.x] == 'p')
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y + 1, 'P');
+	else if (game->player.vect.y < 0 &&
+	game->map[(int)game->player.pos.y - 1][(int)game->player.pos.x] == 'p')
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y - 1, 'P');
+}
+
 int		key_release(int keycode, t_game *game)
 {
 	if (keycode == ESC)
@@ -124,12 +109,20 @@ int		key_release(int keycode, t_game *game)
 		game->rot_right = 0;
 	else if (keycode == SPACE)
 		game->fire = 0;
+	else if (keycode == T)
+		open_door(game);
+
 }
 
 int		key_press(int keycode, t_game *game)
 {
 	static int i;
-	
+	static int nose_axis;
+	int zfov;
+
+	zfov = (int)(((double)game->res[1] / (double)game->res[0]) * FOV);
+	if (!nose_axis)
+		nose_axis = 0;
 	if (keycode == LEFT)
 		game->left  = 1;
 	else if (keycode == UP)
@@ -152,10 +145,18 @@ int		key_press(int keycode, t_game *game)
 		game->rot_left = 1;
 	else if (keycode == E)
 		game->rot_right = 1;
-	else if (keycode == X && game->tilt == 0)
-		game->tilt = 1;
-	else if (keycode == X && game->tilt == 1)
-		game->tilt = 0;
+	else if (keycode == TC)
+	{
+		nose_axis = nose_axis - (int)((game->res[1] / zfov) * ZROT_SPEED);
+		nose_axis = nose_axis < -game->res[1] ? -game->res[1] : nose_axis;
+		game->tilt = nose_axis;
+	}
+	else if (keycode == X)
+	{
+		nose_axis = nose_axis + (int)((game->res[1] / zfov) * ZROT_SPEED);
+		nose_axis = nose_axis > game->res[1] ? game->res[1] : nose_axis;
+		game->tilt = nose_axis;
+	}
 	if (keycode == SPACE)
 	{
 		if (i != 1)

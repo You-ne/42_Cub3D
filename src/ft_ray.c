@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/08 04:08:57 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/11 07:20:04 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,67 @@ char	ft_ray_collision(char **map, t_coor ray, t_coor dir)
 		if (map[(int)ray.y + i][(int)ray.x] != '0')
 			return (map[(int)ray.y + i][(int)ray.x]);
 	}
-	return(0);
+	return('0');
+}
+
+t_coor	*ft_add_door(t_game *game, t_coor ray, t_coor dir, t_coor eqline)
+{
+	t_coor *door;
+	t_coor vect;
+	int midcase;
+	double eqsol;
+	double distproj;
+	t_img tex;
+
+	door = (struct s_coor*)malloc(sizeof(struct s_coor));
+	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
+	if (ray.dist == -4)
+	{
+		eqsol = ((int)ray.x +
+		(game->player.pos.x < ray.x ? 0.5 : -0.5)) * eqline.x + eqline.y;
+		eqsol = floor(eqsol * pow(10, 14) + 0.5) / pow(10, 14);
+		if ((eqsol > (int)ray.y  && eqsol < (int)ray.y + 1))
+		{
+			door->x = (int)ray.x + (game->player.pos.x < ray.x ? 0.5 : -0.5);
+			door->y = eqsol;
+//			printf("door.y=%f\n", door->y);
+		}
+		else
+			return (NULL);
+	}
+	else if (ray.dist == -5)
+	{
+		eqsol = (((int)ray.y +
+		(game->player.pos.y < ray.y ? 0.5 : -0.5)) - eqline.y) / eqline.x;
+		eqsol = floor(eqsol * pow(10, 14) + 0.5) / pow(10, 14);
+		if ((eqsol < (int)ray.x + 1 && eqsol > (int)ray.x))
+		{
+			if (dir.x != -2)
+				door->x = eqsol;
+			door->y = (int)ray.y + (game->player.pos.y < ray.y ? 0.5 : -0.5);
+//			printf("door.x=%f\n", door->x);
+		}
+		else
+			return (NULL);
+	}
+	vect.x = game->player.pos.x - ray.x; ///////////////fonction calculer angle ?
+	vect.y = game->player.pos.y - ray.y;
+	vect.dist = (vect.x * game->player.vect.x) + (vect.y * game->player.vect.y);
+	vect.dist = vect.dist / (ft_pythagore(vect.x, vect.y) *
+	ft_pythagore(game->player.vect.x, game->player.vect.y));
+	door->dist = fabs(vect.dist) * ft_pythagore(door->y - game->player.pos.y, 
+	door->x - game->player.pos.x);
+//	printf("door.x=%f\n", door->x);
+	if (door->x == (double)((int)door->x + 0.5))
+		door->x = (double)(((int)(tex.width * door->y)) % tex.width);
+	else if (door->y == (double)((int)door->y + 0.5))
+		door->x = (double)(((int)(tex.width * door->x)) % tex.width);
+	distproj = ((double)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
+	door->y = round(distproj / door->dist);
+//	printf("door.x=%f; door.y=%f\n", door->x, door->y);
+	door->dist = (double)((int)ft_ray_collision(game->map, ray, dir));
+	door->next = ray.next;
+	return (door);
 }
 
 t_coor *ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline)
@@ -203,14 +263,20 @@ t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 	{
 		ray.x = (int)ray.x + dir.x;
 		ray.y = eqsol;
-		
 		if (ft_ray_collision(game->map, ray, dir) == '1')
 		{
 			ray.dist = -1;
 			return (ray);
 		}
-		else if (ft_ray_collision(game->map, ray, dir) > '1' &&
-		ft_ray_collision(game->map, ray, dir) <= '9')
+		else if (ft_ray_collision(game->map, ray, dir) == 'P' ||
+		ft_ray_collision(game->map, ray, dir) == 'p')
+		{
+			ray.dist = -4;
+			sp = ft_add_door(game, ray, dir, eqline);
+			if (sp != NULL)
+				ray.next = sp;
+		}
+		else if (ft_ray_collision(game->map, ray, dir) != '0')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
 			sp->dist = sp->dist + (double)((int)ft_ray_collision(game->map, ray, dir));
@@ -252,8 +318,15 @@ t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 			ray.dist = -1;
 			return (ray);
 		}
-		else if (ft_ray_collision(game->map, ray, dir) > '1' &&
-		ft_ray_collision(game->map, ray, dir) <= '9')
+		else if (ft_ray_collision(game->map, ray, dir) == 'P' ||
+		ft_ray_collision(game->map, ray, dir) == 'p')
+		{
+			ray.dist = -5;
+			sp = ft_add_door(game, ray, dir, eqline);
+			if (sp != NULL)
+				ray.next = sp;
+		}
+		else if (ft_ray_collision(game->map, ray, dir) != '0')
 		{
 			sp = ft_add_sprite(game, ray, dir, eqline);
 			sp->dist = sp->dist + (double)((int)ft_ray_collision(game->map, ray, dir));
@@ -278,8 +351,8 @@ t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 
 	while (ft_ray_collision(game->map, ray, dir) != '1')
 	{
-		if (ft_ray_collision(game->map, ray, dir) > '1' &&
-		ft_ray_collision(game->map, ray, dir) <= '9')
+		if (ft_ray_collision(game->map, ray, dir) != '1' &&
+		ft_ray_collision(game->map, ray, dir) != '0')
 		{
 			ray.dist = -3;
 			sp = ft_add_sprite(game, ray, dir, eqline);

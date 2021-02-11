@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/09 02:09:43 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/11 06:34:12 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		sp_collision(int x, int y, char **map)
 {
-	if (map[y][x] == '1' || map[y][x] == '3' || map[y][x] == '5')
+	if (map[y][x] == '1' || map[y][x] == '3' || map[y][x] == '5' ||
+	map[y][x] == '@' || map[y][x] == 'P')
 		return (1);
 	else
 		return (0);
@@ -27,8 +28,12 @@ double	sp_size(char chr)
 	size = 1.0;
 	if (chr == '2')
 		size = 0.3;
+	if (chr == '@')
+		size = 0.6;
 	if (chr == '3')
 		size = 1.1;
+	if (chr == '4')
+		size = 0.5;
 	if (chr == '5')
 		size = 0.7;
 	return (size);
