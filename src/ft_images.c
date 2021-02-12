@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/11 23:10:10 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/12 04:13:37 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,25 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 
 t_img find_sprite(t_game *game, char chr)
 {
-	t_img *tex;
+	t_img *tex1;
+	t_img *tex2;
 
-	tex = &game->SP;
-	while (tex->chr != chr)
+	tex1 = &game->SP;
+	tex2 = &game->SA;
+	while (tex1->chr != chr && tex1->next != NULL)
 	{
 //		printf("CHR=%c, TEX_CHAR=%c\n", chr, tex->chr);
-		tex = tex->next;
+		tex1 = tex1->next;
 	}
-	return (*tex);
+	if (tex1->chr == chr)
+		return (*tex1);
+	while (tex2->chr != chr && tex2->next != NULL)
+	{
+//		printf("CHR=%c, TEX_CHAR=%c\n", chr, tex->chr);
+		tex2 = tex2->next;
+	}
+	if (tex2->chr == chr)
+		return (*tex2);
 }
 
 void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
@@ -84,16 +94,18 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = 0;
 		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 0;
 	}
-
 }
 
 void	ft_texture_put(t_img *img, int x, int y, char *texture)
 {
 	//printf("%d ; ", (int)*(texture + 3));
+	if (LINUX != 1 ||  (LINUX == 1 && (*(texture) != 0 && *(texture + 1) != 0 && *(texture + 2) != 0)))
+	{
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = *texture;
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = *(texture + 2);
 		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
+	}
 }
 
 t_img	enemy_fire_animation(t_game *game, t_img *enemy)
@@ -149,7 +161,10 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 			i = (int)(((double)tex.height / heightncol->y) * (double)count);
 			i = i * tex.s_line;
 			i = i + ((int)(heightncol->x)) * (tex.bpp / 8);
-			ft_texture_put_sp(img, xy, tex.img, i);
+			if ((char)((int)heightncol->dist) == 'P' || (char)((int)heightncol->dist) == 'p')
+				ft_texture_put(img, xy.x, xy.y, (tex.img +i));
+			else
+				ft_texture_put_sp(img, xy, tex.img, i);
 			count++;
 		}
 		xy.y++;

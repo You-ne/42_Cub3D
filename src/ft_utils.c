@@ -6,11 +6,44 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 03:57:54 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/12 03:54:25 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+void	extract_anim(t_game *game, char *str, char chr)
+{
+	t_img	*tmp;
+	t_img	*tex;
+	
+	printf("Trying to extract anim at :%s\n\n", str);
+	if (game->SA.chr == '1')
+	{
+		game->SA.img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &game->SA.width, &game->SA.height);
+		if (!(game->SA.img_p))
+			ft_error("Troubles extracting sprites textures !!\n", game);
+		game->SA.img = mlx_get_data_addr(game->SA.img_p, &game->SA.bpp, &game->SA.s_line, &game->SA.endian);
+		//game->SP.path = path;
+		game->SA.chr = chr;
+		game->SA.next = NULL;
+	}
+	else
+	{
+		tmp = &game->SA;
+		tex = (struct s_img*)malloc(sizeof(struct s_img));
+		tex->img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &tex->width, &tex->height);
+		if (!(game->SA.img_p))
+			ft_error("Troubles extracting sprites textures !!\n", game);
+		tex->img = mlx_get_data_addr(tex->img_p, &tex->bpp, &tex->s_line, &tex->endian);
+		//tex->path = path;
+		tex->chr = chr;
+		tex->next = NULL;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = tex;
+	}
+}
 
 void	extract_texture(t_game *game, char *str, char *img, char chr)
 {
@@ -20,7 +53,7 @@ void	extract_texture(t_game *game, char *str, char *img, char chr)
 	t_img *tmp;
 
 	//printf("..%s..\n", img);
-/*	while (*str == ' ') inutile?
+	/*	while (*str == ' ') inutile?
 		str++;*/
 	//path = ft_strdup(str);
 	if (img[0] == 'N' && img[1] == 'O')
@@ -38,7 +71,7 @@ void	extract_texture(t_game *game, char *str, char *img, char chr)
 			ft_error("Troubles extracting WE texture !!\n", game);
 		game->WE.img = mlx_get_data_addr(game->WE.img_p, &game->WE.bpp, &game->WE.s_line, &game->WE.endian);
 		//game->WE.path = path;
-}
+	}
 	if (img[0] == 'E' && img[1] == 'A')
 	{
 		game->EA.img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &game->EA.width, &game->EA.height);
@@ -46,7 +79,7 @@ void	extract_texture(t_game *game, char *str, char *img, char chr)
 			ft_error("Troubles extracting EA texture !!\n", game);
 		game->EA.img = mlx_get_data_addr(game->EA.img_p, &game->EA.bpp, &game->EA.s_line, &game->EA.endian);
 		//game->EA.path = path;
-}
+	}
 	if (img[0] == 'S' && img[1] == 'O')
 	{
 		game->SO.img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &game->SO.width, &game->SO.height);
@@ -87,7 +120,7 @@ void	extract_texture(t_game *game, char *str, char *img, char chr)
 	{
 		game->SKY.img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &game->SKY.width, &game->SKY.height);
 		if (!(game->SKY.img_p))
-				ft_error("Troubles extracting sprites textures !!\n", game);
+			ft_error("Troubles extracting sprites textures !!\n", game);
 
 		game->SKY.img = mlx_get_data_addr(game->SKY.img_p, &game->SKY.bpp, &game->SKY.s_line, &game->SKY.endian);
 	}

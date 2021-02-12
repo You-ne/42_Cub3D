@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 03:53:35 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/12 03:59:19 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		save_texture(char *info, t_game *game, char param)//, char *done)
 	return (0);
 }
 
-int		save_sprite(char *info, t_game *game, char chr)//, char *done)
+int		save_sprite(char *info, t_game *game, char chr, char mode)//, char *done)
 {
 	int	i;
 
@@ -75,8 +75,13 @@ int		save_sprite(char *info, t_game *game, char chr)//, char *done)
 //	printf("Line: %s\n", info);
 	while (info[i] == ' ')
 		i++;
-	if (info[i] == '.' && info[i + 1 ] == '/')
-		extract_texture(game, info + i, "SP", chr);
+	if (info[i] == '.' && info[i + 1 ] == '/' )
+	{	
+		if (mode == 'S')
+			extract_texture(game, info + i, "SP", chr);
+		if (mode == 'A')
+			extract_anim(game, info + i, chr);
+	}
 	else
 		ft_error("Please enter a valid path for sprites textures !!\n", game);
 	return (0);
@@ -110,7 +115,7 @@ int		get_color(char *info, t_game *game, char param)//, char *done)
 				i++;
 			if (info[i] == '\0')
 				break;
-		}	
+		}
 		i++;
 	}
 	if (j != 3)
@@ -132,18 +137,28 @@ void	find_info(char *info, t_game *game)
 	{
 		if (info[i] == 'F' && found == 0)
 			get_color(info + i, game, 'F') ? found++ : found++;
+
 		if (info[i] == 'C' && found == 0)
 			get_color(info + i, game, 'C') ? found++ : found++;
+		
 		if (info[i] == 'N' && info[i + 1] == 'O' && found == 0)
 			save_texture(info + i + 2, game, 'N') ? found++ : found++;
+		
 		if (info[i] == 'S' && info[i + 1] == 'O' && found == 0)
 			save_texture(info + i + 2, game, 'S') ? found++ : found++;
+		
 		if (info[i] == 'W' && info[i+1] == 'E' && found == 0)
 			save_texture(info + i + 2, game, 'W') ? found++ : found++;
+		
 		if (info[i] == 'E' && info[i+1] == 'A' && found == 0)
 			save_texture(info + i + 2, game, 'E') ? found++ : found++;
-		if (info[i] == 'S' && info[i + 1] != 'O' && found == 0)
-			save_sprite(info + i + 2, game, info[i + 1]) ? found++ : found++;
+		
+		if (info[i] == 'S' && info[i + 1] != 'O' && info[i + 1] != 'A' && found == 0)
+			save_sprite(info + i + 2, game, info[i + 1], 'S') ? found++ : found++;
+	
+		if (info[i] == 'S' && info[i + 1] == 'A'  && found == 0)
+			save_sprite(info + i + 5, game, info[i + 4], 'A') ? found++ : found++;
+		
 		if (info[i] == 'K' && info[i + 1] == 'Y')
 			save_texture(info + i + 2, game, 'Y') ? found++ : found++;
 		i++;

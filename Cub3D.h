@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/11 06:11:03 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/12 04:02:03 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,23 @@ typedef struct s_player
 	int		fire;
 }		t_player;
 
+typedef struct s_bmp
+{
+	int						zero;
+	unsigned int			size;
+	unsigned int			offset;
+	int						dib_size;
+	int						width;
+	int						heigth;
+	unsigned short int		planes;
+	unsigned short int		bpp;
+}		t_bmp;
+
 typedef struct s_game
 {
-	int			bmp;
+	int			is_bmp;
+	t_bmp		bmp;
+
 	int			res[2]; // resolution X * Y
 
 	int			F[3]; // RGB colors
@@ -114,6 +128,7 @@ typedef struct s_game
 	t_img		WE;
 	t_img		EA;
 	t_img		SP;
+	t_img		SA;
 }		t_game;
 
 /*
@@ -123,8 +138,8 @@ typedef struct s_game
 //Parameters
 # define LINUX		1
 # define FOV		60
-# define CUB_SIZE	64
-# define NB_PARAMS	7 + 5
+//# define CUB_SIZE	64
+# define NB_PARAMS	7 + 9
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
@@ -136,10 +151,10 @@ typedef struct s_game
 # define W1 "./sprites/M2GFB0.xpm"
 # define W2 "./sprites/M2GFA0.xpm"
 # define W3 "./sprites/M2GFC0.xpm"
-
+/*
 # define E1 "./sprites/enemy_aim.xpm"
 # define E2 "./sprites/enemy_shoot.xpm"
-
+*/
 # define D1 "./sprites/doors_close.xpm"
 # define D2 "./sprites/doors_open.xpm"
 
@@ -210,6 +225,7 @@ void	apply_mvmt(t_game *game);
 
 void	ft_error(const char *str, t_game *game);
 int		ft_exit(int keycode, t_game *game);
+void	save(t_game *game, t_img *img);
 
 char	*ft_ctostr(int size, char c);
 char	*ft_strmcat(char *str1, char *str2);
@@ -218,6 +234,7 @@ int		is_str_charset(char *charset, char *str);
 int		in_str(char c, char *str);
 
 void	extract_texture(t_game *game, char *str, char *img, char chr);
+void	extract_anim(t_game *game, char *str, char chr);
 void	extract_file(char *path, t_game *game);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);

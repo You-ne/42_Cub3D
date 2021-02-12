@@ -17,6 +17,7 @@ SRC =	./src/main.c \
 		./src/ft_coor.c \
 		./src/ft_display.c \
 		./src/ft_images.c \
+		./src/ft_save.c \
 		./src/ft_map.c \
 		./src/ft_parsing.c \
 		./src/ft_ray.c \

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/11 07:20:04 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/12 01:45:18 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,7 +517,10 @@ void	ft_raymachine(t_game *game)
 	}
 	draw_life(game, &img);
 	draw_weapon(game, &img, weapon_fire_animation(game, game->player.weapon));
-	mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
+	if (game->is_bmp == 0)
+		mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
+	else
+		save(game, &img);
 	mlx_destroy_image(game->win.mlxp, img.img_p);
 	return ;
 }

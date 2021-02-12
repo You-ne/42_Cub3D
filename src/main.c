@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/11 03:07:16 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/12 03:35:14 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	get_door_tex(t_game *game)
 	tmp->next = door;
 }
 
-
+/*
 void	get_enemy_tex(t_game *game)
 {
 	t_img *enemy;
@@ -131,7 +131,7 @@ void	get_enemy_tex(t_game *game)
 		tmp = tmp->next;
 	tmp->next = enemy;
 }
-
+*/
 t_img	*get_weapon_tex(t_game *game)
 {
 	t_img *weapon;
@@ -190,11 +190,11 @@ int	main(int argc, char **argv)
 	extract_file(argv[1], &game);
 	find_res(&game);
 	game.win.mlxp = mlx_init();
-	game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
+	game.SA.chr = '1';
 	parser(&game);
 	game.player.pos = find_char(game.map);
 	game.player.weapon = get_weapon_tex(&game);
-	get_enemy_tex(&game);
+	//get_enemy_tex(&game);
 	get_door_tex(&game);
 //	while (game.SP.next != NULL)
 //	{

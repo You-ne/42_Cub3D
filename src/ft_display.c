@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/09 03:27:40 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/12 01:47:28 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,26 @@ void	ft_start_display(t_game game)
 {
 
 	printf("\nStarting X Server with resolution %dx%d\n\n", game.res[0], game.res[1]);
-	printf(GREEN);
-	printf("\nStarting Raymachine.....\n\n");
-	ft_raymachine(&game);
-	printf(RESET);
-	printf("Hooking...\n\n");
-	
-	mlx_hook(game.win.winp, 2, KEY_PRESS_M, key_press, &game);
-	mlx_hook(game.win.winp, 3, KEY_RELEASE_M, key_release, &game);
-	mlx_hook(game.win.winp, 17, (1L<<17), ft_exit, &game);
-	printf("%.2f PV\n\n", game.player.pv);
-	mlx_loop_hook(game.win.mlxp, next_frame, &game);
-	mlx_loop(game.win.mlxp);
-	printf("\nXserv start looping, waiting for events:\n\n");
-	printf("\nDisplay done!\n\n");
+	if (game.is_bmp == 0)
+	{
+		game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
+		printf(GREEN);
+		printf("\nStarting Raymachine.....\n\n");
+		ft_raymachine(&game);
+		printf(RESET);
+		printf("Hooking...\n\n");
+		mlx_hook(game.win.winp, 2, KEY_PRESS_M, key_press, &game);
+		mlx_hook(game.win.winp, 3, KEY_RELEASE_M, key_release, &game);
+		mlx_hook(game.win.winp, 17, (1L<<17), ft_exit, &game);
+		printf("%.2f PV\n\n", game.player.pv);
+		mlx_loop_hook(game.win.mlxp, next_frame, &game);
+		mlx_loop(game.win.mlxp);
+		printf("\nXserv start looping, waiting for events:\n\n");
+		printf("\nDisplay done!\n\n");
+	}
+	else if (game.is_bmp == 1)
+	{
+		ft_raymachine(&game);
+		ft_exit(65307, &game);
+	}
 }
