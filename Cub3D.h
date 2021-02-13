@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 04:02:03 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/13 02:06:19 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,18 @@ typedef struct s_bmp
 	unsigned short int		bpp;
 }		t_bmp;
 
+typedef struct s_enemy
+{
+	int x;
+	int y;
+	int tir;
+	int pv;
+	int damage;
+	char chr;
+	clock_t tdeath;
+	struct s_enemy *next;
+}		t_enemy;
+
 typedef struct s_game
 {
 	int			is_bmp;
@@ -118,6 +130,7 @@ typedef struct s_game
 
 	int			enemy_fire;
 	clock_t		enemy_fire_t1;
+	t_enemy		enemies;
 
 	t_win		win;
 	t_player	player;
@@ -139,7 +152,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 //# define CUB_SIZE	64
-# define NB_PARAMS	7 + 9
+# define NB_PARAMS	8 + 10
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2

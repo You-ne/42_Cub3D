@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 04:50:18 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/13 02:35:08 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,76 @@ void	get_map(t_game *game, int line, int nlines, char *sp_set) // good size
 	game->map = new;
 }
 
+void	add_enemy(int x, int y, char enemy_chr, t_game *game)
+{
+	t_enemy		*tmp;
+
+	tmp = &game->enemies;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = (t_enemy*)malloc(sizeof(t_enemy));
+	tmp = tmp->next;
+	tmp->x = x;
+	tmp->y = y;
+	tmp->tir = 0;
+	tmp->pv = 100;
+	tmp->damage = 0;
+	tmp->chr = enemy_chr;
+//	tmp->tdeath = 0;
+	tmp->next = NULL;
+}
+
+void	get_enemies(t_game * game, char *foes_set)
+{
+	int		x;
+	int		y;
+	t_enemy *tmp;
+
+	
+	y = 0;
+	while (game->map[y] != NULL)
+	{
+		x = 0;
+		while (game->map[y][x] != 0)
+		{
+			if (in_str(game->map[y][x], foes_set))
+			{
+				add_enemy(x, y, game->map[y][x], game);
+			}
+			x++;
+		}
+		y++;
+	}
+	free(foes_set);
+	tmp = &game->enemies;
+	while (tmp->next != NULL)
+	{
+		printf("ENEMY : %c \n", tmp->chr);
+		tmp = tmp->next;
+	}
+}
+
+char	*get_foes_char(t_img *enemies)
+{
+	t_img	*tmp;
+	char	*set;
+	char	*chr;
+
+	tmp = enemies;
+	set = ft_strdup("");
+	while (tmp->next != NULL)
+	{
+		if (!(in_str(tmp->chr, set)))
+		{
+			chr = ft_ctostr(1, tmp->chr);
+			set = ft_strmcat(set, chr);
+			free(chr);
+		}
+		tmp = tmp->next;
+	}
+	return (set);
+}
+
 void	find_map(t_game *game, int line) // good size
 {
 	int		end;
@@ -110,5 +180,6 @@ void	find_map(t_game *game, int line) // good size
 		end++;
 	get_map(game, line, end - line, sp_set);
 	verify_map(game, sp_set);
+	get_enemies(game, get_foes_char(&game->SA));
 	free(sp_set);
 }
