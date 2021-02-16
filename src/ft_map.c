@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/13 02:35:08 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/16 01:01:00 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,37 @@ void	add_enemy(int x, int y, char enemy_chr, t_game *game)
 	tmp = tmp->next;
 	tmp->x = x;
 	tmp->y = y;
-	tmp->tir = 0;
-	tmp->pv = 100;
-	tmp->damage = 0;
+	tmp->fire = 0;
+	if (enemy_chr == '@')
+	{
+		tmp->pv = 70;
+		tmp->damage = -10;
+		tmp->time_anim = 200;
+	}
+	else if (enemy_chr == '#')
+	{
+		tmp->pv = 100;
+		tmp->damage = -10;
+		tmp->time_anim = 50;
+	}
+	else if (enemy_chr == '!')
+	{
+		tmp->pv = 180;
+		tmp->damage = -10;
+		tmp->time_anim = 150;
+	}
+	else if (enemy_chr == 'M')
+	{
+		tmp->pv = 200;
+		tmp->damage = -10;
+		tmp->time_anim = 80;
+	}
+	else if (enemy_chr == 'H')
+	{
+		tmp->pv = 180;
+		tmp->damage = -10;
+		tmp->time_anim = 120;
+	}
 	tmp->chr = enemy_chr;
 //	tmp->tdeath = 0;
 	tmp->next = NULL;
@@ -130,6 +158,8 @@ void	get_enemies(t_game * game, char *foes_set)
 			if (in_str(game->map[y][x], foes_set))
 			{
 				add_enemy(x, y, game->map[y][x], game);
+				if (game->map[y][x] == 'M')
+					add_enemy(x, y, 'H', game);
 			}
 			x++;
 		}

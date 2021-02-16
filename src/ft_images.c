@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 04:13:37 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/15 23:58:16 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,15 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 	x = (int)xy.x;
 	y = (int)xy.y;
 	//printf("%d ; ", (int)*(texture + 3));
-	if (LINUX != 1 || (LINUX == 1 && (texture[i] != texture[0] && 
+	if (LINUX != 1 || (LINUX == 1 && (texture[i] == 0 && 
+	texture[i + 1] == 0 && texture[i + 2] == 0 && texture[i + 3] == 0)))
+	{
+		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 0;
+	}
+	else if (LINUX != 1 || (LINUX == 1 && (texture[i] != texture[0] && 
 	texture[i + 1] != texture[1] && texture[i + 2] != texture[0])))
 	{
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = texture[i];
@@ -86,20 +94,13 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = texture[i + 2];
 		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = texture[i + 3];
 	}
-	else if (LINUX != 1 || (LINUX == 1 && (texture[i] == 0 && 
-	texture[i + 1] == 0 && texture[i + 2] == 0)))
-	{
-		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 0;
-	}
 }
 
 void	ft_texture_put(t_img *img, int x, int y, char *texture)
 {
 	//printf("%d ; ", (int)*(texture + 3));
-	if (LINUX != 1 ||  (LINUX == 1 && (*(texture) != 0 && *(texture + 1) != 0 && *(texture + 2) != 0)))
+	if (LINUX != 1 || (LINUX == 1 && (*(texture) != 0 || 
+	*(texture + 1) != 0 || *(texture + 2) != 0)))
 	{
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = *texture;
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
@@ -108,28 +109,69 @@ void	ft_texture_put(t_img *img, int x, int y, char *texture)
 	}
 }
 
-t_img	enemy_fire_animation(t_game *game, t_img *enemy)
+t_img perpetual_animation(t_game *game, t_img *tex)
 {
-	clock_t	t2;
-	float	centisec;
-	t_coor tir;
+	clock_t t2;
+	int		centisec;
+	int n;
+	int i;
+
+	n = count_animation_sprites(tex);
+	t2 = clock();
+	i = 1;
+	centisec = (int)round((double)(t2) / CLOCKS_PER_SEC * 100);
+	while (centisec % (n * 15) > 15 * i && i < n)
+	{
+		tex = tex->next;
+		i++;
+	}
+	return (*tex);
+}
+
+t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
+{
+	clock_t t2;
+	int		centisec;
+	int i;
+	int n;
 
 	t2 = clock();
-	centisec = ((double)(t2 - game->enemy_fire_t1) / CLOCKS_PER_SEC) * 100;
-	if ((int)centisec % 100 < 11)
+	n = count_animation_sprites(tex);
+	i = 1;
+	centisec = (int)round((double)(t2 - enemy->tdeath) / CLOCKS_PER_SEC * 100);
+	while (centisec % (n * 15) > 15 * i && i < n)
 	{
-		if (game->enemy_fire == 0)
+		tex = tex->next;
+		i++;
+	}
+	if (i == n)
+	{
+		change_map(game, enemy->x, enemy->y, find_death_chr(tex->chr));
+	}
+	return (*tex);
+}
+
+t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
+{
+	clock_t	t2;
+	int		centisec;
+
+	t2 = clock();
+	centisec = (int)round((double)(t2) / CLOCKS_PER_SEC * 100);
+//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
+	if (centisec % enemy->time_anim < 10)
+	{
+		if (enemy->fire == 0)
 		{
 			system("aplay -N -q ./sprites/gun_shot.wav &");
-			change_pv(&game->player, -10);
+			change_pv(&game->player, enemy->damage);
 		}
-		game->enemy_fire = 1;
-		return (*(enemy->next));
+		enemy->fire = 1;
+		return (*(tex->next));
 	}
 	else
-		game->enemy_fire = 0;
-
-	return (*enemy);
+		enemy->fire = 0;
+	return (*tex);
 }
 
 void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
@@ -140,13 +182,31 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	double size;
 	t_coor xy;
 	int mid;
+	int x1;
+	int y1;
 
 	xy.y = 0;
 	count = 0;
 	size = sp_size((char)((int)heightncol->dist));
 	tex = find_sprite(game, (char)((int)heightncol->dist));
-	if ((char)((int)heightncol->dist) == '@')
-		tex = enemy_fire_animation(game, &tex);
+	if ((char)((int)heightncol->dist) == '@' || (char)((int)heightncol->dist) == '#'
+	|| (char)((int)heightncol->dist) == '!'|| (char)((int)heightncol->dist) == 'H'
+	|| (char)((int)heightncol->dist) == 'M')
+	{
+		x1 = (int)((heightncol->dist - (int)heightncol->dist) * 1000.0);
+		y1 = (int)round(((heightncol->dist * 1000) - 
+		(int)(heightncol->dist * 1000)) * 1000.0);
+		tex = enemy_fire_animation(game, &tex, find_enemy(game, x1, y1, (char)((int)heightncol->dist)));
+	}
+	else if ((char)((int)heightncol->dist) == '+' || (char)((int)heightncol->dist) == '%'
+	|| (char)((int)heightncol->dist) == '?' || (char)((int)heightncol->dist) == 'm'
+	|| (char)((int)heightncol->dist) == 'h')
+	{
+		x1 = (int)((heightncol->dist - (int)heightncol->dist) * 1000.0);
+		y1 = (int)round(((heightncol->dist * 1000) -
+		(int)(heightncol->dist * 1000)) * 1000.0);
+		tex = death_animation(game, &tex, find_enemy(game, x1, y1, (char)((int)heightncol->dist)));
+	}
 	xy.x = x;
 	mid = game->tilt + (int)(game->res[1] / 2);
 	if (mid + ((heightncol->y * (1 / size)) / 2) -

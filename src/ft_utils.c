@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 03:54:25 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/16 00:06:43 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,4 +161,32 @@ int		in_str(char c, char *str)
 		i++;
 	}
 	return (0);
+}
+
+int		count_animation_sprites(t_img *tex)
+{
+	t_img *tmp;
+	int i;
+
+	tmp = tex->next;
+	i = 0;
+	while (tmp->chr == tex->chr)
+	{
+		i++;
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+t_enemy	*find_enemy(t_game *game, int x, int y, char chr)
+{
+	t_enemy	*enemy;
+
+	enemy = &game->enemies;
+	while (!(enemy->x == x && enemy->y == y &&
+	(enemy->chr == chr || chr == find_death_chr(enemy->chr))))
+		enemy = enemy->next;
+	return (enemy);
 }

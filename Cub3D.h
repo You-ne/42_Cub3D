@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/13 02:06:19 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/15 23:58:49 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ typedef struct s_enemy
 {
 	int x;
 	int y;
-	int tir;
+	int fire;
 	int pv;
 	int damage;
 	char chr;
+	int time_anim;
 	clock_t tdeath;
 	struct s_enemy *next;
 }		t_enemy;
@@ -152,7 +153,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 //# define CUB_SIZE	64
-# define NB_PARAMS	8 + 10
+# define NB_PARAMS	8 + 47
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
@@ -160,6 +161,8 @@ typedef struct s_game
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
+
+# define DAMAGE			-40
 
 # define W1 "./sprites/M2GFB0.xpm"
 # define W2 "./sprites/M2GFA0.xpm"
@@ -231,6 +234,7 @@ int		sp_collision(int x, int y, char **map);
 void	teleportation(t_player *player, double x, double y);
 void	change_map(t_game *game, int x, int y, char chr);
 void	change_pv(t_player *player, float pv);
+void	change_enemy_pv(t_game *game, t_enemy* enemy, int pv);
 
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
@@ -245,6 +249,11 @@ char	*ft_strmcat(char *str1, char *str2);
 char	*ft_strdup(const char *str);
 int		is_str_charset(char *charset, char *str);
 int		in_str(char c, char *str);
+
+int		count_animation_sprites(t_img *tex);
+char	find_death_chr(char chr);
+t_enemy	*find_enemy(t_game *game, int x, int y, char chr);
+void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv);
 
 void	extract_texture(t_game *game, char *str, char *img, char chr);
 void	extract_anim(t_game *game, char *str, char chr);

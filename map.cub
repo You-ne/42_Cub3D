@@ -12,10 +12,53 @@ S4 ./sprites/barrel.xpm
 S5 ./sprites/orc07.xpm
 SP ./sprites/doors_close.xpm
 Sp ./sprites/doors_open.xpm
+S= ./sprites/enemy_dead.xpm
+S$ ./sprites/enemyPM_dead.xpm
+S: ./sprites/enemycapt_dead.xpm
+St ./sprites/Hitler_head.xpm
+
 SAE1@ ./sprites/enemy_aim.xpm
 SAE2@ ./sprites/enemy_shoot.xpm
-SAM1# ./sprites/enemyPM_aim.xpm
-SAM2# ./sprites/enemyPM_shoot.xpm
+SAD1+ ./sprites/enemy_dead1.xpm
+SAD2+ ./sprites/enemy_dead2.xpm
+SAD3+ ./sprites/enemy_dead3.xpm
+SAD4+ ./sprites/enemy_dead4.xpm
+
+SAP1# ./sprites/enemyPM_aim.xpm
+SAP2# ./sprites/enemyPM_shoot.xpm
+SAF1% ./sprites/enemyPM_dead1.xpm
+SAF2% ./sprites/enemyPM_dead2.xpm
+SAF3% ./sprites/enemyPM_dead3.xpm
+SAF4% ./sprites/enemyPM_dead4.xpm
+SAF5% ./sprites/enemyPM_dead.xpm
+
+SAC1! ./sprites/enemycapt_aim.xpm
+SAC2! ./sprites/enemycapt_shoot.xpm
+SAG1? ./sprites/enemycapt_dead1.xpm
+SAG2? ./sprites/enemycapt_dead2.xpm
+SAG3? ./sprites/enemycapt_dead3.xpm
+SAG4? ./sprites/enemycapt_dead4.xpm
+SAG5? ./sprites/enemycapt_dead.xpm
+
+SAM1M ./sprites/MecaHitler_aim.xpm
+SAM2M ./sprites/MecaHitler_fire1.xpm
+SAD1m ./sprites/MecaHitler_dead1.xpm
+SAD2m ./sprites/MecaHitler_dead2.xpm
+SAD3m ./sprites/MecaHitler_dead3.xpm
+SAD4m ./sprites/MecaHitler_dead3.xpm
+
+SAM1H ./sprites/Hitler_aim.xpm
+SAM2H ./sprites/Hitler_fire.xpm
+SAD1h ./sprites/Hitler_dead1.xpm
+SAD2h ./sprites/Hitler_dead2.xpm
+SAD3h ./sprites/Hitler_dead3.xpm
+SAD4h ./sprites/Hitler_dead4.xpm
+SAD5h ./sprites/Hitler_dead5.xpm
+SAD6h ./sprites/Hitler_dead6.xpm
+SAD7h ./sprites/Hitler_dead7.xpm
+SAD8h ./sprites/Hitler_dead8.xpm
+SAD9h ./sprites/Hitler_head.xpm
+
 KY ./sprites/skybox/color-galaxy.xpm
 
 1111111111111111111111111111111111111111111111111 1111111111111111
@@ -25,12 +68,12 @@ KY ./sprites/skybox/color-galaxy.xpm
 100000000000000000000000000000000000000000000000003001000000000001
 100000000000000000111100000000111000000000000000000001050000000001
 105000000011111000000000000000000000000000000000003001000000000001
-100000000000000000000000000000000002222222250000000001000000000001
-1000000000000000000000011200000N000000000000000000000P000000000001
+10000000000000000000M000000000000002222222250000000001000000000001
+1000000000000000000000011200000N000000!00000000000000P000000000001
 100000011111111111111100000000000000000000000000003001000000000001
 100000000000002000000000000011P11p10000000000002000001000000000001
 100000000000001111111111111000000000000000000000003001000000000001
-100000000000001111111111111000000000000000000000000001000000000001
+10000000000000111111111111100000000##########000000001000000000001
 100000000000000000000000000000000000000000000000003001000000002001
 141111111100000000000000000000023451000000000000000001444544444441
 111111111111111111111111111111111111111111111111111111111011111111
