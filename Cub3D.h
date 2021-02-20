@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/15 23:58:49 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/20 07:09:40 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@
 
 typedef struct s_coor
 {
-	double			x;
-	double			y;
-	double			dist;
+	float			x;
+	float			y;
+	float			dist;
 	struct s_coor	*next;
 }		t_coor;
 
@@ -131,11 +131,15 @@ typedef struct s_game
 
 	int			enemy_fire;
 	clock_t		enemy_fire_t1;
-	t_enemy		enemies;
+	t_enemy		*enemies;
 
 	t_win		win;
 	t_player	player;
 
+	clock_t		victory;
+
+	t_img		game_over;
+	t_img		you_win;
 	t_img		SKY;
 	t_img		NO; //Textures and Sprite
 	t_img		SO;
@@ -157,7 +161,7 @@ typedef struct s_game
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
-# define FRONT_SPEED	0.15
+# define FRONT_SPEED	0.10
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
@@ -167,12 +171,9 @@ typedef struct s_game
 # define W1 "./sprites/M2GFB0.xpm"
 # define W2 "./sprites/M2GFA0.xpm"
 # define W3 "./sprites/M2GFC0.xpm"
-/*
-# define E1 "./sprites/enemy_aim.xpm"
-# define E2 "./sprites/enemy_shoot.xpm"
-*/
-# define D1 "./sprites/doors_close.xpm"
-# define D2 "./sprites/doors_open.xpm"
+
+# define GAME_OVER "./sprites/GameOver.xpm"
+# define YOU_WIN "./sprites/YOUWIN.xpm"
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -212,6 +213,10 @@ typedef struct s_game
 /*
 **------------------------------- Prototypes -----------------------------------
 */
+void	my_delay(int i);
+void	end_screen(t_game *game, t_img *tex, t_img *img);
+
+
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 
@@ -221,6 +226,12 @@ void	find_map(t_game *game, int line);
 t_coor	find_char(char **map);
 t_coor	init_dir(char **map, t_coor coor);
 t_img	find_sprite(t_game *game, char chr);
+t_coor	*ft_add_door(t_game *game, t_coor ray, t_coor dir, t_coor eqline);
+
+t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game *game);
+t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game *game);
+t_coor	ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game);
+
 
 void	draw_sky(t_game *game, t_img *img);
 void	draw_life(t_game *game, t_img *img);
@@ -228,10 +239,15 @@ void	draw_weapon(t_game *game, t_img *img, t_img *tex);
 t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
+t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img	*weapon_fire_animation(t_game *game, t_img *weapon);
+
+
 void	sp_events(t_game *game);
-double	sp_size(char chr);
+float	sp_size(char chr);
 int		sp_collision(int x, int y, char **map);
-void	teleportation(t_player *player, double x, double y);
+void	teleportation(t_player *player, float x, float y);
 void	change_map(t_game *game, int x, int y, char chr);
 void	change_pv(t_player *player, float pv);
 void	change_enemy_pv(t_game *game, t_enemy* enemy, int pv);
@@ -254,14 +270,26 @@ int		count_animation_sprites(t_img *tex);
 char	find_death_chr(char chr);
 t_enemy	*find_enemy(t_game *game, int x, int y, char chr);
 void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv);
+t_coor	ft_dirsteps(t_coor vecray);
+
+char	ft_ray_collision(char **map, t_coor ray, t_coor dir);
+
+float	ft_pythagore(float x, float y);
+
+t_coor	*ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline);
+
+void	ft_pixel_put(t_img *img, int x, int y, int color);
+void	ft_texture_put(t_img *img, int x, int y, char *texture);
+void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i);
+void	ft_projection(t_game *game, t_coor ray, int x, t_img *img);
 
 void	extract_texture(t_game *game, char *str, char *img, char chr);
 void	extract_anim(t_game *game, char *str, char chr);
 void	extract_file(char *path, t_game *game);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
-void	ft_raymachine(t_game *game);
-t_coor	ft_raycannon(t_coor pos, t_coor vect, double angle, t_game *game);
+void	ft_raymachine(t_game *game, t_img *img);
+t_coor	ft_raycannon(t_coor pos, t_coor vect, float angle, t_game *game);
 void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
 
 #endif

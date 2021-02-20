@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 03:35:14 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/17 03:41:21 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ if (k < NB_PARAMS)
 	ft_error("Not enough parameters!! \n", game);
 	return (0);
 }
-
+/*
 void	get_door_tex(t_game *game)
 {
 	t_img *door;
@@ -105,7 +105,7 @@ void	get_door_tex(t_game *game)
 		tmp = tmp->next;
 	tmp->next = door;
 }
-
+*/
 /*
 void	get_enemy_tex(t_game *game)
 {
@@ -195,7 +195,7 @@ int	main(int argc, char **argv)
 	game.player.pos = find_char(game.map);
 	game.player.weapon = get_weapon_tex(&game);
 	//get_enemy_tex(&game);
-	get_door_tex(&game);
+//	get_door_tex(&game);
 //	while (game.SP.next != NULL)
 //	{
 //		printf("SP=%c;\n", game.SP.chr);
@@ -205,6 +205,10 @@ int	main(int argc, char **argv)
 	game.player.pv = 100.0;
 	game.tilt = 0;
 	game.enemy_fire_t1 = clock();
+	game.game_over.img_p = mlx_xpm_file_to_image(game.win.mlxp, GAME_OVER, &game.game_over.width, &game.game_over.height);
+	game.game_over.img = mlx_get_data_addr(game.game_over.img_p, &game.game_over.bpp, &game.game_over.s_line, &game.game_over.endian);
+	game.you_win.img_p = mlx_xpm_file_to_image(game.win.mlxp, YOU_WIN, &game.you_win.width, &game.you_win.height);
+	game.you_win.img = mlx_get_data_addr(game.you_win.img_p, &game.you_win.bpp, &game.you_win.s_line, &game.you_win.endian);
 	//Display map for debug
 	printf("\nTRIMMED LAYOUT:\n");
 	while (game.map[i] != NULL)

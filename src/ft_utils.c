@@ -6,11 +6,49 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/16 00:06:43 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/18 23:32:17 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+t_coor	ft_dirsteps(t_coor vecray)
+{
+	t_coor dir;
+
+	if (vecray.x > 0)
+		dir.x = 1;
+	else if (vecray.x == 0)
+		dir.x = -2;
+	else
+		dir.x = 0;
+	if (vecray.y > 0)
+		dir.y = 1;
+	else
+		dir.y = 0;
+	return (dir);
+}
+
+t_img find_sprite(t_game *game, char chr)
+{
+	t_img *tex1;
+	t_img *tex2;
+
+	tex1 = &game->SP;
+	tex2 = &game->SA;
+	while (tex1->chr != chr && tex1->next != NULL)
+	{
+		tex1 = tex1->next;
+	}
+	if (tex1->chr == chr)
+		return (*tex1);
+	while (tex2->chr != chr && tex2->next != NULL)
+	{
+		tex2 = tex2->next;
+	}
+	if (tex2->chr == chr)
+		return (*tex2);
+}
 
 void	extract_anim(t_game *game, char *str, char chr)
 {
@@ -184,7 +222,7 @@ t_enemy	*find_enemy(t_game *game, int x, int y, char chr)
 {
 	t_enemy	*enemy;
 
-	enemy = &game->enemies;
+	enemy = game->enemies;
 	while (!(enemy->x == x && enemy->y == y &&
 	(enemy->chr == chr || chr == find_death_chr(enemy->chr))))
 		enemy = enemy->next;

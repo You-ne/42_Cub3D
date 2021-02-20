@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/16 01:07:24 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/20 07:04:51 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int		sp_collision(int x, int y, char **map)
 		return (0);
 }
 
-double	sp_size(char chr)
+float	sp_size(char chr)
 {
-	double size;
+	float size;
 
 	size = 1.0;
 	if (chr == '2')
@@ -95,7 +95,7 @@ void	sp_events(t_game *game)
 		if (!t1)
 			t1 = clock();
 		t2 = clock();
-		centisec = ((double)(t2 - t1) / CLOCKS_PER_SEC) * 100;
+		centisec = ((float)(t2 - t1) / CLOCKS_PER_SEC) * 100;
 		if (centisec >= 50)
 		{
 			change_pv(&game->player, -20);

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/11 06:03:27 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/20 06:35:01 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	move(t_player *player, char **map, float speed, int frontnback)
 {
-	double pente;
-	double angle;
+	float pente;
+	float angle;
 	float x;
 	float y;
 
 
 	pente = player->vect.y / player->vect.x;
-	angle = atan(pente);
+	angle = atanf(pente);
 	if (frontnback == 1)
 	{
 		x = player->pos.x + (speed * cos(angle) * (player->vect.x < 0 ? -1 : 1));
@@ -43,8 +43,8 @@ void	move(t_player *player, char **map, float speed, int frontnback)
 
 void	rotation(t_coor *vect, float angle)
 {
-	double x;
-	double y;
+	float x;
+	float y;
 
 	x = vect->x;
 	y = vect->y;
@@ -120,7 +120,7 @@ int		key_press(int keycode, t_game *game)
 	static int nose_axis;
 	int zfov;
 
-	zfov = (int)(((double)game->res[1] / (double)game->res[0]) * FOV);
+	zfov = (int)(((float)game->res[1] / (float)game->res[0]) * FOV);
 	if (!nose_axis)
 		nose_axis = 0;
 	if (keycode == LEFT)

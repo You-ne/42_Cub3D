@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 01:47:28 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/17 04:21:15 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,54 @@
 
 int		next_frame(t_game *game)
 {
+	t_img	img;
+	t_enemy *enemy;
+	clock_t t2;
+
 	//cleaning?
-	sp_events(game);
-	ft_raymachine(game);
+	t2 = clock();
+	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
+	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
+	if (game->victory && (t2 - game->victory) / CLOCKS_PER_SEC > 10)
+	{
+		end_screen(game, &game->you_win, &img);
+		mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
+		mlx_destroy_image(game->win.mlxp, img.img_p);
+	}
+	else if (game->player.pv > 0)
+	{
+		sp_events(game);
+		apply_mvmt(game);
+		draw_sky(game, &img);
+		ft_raymachine(game, &img);
+		draw_life(game, &img);
+		draw_weapon(game, &img, weapon_fire_animation(game, game->player.weapon));
+		mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
+		mlx_destroy_image(game->win.mlxp, img.img_p);
+	}
+	else
+	{
+		end_screen(game, &game->game_over, &img);
+		mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
+		mlx_destroy_image(game->win.mlxp, img.img_p);
+	}
 	//image management?
 	return (0);
+}
+
+void	ft_start_bmp(t_game *game)
+{
+	t_img	img;
+
+	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
+	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
+	draw_sky(game, &img);
+	ft_raymachine(game, &img);
+	draw_life(game, &img);
+	draw_weapon(game, &img, weapon_fire_animation(game, game->player.weapon));
+	save(game, &img);
+	mlx_destroy_image(game->win.mlxp, img.img_p);
+	ft_exit(65307, game);
 }
 
 void	ft_start_display(t_game game)
@@ -30,7 +73,7 @@ void	ft_start_display(t_game game)
 		game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
 		printf(GREEN);
 		printf("\nStarting Raymachine.....\n\n");
-		ft_raymachine(&game);
+//		ft_raymachine(&game);
 		printf(RESET);
 		printf("Hooking...\n\n");
 		mlx_hook(game.win.winp, 2, KEY_PRESS_M, key_press, &game);
@@ -43,8 +86,5 @@ void	ft_start_display(t_game game)
 		printf("\nDisplay done!\n\n");
 	}
 	else if (game.is_bmp == 1)
-	{
-		ft_raymachine(&game);
-		ft_exit(65307, &game);
-	}
+		ft_start_bmp(&game);
 }

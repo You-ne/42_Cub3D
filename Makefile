@@ -12,6 +12,12 @@ NAME= ./cub3D
 
 SRC =	./src/main.c \
 		./src/param_sprites.c \
+		./src/draw.c \
+		./src/sprites.c \
+		./src/doors_bonus.c \
+		./src/ft_pythagore.c \
+		./src/animation.c \
+		./src/raymachine.c \
 		./src/events.c \
 		./src/ft_control.c \
 		./src/ft_coor.c \

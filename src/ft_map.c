@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/16 01:01:00 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/18 23:25:02 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	add_enemy(int x, int y, char enemy_chr, t_game *game)
 {
 	t_enemy		*tmp;
 
-	tmp = &game->enemies;
+	tmp = game->enemies;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = (t_enemy*)malloc(sizeof(t_enemy));
@@ -142,14 +142,17 @@ void	add_enemy(int x, int y, char enemy_chr, t_game *game)
 	tmp->next = NULL;
 }
 
-void	get_enemies(t_game * game, char *foes_set)
+void	get_enemies(t_game *game, char *foes_set)
 {
 	int		x;
 	int		y;
-	t_enemy *tmp;
+	t_enemy	*tmp;
 
-	
 	y = 0;
+	game->enemies = (t_enemy*)malloc(sizeof(t_enemy));
+	game->enemies->next = NULL;
+	game->enemies->x = -1;
+	game->enemies->chr = '0';
 	while (game->map[y] != NULL)
 	{
 		x = 0;
@@ -166,7 +169,7 @@ void	get_enemies(t_game * game, char *foes_set)
 		y++;
 	}
 	free(foes_set);
-	tmp = &game->enemies;
+	tmp = game->enemies;
 	while (tmp->next != NULL)
 	{
 		printf("ENEMY : %c \n", tmp->chr);

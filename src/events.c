@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/16 00:01:51 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/20 05:27:06 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 		{
 			enemy->tdeath = clock();
 			change_map(game, enemy->x, enemy->y, find_death_chr(enemy->chr));
+				if (enemy->chr == 'H')
+					game->victory = clock();
 		}
 	}
 }
@@ -59,14 +61,14 @@ void	weapon_fire(t_game *game, t_coor *tir)
 		(char)((int)tir->next->dist) != 'H')
 			return ;
 		x = (int)((tir->next->dist - (int)tir->next->dist) * 1000.0);
-		y = (int)round(((tir->next->dist * 1000) -
+		y = (int)roundf(((tir->next->dist * 1000) -
 		(int)(tir->next->dist * 1000)) * 1000.0);
 		enemy = find_enemy(game, x, y, (char)((int)tir->next->dist));
 		change_enemy_pv(game, enemy, DAMAGE);
 	}
 }
 
-void	teleportation(t_player *player, double x, double y)
+void	teleportation(t_player *player, float x, float y)
 {
 	player->pos.x = x;
 	player->pos.y = y;
@@ -82,7 +84,5 @@ void	change_pv(t_player *player, float pv)
 	player->pv = player->pv + pv;
 	if (player->pv > 100)
 		player->pv = 100;
-	else if (player->pv <= 0.1)
-		exit(0);
 }
 
