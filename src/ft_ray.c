@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/21 03:56:07 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 04:47:20 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor dir, t_coor eqline
 		return ;
 	}
 	else if (ft_ray_collision(game->map, *ray, dir) == 'P' ||
-	ft_ray_collision(game->map, *ray, dir) == 'p')
+	ft_ray_collision(game->map, *ray, dir) == 'p'||
+	ft_ray_collision(game->map, *ray, dir) == '*')
 	{
 		sp = ft_add_door(game, *ray, dir, eqline);
 		ray->next = (sp != NULL) ? sp : ray->next;

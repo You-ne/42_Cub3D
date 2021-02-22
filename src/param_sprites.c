@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 05:23:23 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:33:11 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_img	find_animation(t_game *game, float info, t_img tex)
 	return (tex);
 }
 
-
 int	is_alive_or_dead(char chr)
 {
 	if (chr == '@' || chr == '#' || chr == '!' || chr == 'M' || chr == 'H')
@@ -40,7 +39,7 @@ int	is_alive_or_dead(char chr)
 	return (0);
 }
 
-char	find_fire_chr(char chr)
+char	find_shooting_chr(char chr)
 {
 	return ('\0');
 }
@@ -73,7 +72,7 @@ char	find_death_chr(char chr)
 
 int		sp_collision(int x, int y, char **map)
 {
-	if (map[y][x] == '1' || map[y][x] == '3' || map[y][x] == '5' ||
+	if (map[y][x] == '1' || map[y][x] == '3' || map[y][x] == '*' ||
 	map[y][x] == '@' || map[y][x] == 'P' || map[y][x] == '#' ||
 	map[y][x] == '!' || map[y][x] == 'M' || map[y][x] == 'm' ||
 	map[y][x] == 'H')
@@ -96,53 +95,40 @@ float	sp_size(char chr)
 		size = 1.1;
 	if (chr == '4')
 		size = 0.5;
-	if (chr == '5' || chr == 'M' || chr == 'm' || chr == 'H' || chr == 'h')
+	if (chr == 'M' || chr == 'm' || chr == 'H' || chr == 'h')
 		size = 0.7;
 	if (chr == 't')
 		size = 0.2;
+	if (chr == '5')
+		size = 0.1;
 	return (size);
+}
+
+void	key_found(t_game *game)
+{
+	change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
+	if (game->secret.dist == 1)
+		change_map(game, (int)game->secret.x, (int)game->secret.y, '0');
 }
 
 void	sp_events(t_game *game)
 {
 	char chr;
-	static clock_t t1;
-	static int atk;
-	clock_t t2;
 	char **map;
 	float	centisec;
 
 	map = game->map;
 	chr = map[(int)game->player.pos.y][(int)game->player.pos.x];
-	if (chr == '4')
+	if (chr == '2')
+		teleportation(&game->player, 61.5, 12.5);
+	if (chr == '5')
+		key_found(game);
+	if (chr == '=')
 	{
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 		game->player.num_weapon = 2;
 		game->player.damage = -100;
 	}
-	if (chr == '2')
-		teleportation(&game->player, 61.5, 12.5);
-	if (map[(int)game->player.pos.y + 1][(int)game->player.pos.x] == '5' ||
-		map[(int)game->player.pos.y - 1][(int)game->player.pos.x] == '5' ||
-		map[(int)game->player.pos.y][(int)game->player.pos.x + 1] == '5' ||
-		map[(int)game->player.pos.y][(int)game->player.pos.x - 1] == '5' ||
-		map[(int)game->player.pos.y - 1][(int)game->player.pos.x - 1] == '5' ||
-		map[(int)game->player.pos.y + 1][(int)game->player.pos.x + 1] == '5' ||
-		map[(int)game->player.pos.y - 1][(int)game->player.pos.x + 1] == '5' ||
-		map[(int)game->player.pos.y + 1][(int)game->player.pos.x - 1] == '5')
-	{
-		if (!t1)
-			t1 = clock();
-		t2 = clock();
-		centisec = ((float)(t2 - t1) / CLOCKS_PER_SEC) * 100;
-		if (centisec >= 50)
-		{
-			change_pv(&game->player, -20);
-			t1 = 0;
-		}
-	}
-	else
-		t1 = 0;
 	if (chr == '4')
 	{
 		change_pv(&game->player, 15);

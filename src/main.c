@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 04:13:47 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:40:24 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,56 +70,7 @@ int			parser(t_game *game) //too long
 	}
 	return (0);
 }
-/*
-void	get_door_tex(t_game *game)
-{
-	t_img *door;
-	t_img *door2;
-	t_img *tmp;
 
-	tmp = &game->SP;
-	door = (struct s_img*)malloc(sizeof(struct s_img));
-	door2 = (struct s_img*)malloc(sizeof(struct s_img));
-
-	door->img_p = mlx_xpm_file_to_image(game->win.mlxp, D1, &door->width, &door->height);
-	door->img = mlx_get_data_addr(door->img_p, &door->bpp, &door->s_line, &door->endian);
-	door2->img_p = mlx_xpm_file_to_image(game->win.mlxp, D2, &door2->width, &door2->height);
-	door2->img = mlx_get_data_addr(door2->img_p, &door2->bpp, &door2->s_line, &door2->endian);
-	door->next = door2;
-	door2->next = NULL;
-	door->chr = 'P';
-	door2->chr = 'p';
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = door;
-}
-*/
-/*
-void	get_enemy_tex(t_game *game)
-{
-	t_img *enemy;
-	t_img *enemy2;
-	t_img *tmp;
-
-	tmp = &game->SP;
-	enemy = (struct s_img*)malloc(sizeof(struct s_img));
-	enemy2 = (struct s_img*)malloc(sizeof(struct s_img));
-
-	enemy->img_p = mlx_xpm_file_to_image(game->win.mlxp, E1, &enemy->width, &enemy->height);
-	printf("img_p=%p\n", enemy->img_p);
-	enemy->img = mlx_get_data_addr(enemy->img_p, &enemy->bpp, &enemy->s_line, &enemy->endian);
-	enemy2->img_p = mlx_xpm_file_to_image(game->win.mlxp, E2, &enemy2->width, &enemy2->height);
-	printf("img_p=%p\n", enemy2->img_p);
-	enemy2->img = mlx_get_data_addr(enemy2->img_p, &enemy2->bpp, &enemy2->s_line, &enemy2->endian);
-	enemy->next = enemy2;
-	enemy2->next = NULL;
-	enemy->chr = '@';
-	enemy2->chr = '@';
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = enemy;
-}
-*/
 t_img	*get_weapon_tex(t_game *game, char *n1, char *n2, char *n3)
 {
 	t_img *weapon;
@@ -172,11 +123,27 @@ void	init(t_game *game)
 	game->Ce = 0;
 	game->map_found = 0;
 	game->nb_params = 0;
+	game->secret.x = 0;
+	game->secret.y = 0;
+	game->secret.dist = 0;
+	game->SA.chr = '1';
+	game->player.num_weapon = 1;
+	game->player.damage = -40;
+	game->player.pv = 100.0;
+	game->tilt = 0;
+}
+
+void	init_screens(t_game *game)
+{
+	game->game_over.img_p = mlx_xpm_file_to_image(game->win.mlxp, GAME_OVER, &game->game_over.width, &game->game_over.height);
+	game->game_over.img = mlx_get_data_addr(game->game_over.img_p, &game->game_over.bpp, &game->game_over.s_line, &game->game_over.endian);
+	game->you_win.img_p = mlx_xpm_file_to_image(game->win.mlxp, YOU_WIN, &game->you_win.width, &game->you_win.height);
+	game->you_win.img = mlx_get_data_addr(game->you_win.img_p, &game->you_win.bpp, &game->you_win.s_line, &game->you_win.endian);
+	game->player.vect = init_dir(game->map, game->player.pos);
 }
 
 int	main(int argc, char **argv)
 {
-//	int		fd;
 	t_game	game;
 	int		i;
 
@@ -187,28 +154,12 @@ int	main(int argc, char **argv)
 	extract_file(argv[1], &game);
 	find_res(&game);
 	game.win.mlxp = mlx_init();
-	game.SA.chr = '1';
 	parser(&game);
 	game.player.pos = find_char(&game);
 	game.player.weapon = get_weapon_tex(&game, P1, P2, P3);
 	game.player.weapon2 = get_weapon_tex(&game, M1, M2, M3);
-	game.player.num_weapon = 1;
-	game.player.damage = -40;
-	game.player.pv = 100.0;
-	game.tilt = 0;
 	game.enemy_fire_t1 = clock();
-	game.game_over.img_p = mlx_xpm_file_to_image(game.win.mlxp, GAME_OVER, &game.game_over.width, &game.game_over.height);
-	game.game_over.img = mlx_get_data_addr(game.game_over.img_p, &game.game_over.bpp, &game.game_over.s_line, &game.game_over.endian);
-	game.you_win.img_p = mlx_xpm_file_to_image(game.win.mlxp, YOU_WIN, &game.you_win.width, &game.you_win.height);
-	game.you_win.img = mlx_get_data_addr(game.you_win.img_p, &game.you_win.bpp, &game.you_win.s_line, &game.you_win.endian);
-	//Display map for debug
-	printf("\nTRIMMED LAYOUT:\n");
-	while (game.map[i] != NULL)
-	{
-		printf("%d:%s\n", i, game.map[i]);
-		i++;
-	}
-	game.player.vect = init_dir(game.map, game.player.pos);
+	init_screens(&game);
 	change_map(&game, (int)game.player.pos.x, (int)game.player.pos.y, '0');
 	ft_start_display(game);
 	return(0);

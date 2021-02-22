@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/21 06:41:56 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 04:48:32 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 		i = (int)(((float)tex->height / heightncol->y) * xy->dist);
 		i = i * tex->s_line;
 		i = i + ((int)(heightncol->x)) * (tex->bpp / 8);
-		if ((char)((int)heightncol->dist) == 'P' ||
-		(char)((int)heightncol->dist) == 'p')
+		if ((char)((int)heightncol->dist) == 'p' ||
+		(char)((int)heightncol->dist) == 'p' ||
+		(char)((int)heightncol->dist) == '*')
 			ft_texture_put(img, xy->x, xy->y, (tex->img +i));
 		else
 			ft_texture_put_sp(img, *xy, tex->img, i);

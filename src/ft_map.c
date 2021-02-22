@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/20 23:05:45 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 05:00:14 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,30 @@ char	*get_foes_char(t_img *enemies)
 	return (set);
 }
 
+void	find_secret_door(t_game *game)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (game->map[y] != NULL)
+	{
+		x = 0;
+		while (game->map[y][x] != 0)
+		{
+			if (game->map[y][x] == '*')
+			{
+				game->secret.x = x;
+				game->secret.y = y;
+				game->secret.dist = 1;
+				return;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 int		find_map(t_game *game, int line, int nb_params) // good size
 {
 	int		end;
@@ -211,6 +235,7 @@ int		find_map(t_game *game, int line, int nb_params) // good size
 	get_map(game, line, end - line, sp_set);
 	verify_map(game, sp_set);
 	get_enemies(game, get_foes_char(&game->SA));
+	find_secret_door(game);
 	free(sp_set);
 	game->map_found = 1;
 	return (1);

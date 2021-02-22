@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 04:43:09 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:30:52 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	weapon_fire(t_game *game, t_coor *tir)
 		change_enemy_pv(game, enemy, game->player.damage);
 	}
 }
+
 
 void	teleportation(t_player *player, float x, float y)
 {

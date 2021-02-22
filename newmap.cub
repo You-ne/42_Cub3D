@@ -8,14 +8,14 @@ EA ./cont/walls/plate.xpm
 SO ./cont/walls/rusted.xpm
 
 S2 ./cont/obj/chat.xpm
-S3 ./cont/obj/SPRITE.xpm
 S4 ./cont/obj/barrel.xpm
 S5 ./cont/obj/key.xpm
 S6 ./cont/obj/puit.xpm
 S7 ./cont/obj/puit-sang.xpm
 S8 ./cont/obj/Spear.xpm
 S9 ./cont/obj/statue.xpm
-S* ./cont/obj/pod.xpm
+S* ./cont/walls/panel.xpm
+S/ ./cont/obj/SPRITE.xpm
 
 SP ./cont/walls/doors_close.xpm
 Sp ./cont/walls/doors_open.xpm
@@ -39,8 +39,8 @@ SAD2+ ./cont/foes/enemy_dead2.xpm
 SAD3+ ./cont/foes/enemy_dead3.xpm
 SAD4+ ./cont/foes/enemy_dead4.xpm
 
-SAP1p ./cont/foes/enemyPM_aim.xpm
-SAP2p ./cont/foes/enemyPM_shoot.xpm
+SAP1V ./cont/foes/enemyPM_aim.xpm
+SAP2V ./cont/foes/enemyPM_shoot.xpm
 SAF1% ./cont/foes/enemyPM_dead1.xpm
 SAF2% ./cont/foes/enemyPM_dead2.xpm
 SAF3% ./cont/foes/enemyPM_dead3.xpm
@@ -132,10 +132,12 @@ SAU4u ./cont/foes/uber_d4.xpm
 SAU5u ./cont/foes/uber_dead.xpm
 
 KY ./cont/color-galaxy.xpm
-
 111111111111111111111
 100000000000000000001
-100000004000000000001
+100000000000000000001
+111111111*11111111111
+100000000000000000001
+100000000500000000001
 100000000000000000001
 100000000N000000000A1
 100000000000000000001

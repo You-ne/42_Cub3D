@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 05:25:18 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:41:19 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ typedef struct s_game
 
 	char		**map;
 
+	t_coor		secret;
+
 	int			enemy_fire;
 	clock_t		enemy_fire_t1;
 	t_enemy		*enemies;
@@ -230,7 +232,6 @@ void	end_screen(t_game *game, t_img *tex, t_img *img);
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 
-int		is_alive_or_dead(char chr);
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);
 int		find_map(t_game *game, int line, int nb_params);
@@ -251,12 +252,12 @@ t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
 t_img	find_animation(t_game *game, float info, t_img tex);
-t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon);
-
-char	find_fire_chr(char chr);
+char	find_shooting_chr(char chr);
+int		is_alive_or_dead(char chr);
 
 void	sp_events(t_game *game);
 float	sp_size(char chr);

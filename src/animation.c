@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 05:25:22 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:34:08 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	}
 	if (i == n)
 	{
-		change_map(game, enemy->x, enemy->y, find_fire_chr(tex->chr));
+		change_map(game, enemy->x, enemy->y, find_shooting_chr(tex->chr));
 	}
 	return (*tex);
 }
@@ -58,7 +58,7 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	else
 		enemy->fire = 0;
 	return (*tex);
-}
+	}
 
 t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
