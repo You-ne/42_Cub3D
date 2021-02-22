@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 06:10:06 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:09:55 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 //# define CUB_SIZE	64
-# define NB_PARAMS	8 + 108
+# define NB_PARAMS	8 + 109
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
@@ -239,11 +239,12 @@ int		find_map(t_game *game, int line, int nb_params);
 t_coor	find_char(t_game *game);
 t_coor	init_dir(char **map, t_coor coor);
 t_img	find_sprite(t_game *game, char chr);
-t_coor	*ft_add_door(t_game *game, t_coor ray, t_coor dir, t_coor eqline);
+void	param_enemy(t_game *game, t_enemy *enemy, char chr);
+t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
 
-t_coor	ft_Xray(t_coor eqline, t_coor dir, t_coor ray, t_game *game);
-t_coor	ft_Yray(t_coor eqline, t_coor dir, t_coor ray, t_game *game);
-t_coor	ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game);
+void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
+void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
+void	ft_vertical_ray(t_coor *eqline, t_coor *dir, t_coor *ray, t_game *game);
 
 
 void	draw_sky(t_game *game, t_img *img);
@@ -288,16 +289,16 @@ t_enemy	*find_enemy(t_game *game, int x, int y, char chr);
 void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv);
 t_coor	ft_dirsteps(t_coor vecray);
 
-char	ft_ray_collision(char **map, t_coor ray, t_coor dir);
+char	ft_ray_collision(char **map, t_coor *ray, t_coor *dir);
 
 float	ft_pythagore(float x, float y);
 
-t_coor	*ft_add_sprite(t_game *game, t_coor ray, t_coor dir, t_coor eqline);
+t_coor	*ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
 
 void	ft_pixel_put(t_img *img, int x, int y, int color);
 void	ft_texture_put(t_img *img, int x, int y, char *texture);
 void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i);
-void	ft_projection(t_game *game, t_coor ray, int x, t_img *img);
+void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img);
 
 void	extract_texture(t_game *game, char *str, char *img, char chr);
 void	extract_anim(t_game *game, char *str, char chr);
@@ -305,7 +306,7 @@ void	extract_file(char *path, t_game *game);
 char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game *game, t_img *img);
-t_coor	ft_raycannon(t_coor pos, t_coor vect, float angle, t_game *game);
+t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game);
 void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 04:24:29 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 08:21:42 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 10:32:47 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,28 @@ int	corner_ray_col(t_game *game, t_coor *ray, t_coor *heightncol, t_img *img)
 void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img)
 {
 	float	distproj;
-	t_coor	*hnc;
+	t_coor	hnc;
 
-	hnc = ray;
+	hnc = *ray;
 	distproj = ((float)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
-	hnc->y = (float)(int)(distproj / ray->dist);
-	hnc->dist = (float)x;
-	if (corner_ray_col(game, ray, hnc, img) == 1)
+	hnc.y = (float)(int)(distproj / ray->dist);
+	hnc.dist = (float)x;
+	if (corner_ray_col(game, ray, &hnc, img) == 1)
 		return ;
 	if (ray->x == (float)((int)ray->x))
 	{
 		if (game->player.pos.x < ray->x)
 		{
-			hnc->x = (float)(((int)(game->WE.width * ray->y)) % game->WE.width);
-			ft_drawcol(hnc, game->WE, game, img);
+			hnc.x = (float)(((int)(game->WE.width * ray->y)) % game->WE.width);
+			ft_drawcol(&hnc, game->WE, game, img);
 		}
 		else
 		{
-			hnc->x = (float)(((int)(game->EA.width * ray->y)) % game->EA.width);
-			ft_drawcol(hnc, game->EA, game, img);
+			hnc.x = (float)(((int)(game->EA.width * ray->y)) % game->EA.width);
+			ft_drawcol(&hnc, game->EA, game, img);
 		}
 	}
 	else
-		ray_col_n_draw(game, ray, hnc, img);
+		ray_col_n_draw(game, ray, &hnc, img);
 	return ;
 }

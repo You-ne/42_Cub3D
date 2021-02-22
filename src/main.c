@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 06:12:48 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:07:01 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			parser(t_game *game) //too long
 	int	j;
 
 	i = 0;
-	while(game->map[i] != NULL && game->nb_params <= NB_PARAMS)
+	while(game->map[i] != NULL)
 	{
 		j = 0;
 		while(game->map[i][j] != '\0')

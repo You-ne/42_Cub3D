@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 07:25:35 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 06:44:50 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,36 +106,7 @@ void	add_enemy(int x, int y, char enemy_chr, t_game *game)
 	tmp->x = x;
 	tmp->y = y;
 	tmp->fire = 0;
-	if (enemy_chr == '@')
-	{
-		tmp->pv = 70;
-		tmp->damage = -10;
-		tmp->time_anim = 200;
-	}
-	else if (enemy_chr == 'V')
-	{
-		tmp->pv = 100;
-		tmp->damage = -10;
-		tmp->time_anim = 50;
-	}
-	else if (enemy_chr == '!')
-	{
-		tmp->pv = 180;
-		tmp->damage = -10;
-		tmp->time_anim = 150;
-	}
-	else if (enemy_chr == 'M')
-	{
-		tmp->pv = 200;
-		tmp->damage = -10;
-		tmp->time_anim = 80;
-	}
-	else if (enemy_chr == 'H')
-	{
-		tmp->pv = 180;
-		tmp->damage = -10;
-		tmp->time_anim = 120;
-	}
+	param_enemy(game, tmp, enemy_chr);
 	tmp->chr = enemy_chr;
 	tmp->next = NULL;
 }

@@ -8,6 +8,7 @@ EA ./cont/walls/plate.xpm
 SO ./cont/walls/rusted.xpm
 
 S2 ./cont/obj/chat.xpm
+S3 ./cont/obj/ammo.xpm
 S4 ./cont/obj/barrel.xpm
 S5 ./cont/obj/key.xpm
 S6 ./cont/obj/puit.xpm
@@ -132,6 +133,7 @@ SAU4u ./cont/foes/uber_d4.xpm
 SAU5u ./cont/foes/uber_dead.xpm
 
 KY ./cont/color-galaxy.xpm
+
 111111111111111111111
 100000000000000000001
 100000000000000000001
@@ -141,5 +143,5 @@ KY ./cont/color-galaxy.xpm
 100000000000000000001
 100000000N000000000A1
 100000000000000000001
-100000000000000000001
+100030000000000000001
 111111111111111111111

@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 08:27:27 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 10:58:27 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ int	ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 int	ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
 {
 	int col;
-	t_coor *a;
+	t_coor a;
 	float dist;
 	float size;
 
 	size = sp_size(tex->chr);
-	a->x = ray->x;
+	a.x = ray->x;
 	if (pos->y < sp->y)
-		a->y = ray->y + 0.5;
+		a.y = ray->y + 0.5;
 	else
-		a->y = ray->y - 0.5;
-	dist = ft_pythagore(a->x - sp->x, a->y - sp->y);
+		a.y = ray->y - 0.5;
+	dist = ft_pythagore(a.x - sp->x, a.y - sp->y);
 	if (dist > size / 2)
 		return (-1);
 	pos->dist = dist;
-	col = ft_calc_col_sprite(a, pos, sp, tex);
+	col = ft_calc_col_sprite(&a, pos, sp, tex);
 	return (col);
 }
 
@@ -66,7 +66,7 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 {
 	int col;
 	t_coor eq2;
-	t_coor *a;
+	t_coor a;
 	float size;
 
 	size = sp_size(tex->chr);
@@ -74,26 +74,26 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 	{
 		eq2.x = - (1.0 / eqray->x);
 		eq2.y = sp->y - (eq2.x * sp->x);
-		a->x = (eq2.y - eqray->y) / (eqray->x - eq2.x);
-		a->y = (eq2.x * a->x) + eq2.y;
-		eq2.dist = ft_pythagore(a->x - sp->x, a->y - sp->y);
+		a.x = (eq2.y - eqray->y) / (eqray->x - eq2.x);
+		a.y = (eq2.x * a.x) + eq2.y;
+		eq2.dist = ft_pythagore(a.x - sp->x, a.y - sp->y);
 	}
 	else
 	{
-		a->x = sp->x;
-		a->y = pos->y;
-		eq2.dist = fabs(a->y - sp->y) + (fabs(a->y - sp->y) / 70);
+		a.x = sp->x;
+		a.y = pos->y;
+		eq2.dist = fabs(a.y - sp->y) + (fabs(a.y - sp->y) / 70);
 	}
-	if (eq2->dist > size / 2)
+	if (eq2.dist > size / 2)
 		return (-1);
 	pos->dist = eq2.dist;
-	col = ft_calc_col_sprite(a, pos, sp, tex);
+	col = ft_calc_col_sprite(&a, pos, sp, tex);
 	return (col);
 }
 
 t_coor	ft_sprite_dist(char **map, t_coor *ray, t_coor *dir, t_coor *pos)
 {
-	t_coor *sp;
+	t_coor sp;
 	int i;
 
 	i = 0;
@@ -101,22 +101,22 @@ t_coor	ft_sprite_dist(char **map, t_coor *ray, t_coor *dir, t_coor *pos)
 	{
 		i = (dir->x <= 0) ? -1 : i;
 		i = (dir->y <= 0) ? -1 : i;
-		sp->x = (int)ray->x + i + 0.5;
-		sp->y = (int)ray->y + i + 0.5;
+		sp.x = (int)ray->x + i + 0.5;
+		sp.y = (int)ray->y + i + 0.5;
 	}
 	else if (ray->x == (float)((int)ray->x))
 	{
 		i = (dir->x <= 0) ? -1 : i;
-		sp->x = (int)ray->x + i + 0.5;
-		sp->y = (int)ray->y + 0.5;
+		sp.x = (int)ray->x + i + 0.5;
+		sp.y = (int)ray->y + 0.5;
 	}
 	else
 	{
 		i = (dir->y <= 0) ? -1 : i;
-		sp->x = (int)ray->x + 0.5;
-		sp->y = (int)ray->y + i + 0.5;
+		sp.x = (int)ray->x + 0.5;
+		sp.y = (int)ray->y + i + 0.5;
 	}
-	sp->dist = ft_pythagore(sp->y - pos->y, sp->x - pos->x);
+	sp.dist = ft_pythagore(sp.y - pos->y, sp.x - pos->x);
 	return (sp);
 }
 
@@ -131,7 +131,7 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 
 	sp = (struct s_coor*)malloc(sizeof(struct s_coor));
 
-	*sp = ft_sprite_dist(game->map, ray, dir, game->player.pos);
+	*sp = ft_sprite_dist(game->map, ray, dir, &game->player.pos);
 	tmp = sp;
 	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
 	vect.x = game->player.pos.x - sp->x;

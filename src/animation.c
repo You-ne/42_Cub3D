@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 06:11:49 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 09:55:17 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,42 +85,48 @@ t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 
 void	do_fire(t_game *game)
 {
-	t_coor tir;
+	t_coor *tir;
 
-	tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
 	if (game->player.fire == 0)
 	{
-		system("aplay -N -q ./cont/sounds/gun_shot.wav &");
-		weapon_fire(game, &tir);
-		game->player.ammo -= 1;
+		if (game->player.ammo != 0)
+		{
+			tir = ft_raycannon(&game->player.pos, &game->player.vect, 0.0, game);
+			system("aplay -N -q ./cont/sounds/gun_shot.wav &");
+			weapon_fire(game, tir);
+			game->player.ammo -= 1;
+		}
+		else
+			system("aplay -N -q ./cont/sounds/gun_change.wav &");
 	}
 	game->player.fire = 1;
+
 }
 
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 {
+	t_img	*tmp;
 	clock_t	t2;
 	int	centisec;
 
-	if (game->fire == 1 && game->player.ammo != 0)
+	tmp = (game->player.ammo == 0 ? weapon->next->next : weapon);
+	if (game->fire == 1)
 	{
 		t2 = clock();
 		centisec = ((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
 		if ((int)centisec % 33 < 11)
 		{
 			do_fire(game);
-			return (weapon->next);
+			tmp = (game->player.ammo == 0 ? tmp : weapon->next);
 		}
 		else
 			game->player.fire = 0;
 		if ((int)centisec % 33 >= 11 && (int)centisec % 33 < 22)
-			return (weapon->next->next);
+			tmp = (game->player.ammo == 0 ? tmp : weapon->next->next);
 	}
-	else if (game->fire == 1 && game->player.ammo == 0)
-		system("aplay -N -q ./cont/sounds/gun_change.wav &");
-	return (weapon);
+	return (tmp);
 }
-
+/*
 t_img perpetual_animation(t_game *game, t_img *tex)
 {
 	clock_t t2;
@@ -139,3 +145,4 @@ t_img perpetual_animation(t_game *game, t_img *tex)
 	}
 	return (*tex);
 }
+*/

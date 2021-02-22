@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:31:01 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 08:08:42 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 08:38:33 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	if (ray->dist == -3)
 		return (ft_vertical_door(game, dir, ray, tex.width));
 	else
-		door = ft_door_xray(ray, eqline, game->player.pos, dir);
+		door = ft_door_xray(ray, eqline, &game->player.pos, dir);
 	if (door == NULL)
 		return (NULL);
 	vect.x = game->player.pos.x - ray->x; ///////////////fonction calculer angle ?
