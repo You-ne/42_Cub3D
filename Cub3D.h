@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 10:09:55 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:26:18 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_player
 	int		fire;
 	int		damage;
 	int		ammo;
+	int		time_anim_w;
 }		t_player;
 
 typedef struct s_bmp
@@ -229,7 +230,7 @@ typedef struct s_game
 void	my_delay(int i);
 void	end_screen(t_game *game, t_img *tex, t_img *img);
 
-
+void	free_ray(t_coor *ray);
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 

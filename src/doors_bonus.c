@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:31:01 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 08:38:33 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 12:48:19 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ t_coor	*ft_door_yray(t_coor *ray, t_coor *eq, t_coor *pos, t_coor *dir)
 		door->y = (int)ray->y + (pos->y < ray->y ? 0.5 : -0.5);
 	}
 	else
+	{
+		free(door);
 		return (NULL);
+	}
 	return (door);
 }
 
@@ -49,12 +52,13 @@ t_coor	*ft_door_xray(t_coor *ray, t_coor *eq, t_coor *pos, t_coor *dir)
 			door->y = eqsol;
 		}
 		else
+		{
+			free(door);
 			return (NULL);
+		}
 	}
 	else if (ray->dist == -5)
-	{
 		return (ft_door_yray(ray, eq, pos, dir));
-	}
 	return (door);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 10:07:01 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:44:00 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	init(t_game *game)
 	game->player.num_weapon = 1;
 	game->player.damage = -40;
 	game->player.pv = 100.0;
+	game->player.time_anim_w = 30;
 	game->tilt = 0;
 	game->player.ammo = 30;
 }

@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:34:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 11:32:26 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:02:14 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_raymachine(t_game *game, t_img *img)
 	float	distproj;
 	t_coor	*ray;
 	t_img	weapon;
-	t_coor	*tmp;
 
 	x = 0;
 	angle = (float)FOV / (float)game->res[0];
@@ -67,11 +66,9 @@ void	ft_raymachine(t_game *game, t_img *img)
 	{
 		ray = ft_raycannon(&game->player.pos, &game->player.vect, 
 		(M_PI / 180) * ((angle * x) - (FOV / 2)), game);
-		tmp = ray;
 		ft_projection(game, ray, x, img);
 		x++;
-		free_ray(tmp);
-		ray = NULL;
+		free_ray(ray);
 	}
 	return ;
 }

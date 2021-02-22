@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 10:21:58 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:31:11 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void	sp_events(t_game *game)
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 		game->player.num_weapon = 2;
 		game->player.damage = -100;
+		game->player.time_anim_w = 30;
 	}
 
 

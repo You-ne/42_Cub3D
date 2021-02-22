@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 09:55:17 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:41:40 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	t2 = clock();
 	centisec = (int)roundf((float)(t2) / CLOCKS_PER_SEC * 100);
 	//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
-	if (centisec % enemy->time_anim < 10)
+	if (centisec % enemy->time_anim < 13)
 	{
 		if (enemy->fire == 0)
 		{
@@ -91,16 +91,17 @@ void	do_fire(t_game *game)
 	{
 		if (game->player.ammo != 0)
 		{
-			tir = ft_raycannon(&game->player.pos, &game->player.vect, 0.0, game);
+			tir =
+			ft_raycannon(&game->player.pos, &game->player.vect, 0.0, game);
 			system("aplay -N -q ./cont/sounds/gun_shot.wav &");
 			weapon_fire(game, tir);
 			game->player.ammo -= 1;
+			free_ray(tir);
 		}
 		else
 			system("aplay -N -q ./cont/sounds/gun_change.wav &");
 	}
 	game->player.fire = 1;
-
 }
 
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
@@ -113,15 +114,18 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 	if (game->fire == 1)
 	{
 		t2 = clock();
-		centisec = ((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
-		if ((int)centisec % 33 < 11)
+		centisec = (int)((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
+		if (centisec % game->player.time_anim_w <
+		(int)((float)game->player.time_anim_w / 3.0))
 		{
 			do_fire(game);
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next);
 		}
 		else
 			game->player.fire = 0;
-		if ((int)centisec % 33 >= 11 && (int)centisec % 33 < 22)
+		if (centisec % game->player.time_anim_w >=
+		(int)((float)game->player.time_anim_w / 3.0) && centisec %
+		game->player.time_anim_w < (int)((float)game->player.time_anim_w * 2.0 / 3.0))
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next->next);
 	}
 	return (tmp);

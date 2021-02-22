@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 10:35:18 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:01:51 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	}
 	if (heightncol->next != 0x0)
 		ft_drawcol_sp(heightncol->next, game, img, x);
-	//free(heightncol);  //// NE FONCTIONNE PAS, GROSSE FUITE DE MEMOIRE !!!
 }
 
 void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)

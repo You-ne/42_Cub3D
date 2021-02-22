@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 09:04:20 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 12:48:17 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqli
 		sp->dist = sp->dist +
 		(float)((int)ft_ray_collision(game->map, ray, dir));
 		ray->next = (sp->x != -1) ? sp : ray->next;
+		if (sp->x == -1)
+			free(sp);
 	}
 }
 
