@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 05:41:19 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 06:10:06 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_player
 	int		num_weapon;
 	int		fire;
 	int		damage;
+	int		ammo;
 }		t_player;
 
 typedef struct s_bmp

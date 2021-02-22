@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 05:40:24 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 06:12:48 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	init(t_game *game)
 	game->player.damage = -40;
 	game->player.pv = 100.0;
 	game->tilt = 0;
+	game->player.ammo = 30;
 }
 
 void	init_screens(t_game *game)

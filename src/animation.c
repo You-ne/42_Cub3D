@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 05:34:08 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 06:11:49 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 
 	t2 = clock();
 	centisec = (int)roundf((float)(t2) / CLOCKS_PER_SEC * 100);
-//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
+	//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
 	if (centisec % enemy->time_anim < 10)
 	{
 		if (enemy->fire == 0)
@@ -58,7 +58,7 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	else
 		enemy->fire = 0;
 	return (*tex);
-	}
+}
 
 t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
@@ -83,25 +83,32 @@ t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	return (*tex);
 }
 
+void	do_fire(t_game *game)
+{
+	t_coor tir;
+
+	tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
+	if (game->player.fire == 0)
+	{
+		system("aplay -N -q ./cont/sounds/gun_shot.wav &");
+		weapon_fire(game, &tir);
+		game->player.ammo -= 1;
+	}
+	game->player.fire = 1;
+}
+
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 {
 	clock_t	t2;
 	int	centisec;
-	t_coor tir;
 
-	if (game->fire == 1)
+	if (game->fire == 1 && game->player.ammo != 0)
 	{
 		t2 = clock();
 		centisec = ((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
 		if ((int)centisec % 33 < 11)
 		{
-			tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
-			if (game->player.fire == 0)
-			{
-				system("aplay -N -q ./sprites/gun_shot.wav &");
-				weapon_fire(game, &tir);
-			}
-			game->player.fire = 1;
+			do_fire(game);
 			return (weapon->next);
 		}
 		else
@@ -109,6 +116,8 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 		if ((int)centisec % 33 >= 11 && (int)centisec % 33 < 22)
 			return (weapon->next->next);
 	}
+	else if (game->fire == 1 && game->player.ammo == 0)
+		system("aplay -N -q ./cont/sounds/gun_change.wav &");
 	return (weapon);
 }
 

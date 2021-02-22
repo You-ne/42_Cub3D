@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 05:06:57 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 05:55:07 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 
 	x = (int)xy.x;
 	y = (int)xy.y;
-	//printf("%d ; ", (int)*(texture + 3));
 	if (LINUX != 1 || (LINUX == 1 && (texture[i] == 0 && 
-	texture[i + 1] == 0 && texture[i + 2] == 0 && texture[i + 3] == 0)))
+	texture[i + 1] == 0 && texture[i + 2] == 0 )))
 	{
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = 0;
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = 0;
