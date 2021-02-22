@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/21 01:39:55 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:23:23 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,24 @@ t_img	find_animation(t_game *game, float info, t_img tex)
 		tex = enemy_fire_animation(game, &tex, find_enemy(game, x1, y1, chr));
 	else if (chr == '+' || chr == '%' || chr == '?' || chr == 'm' || chr == 'h')
 		tex = death_animation(game, &tex, find_enemy(game, x1, y1, chr));
+	else if (chr == '\0')
+		tex = aim_animation(game, &tex, find_enemy(game, x1, y1, chr));
 	return (tex);
+}
+
+
+int	is_alive_or_dead(char chr)
+{
+	if (chr == '@' || chr == '#' || chr == '!' || chr == 'M' || chr == 'H')
+		return (1);
+	if (chr == ':' || chr == '$' || chr  == '=')
+		return (-1);
+	return (0);
+}
+
+char	find_fire_chr(char chr)
+{
+	return ('\0');
 }
 
 char	find_death_chr(char chr)
@@ -97,6 +114,12 @@ void	sp_events(t_game *game)
 
 	map = game->map;
 	chr = map[(int)game->player.pos.y][(int)game->player.pos.x];
+	if (chr == '4')
+	{
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
+		game->player.num_weapon = 2;
+		game->player.damage = -100;
+	}
 	if (chr == '2')
 		teleportation(&game->player, 61.5, 12.5);
 	if (map[(int)game->player.pos.y + 1][(int)game->player.pos.x] == '5' ||

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 03:31:00 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 05:25:18 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_enemy
 	char chr;
 	int time_anim;
 	clock_t tdeath;
+	clock_t tseen;
 	struct s_enemy *next;
 }		t_enemy;
 
@@ -172,9 +173,13 @@ typedef struct s_game
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
 
-# define W1 "./cont/guns/M2GFB0.xpm"
-# define W2 "./cont/guns/M2GFA0.xpm"
-# define W3 "./cont/guns/M2GFC0.xpm"
+# define M1 "./cont/guns/M2GFB0.xpm"
+# define M2 "./cont/guns/M2GFA0.xpm"
+# define M3 "./cont/guns/M2GFC0.xpm"
+
+# define P1 "./cont/guns/gunA.xpm"
+# define P2 "./cont/guns/gunB.xpm"
+# define P3 "./cont/guns/gunD.xpm"
 
 # define GAME_OVER "./cont/GameOver.xpm"
 # define YOU_WIN "./cont/YOUWIN.xpm"
@@ -225,6 +230,7 @@ void	end_screen(t_game *game, t_img *tex, t_img *img);
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 
+int		is_alive_or_dead(char chr);
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);
 int		find_map(t_game *game, int line, int nb_params);
@@ -245,10 +251,12 @@ t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
 t_img	find_animation(t_game *game, float info, t_img tex);
-t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon);
 
+char	find_fire_chr(char chr);
 
 void	sp_events(t_game *game);
 float	sp_size(char chr);

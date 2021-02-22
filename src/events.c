@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 03:31:49 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 04:43:09 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,29 @@ void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 
 void	weapon_fire(t_game *game, t_coor *tir)
 {
-	int		x;
-	int		y;
-	int		mid;
 	t_coor	*tir2;
 	t_enemy	*enemy;
 
-	mid = game->tilt + (int)(game->res[1] / 2);
 	tir2 = tir;
-//	system("aplay ./sprites/gun_shot.wav $");
-//	tir = ft_raycannon(game->player.pos, game->player.vect, 0.0, game);
 	if (tir->next != NULL)
 	{
 		while (tir->next->next != NULL)
 				tir = tir->next;
-		if ((int)game->res[1] / 2 > mid + ((tir->next->y * 
-		(1 / sp_size((char)((int)tir->next->dist)) / 2))) ||
-		game->res[1] / 2 < mid + ((tir->next->y * 
-		(1 / sp_size((char)((int)tir->next->dist))) / 2)) - tir->next->y ||
-		(char)((int)tir->next->dist) == ':' || 
-		(char)((int)tir->next->dist) == '$' || (char)((int)tir->next->dist) == '=')
+		if ((int)game->res[1] / 2 > (game->tilt + (int)(game->res[1] / 2)) +
+		((tir->next->y * (1 / sp_size((char)((int)tir->next->dist)) / 2))) ||
+		game->res[1] / 2 < (game->tilt + (int)(game->res[1] / 2)) +
+		((tir->next->y * (1 / sp_size((char)((int)tir->next->dist))) / 2)) -
+		tir->next->y || is_alive_or_dead((char)((int)tir->next->dist) == -1))
 		{
 			tir->next = NULL;
 			weapon_fire(game, tir2);
 			return ;
 		}
-		if ((char)((int)tir->next->dist) != '5' && 
-		(char)((int)tir->next->dist) != '@' && (char)((int)tir->next->dist) != '#'
-		&& (char)((int)tir->next->dist) != '!' && 
-		(char)((int)tir->next->dist) != 'M' && 
-		(char)((int)tir->next->dist) != 'H')
+		if (is_alive_or_dead((char)((int)tir->next->dist)) != 1)
 			return ;
-		x = (int)((tir->next->dist - (int)tir->next->dist) * 1000.0);
-		y = (int)roundf(((tir->next->dist * 1000) -
-		(int)(tir->next->dist * 1000)) * 1000.0);
-		enemy = find_enemy(game, x, y, (char)((int)tir->next->dist));
+		enemy = find_enemy(game, (int)((tir->next->dist - (int)tir->next->dist)
+		* 1000.0), (int)roundf(((tir->next->dist * 1000) - (int)
+		(tir->next->dist * 1000)) * 1000.0), (char)((int)tir->next->dist));
 		change_enemy_pv(game, enemy, game->player.damage);
 	}
 }

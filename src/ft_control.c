@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 02:39:05 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 04:10:49 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,13 +168,13 @@ int		key_press(int keycode, t_game *game)
 	zfov = (int)(((float)game->res[1] / (float)game->res[0]) * FOV);
 	if (!nose_axis)
 		nose_axis = 0;
-	else if (keycode == TC)
+	if (keycode == TC)
 	{
 		nose_axis = nose_axis - (int)((game->res[1] / zfov) * ZROT_SPEED);
 		nose_axis = nose_axis < -game->res[1] ? -game->res[1] : nose_axis;
 		game->tilt = nose_axis;
 	}
-	else if (keycode == X)
+	if (keycode == X)
 	{
 		nose_axis = nose_axis + (int)((game->res[1] / zfov) * ZROT_SPEED);
 		nose_axis = nose_axis > game->res[1] ? game->res[1] : nose_axis;

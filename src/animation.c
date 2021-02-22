@@ -6,11 +6,36 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 02:50:55 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 05:25:22 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
+{
+	clock_t t2;
+	int		centisec;
+	int i;
+	int n;
+
+	if (!enemy->tseen)
+		enemy->tseen = clock();
+	t2 = clock();
+	n = count_animation_sprites(tex);
+	i = 1;
+	centisec = (int)roundf((float)(t2 - enemy->tseen) / CLOCKS_PER_SEC * 100);
+	while (centisec % (n * 15) > 15 * i && i < n)
+	{
+		tex = tex->next;
+		i++;
+	}
+	if (i == n)
+	{
+		change_map(game, enemy->x, enemy->y, find_fire_chr(tex->chr));
+	}
+	return (*tex);
+}
 
 t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {

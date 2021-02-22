@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 03:30:20 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 04:13:47 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	get_enemy_tex(t_game *game)
 	tmp->next = enemy;
 }
 */
-t_img	*get_weapon_tex(t_game *game)
+t_img	*get_weapon_tex(t_game *game, char *n1, char *n2, char *n3)
 {
 	t_img *weapon;
 	t_img *weapon2;
@@ -130,11 +130,11 @@ t_img	*get_weapon_tex(t_game *game)
 	weapon2 = (struct s_img*)malloc(sizeof(struct s_img));
 	weapon3 = (struct s_img*)malloc(sizeof(struct s_img));
 
-	weapon->img_p = mlx_xpm_file_to_image(game->win.mlxp, W1, &weapon->width, &weapon->height);
+	weapon->img_p = mlx_xpm_file_to_image(game->win.mlxp, n1, &weapon->width, &weapon->height);
 	weapon->img = mlx_get_data_addr(weapon->img_p, &weapon->bpp, &weapon->s_line, &weapon->endian);
-	weapon2->img_p = mlx_xpm_file_to_image(game->win.mlxp, W2, &weapon2->width, &weapon2->height);
+	weapon2->img_p = mlx_xpm_file_to_image(game->win.mlxp, n2, &weapon2->width, &weapon2->height);
 	weapon2->img = mlx_get_data_addr(weapon2->img_p, &weapon2->bpp, &weapon2->s_line, &weapon2->endian);
-	weapon3->img_p = mlx_xpm_file_to_image(game->win.mlxp, W3, &weapon3->width, &weapon3->height);
+	weapon3->img_p = mlx_xpm_file_to_image(game->win.mlxp, n3, &weapon3->width, &weapon3->height);
 //	printf("weapon3=%p\n", weapon3->img_p);
 	weapon3->img = mlx_get_data_addr(weapon3->img_p, &weapon3->bpp, &weapon3->s_line, &weapon3->endian);
 	weapon->next = weapon2;
@@ -190,7 +190,8 @@ int	main(int argc, char **argv)
 	game.SA.chr = '1';
 	parser(&game);
 	game.player.pos = find_char(&game);
-	game.player.weapon = get_weapon_tex(&game);
+	game.player.weapon = get_weapon_tex(&game, P1, P2, P3);
+	game.player.weapon2 = get_weapon_tex(&game, M1, M2, M3);
 	game.player.num_weapon = 1;
 	game.player.damage = -40;
 	game.player.pv = 100.0;

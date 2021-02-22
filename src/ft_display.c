@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/17 04:21:15 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 04:57:50 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 int		next_frame(t_game *game)
 {
 	t_img	img;
+	t_img	*weapon;
 	t_enemy *enemy;
 	clock_t t2;
 
 	//cleaning?
+	if (game->player.num_weapon == 1)
+		weapon = game->player.weapon;
+	else if (game->player.num_weapon == 2)
+		weapon = game->player.weapon2;
 	t2 = clock();
 	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
@@ -35,7 +40,7 @@ int		next_frame(t_game *game)
 		draw_sky(game, &img);
 		ft_raymachine(game, &img);
 		draw_life(game, &img);
-		draw_weapon(game, &img, weapon_fire_animation(game, game->player.weapon));
+		draw_weapon(game, &img, weapon_fire_animation(game, weapon));
 		mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
 		mlx_destroy_image(game->win.mlxp, img.img_p);
 	}
