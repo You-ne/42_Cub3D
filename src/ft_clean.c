@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 22:19:45 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 01:48:30 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/18 19:38:30 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_clean_map(char ***map)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (*map)
@@ -28,17 +28,7 @@ void	ft_clean_map(char ***map)
 		free(*map);
 	}
 }
-/*
-void	ft_clean_tex(t_game *game)
-{
 
-}
-
-void	ft_clean_sprites(t_game *game)
-{
-
-}
-*/
 void	ft_clean_game(t_game *game)
 {
 	/*if (game->map)
@@ -54,7 +44,7 @@ int		ft_exit(int keycode, t_game *game)
 	if (game)
 		ft_clean_game(game);
 	exit(0);
-	return(0);
+	return (0);
 }
 
 void	ft_error(const char *str, t_game *game)

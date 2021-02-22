@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:29:04 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/12 01:36:38 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/18 19:35:57 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_args(t_game *game, char **argv, int argc)
 		ft_error("No argument !!\n", game);
 	if (argc == 1)
 		ft_error("No map linked !!\n", game);
-	if (argc == 3 && (ft_strncmp(argv[2], "--save", 50) != 0)) // maybe use strcmp
+	if (argc == 3 && (ft_strncmp(argv[2], "--save", 50) != 0))
 		ft_error("Incorrect argument for saving !!\n", game);
 	else if (argc == 3)
 		game->is_bmp = 1;
@@ -43,10 +43,10 @@ void	check_fd(t_game *game, char *argv)
 		{
 			if (ft_strncmp(ext, ".cub", 4) != 0)
 				ft_error("Wrong file extension for map ! \n", game);
-			return;
+			return ;
 		}
-			ft_error("Wrong file extension for map ! \n", game);
+		ft_error("Wrong file extension for map ! \n", game);
 	}
 	else
-			ft_error("Wrong file extension for map ! \n", game);
+		ft_error("Wrong file extension for map ! \n", game);
 }

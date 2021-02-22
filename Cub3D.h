@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 02:51:54 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 03:31:00 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,9 @@ typedef struct s_game
 	int			Fl; // Int colors
 	int			Ce;
 
+	int			nb_params;
+	int			map_found;
+
 	int			up;
 	int			down;
 	int			left;
@@ -160,7 +163,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 //# define CUB_SIZE	64
-# define NB_PARAMS	8 + 47
+# define NB_PARAMS	8 + 108
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
@@ -169,12 +172,13 @@ typedef struct s_game
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
 
-# define W1 "./sprites/M2GFB0.xpm"
-# define W2 "./sprites/M2GFA0.xpm"
-# define W3 "./sprites/M2GFC0.xpm"
+# define W1 "./cont/guns/M2GFB0.xpm"
+# define W2 "./cont/guns/M2GFA0.xpm"
+# define W3 "./cont/guns/M2GFC0.xpm"
 
-# define GAME_OVER "./sprites/GameOver.xpm"
-# define YOU_WIN "./sprites/YOUWIN.xpm"
+# define GAME_OVER "./cont/GameOver.xpm"
+# define YOU_WIN "./cont/YOUWIN.xpm"
+
 
 //Colors
 # define GREEN	"\e[0;92m"
@@ -223,8 +227,8 @@ void	check_fd(t_game *game, char *argv);
 
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);
-void	find_map(t_game *game, int line);
-t_coor	find_char(char **map);
+int		find_map(t_game *game, int line, int nb_params);
+t_coor	find_char(t_game *game);
 t_coor	init_dir(char **map, t_coor coor);
 t_img	find_sprite(t_game *game, char chr);
 t_coor	*ft_add_door(t_game *game, t_coor ray, t_coor dir, t_coor eqline);

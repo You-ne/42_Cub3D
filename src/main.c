@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 02:52:55 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 03:30:20 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,44 +42,32 @@ void	extract_file(char *path, t_game *game) // good length
 }
 
 
-int	parser(t_game *game) //too long
+int			parser(t_game *game) //too long
 {
 	int	i;
 	int	j;
-	int	k;
 
-	k = 0;
 	i = 0;
-	while(game->map[i] != NULL)
+	while(game->map[i] != NULL && game->nb_params <= NB_PARAMS)
 	{
 		j = 0;
 		while(game->map[i][j] != '\0')
 		{
-			/* temporaire, rajouter détection mauvaises lignes */
 			if (game->map[i][j] == '1')
+				return(find_map(game, i, game->nb_params));
+			if (game->map[i][j] > 65 && game->map[i][j] < 91)
 			{
-				if (k != NB_PARAMS)
-					ft_error("Less parameters fetched than needed !! \n", game);
-				find_map(game, i);
-				return (0);
-			}
-			else if (game->map[i][j] > 65 && game->map[i][j] < 91)
-			{
-				k++;
-				if (k > NB_PARAMS)
-					ft_error("Too much parameters !!\n", game);
+				game->nb_params++;
 				find_info(game->map[i], game);
 				break;
 			}
 			else if (game->map[i][j] == ' ')
 				j++;
 			else
-				ft_error("Invalid map line\n\n", game);
+				ft_error("Invalid line in .cub file\n\n", game);
 		}
 		i++;
 	}
-if (k < NB_PARAMS)
-	ft_error("Not enough parameters!! \n", game);
 	return (0);
 }
 /*
@@ -178,6 +166,14 @@ void	find_res(t_game *game)
 	}
 }
 
+void	init(t_game *game)
+{
+	game->Fl = 0;
+	game->Ce = 0;
+	game->map_found = 0;
+	game->nb_params = 0;
+}
+
 int	main(int argc, char **argv)
 {
 //	int		fd;
@@ -185,6 +181,7 @@ int	main(int argc, char **argv)
 	int		i;
 
 	i = 0;
+	init(&game);
 	check_args(&game, argv, argc);
 	check_fd(&game, argv[1]);
 	extract_file(argv[1], &game);
@@ -192,18 +189,10 @@ int	main(int argc, char **argv)
 	game.win.mlxp = mlx_init();
 	game.SA.chr = '1';
 	parser(&game);
-	game.player.pos = find_char(game.map);
+	game.player.pos = find_char(&game);
 	game.player.weapon = get_weapon_tex(&game);
 	game.player.num_weapon = 1;
 	game.player.damage = -40;
-	//get_enemy_tex(&game);
-//	get_door_tex(&game);
-//	while (game.SP.next != NULL)
-//	{
-//		printf("SP=%c;\n", game.SP.chr);
-//		game.SP = *(game.SP.next);
-//	}
-//	printf("SP=%c;\n", game.SP.chr);
 	game.player.pv = 100.0;
 	game.tilt = 0;
 	game.enemy_fire_t1 = clock();
