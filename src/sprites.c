@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 08:02:15 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 08:27:27 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	vect.dist = vect.dist / (ft_pythagore(vect.x, vect.y) *
 	ft_pythagore(game->player.vect.x, game->player.vect.y));
 	sp->dist = fabs(vect.dist) * sp->dist;
-	sp->x = (ray.dist == -3) ? (float)ft_vertical_sprite_col(sp, ray, &tex,
+	sp->x = (ray->dist == -3) ? (float)ft_vertical_sprite_col(sp, ray, &tex,
 	&game->player.pos) : (float)ft_sprite_col(sp, eqline, &tex,
 	&game->player.pos);
 	distproj = ((float)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
