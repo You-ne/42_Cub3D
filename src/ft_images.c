@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/18 09:41:48 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/21 06:49:28 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	end_screen(t_game *game, t_img *tex, t_img *img)
 			i = i * tex->s_line;
 			i = i + ((int)((float)tex->width / (float)game->res[0]
 			* (float)x * (tex->bpp / 8)));
-//			printf("N=%i;\n", (int)(((float)tex->height / ((float)game->res[1])) * (float)y));
 			ft_texture_put(img, x, y, &tex->img[i]);
 			y++;
 		}

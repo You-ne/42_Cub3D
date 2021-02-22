@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/20 07:09:40 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 02:51:54 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ typedef struct s_player
 
 	float	pv;
 	t_img	*weapon;
+	t_img	*weapon2;
+	int		num_weapon;
 	int		fire;
+	int		damage;
 }		t_player;
 
 typedef struct s_bmp
@@ -161,12 +164,10 @@ typedef struct s_game
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
-# define FRONT_SPEED	0.10
+# define FRONT_SPEED	0.13
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
 # define SPRINT_SPEED	0.22
-
-# define DAMAGE			-40
 
 # define W1 "./sprites/M2GFB0.xpm"
 # define W2 "./sprites/M2GFA0.xpm"
@@ -239,6 +240,7 @@ void	draw_weapon(t_game *game, t_img *img, t_img *tex);
 t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
+t_img	find_animation(t_game *game, float info, t_img tex);
 t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon);

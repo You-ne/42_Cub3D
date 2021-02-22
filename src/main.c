@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/17 03:41:21 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/22 02:52:55 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,8 @@ int	main(int argc, char **argv)
 	parser(&game);
 	game.player.pos = find_char(game.map);
 	game.player.weapon = get_weapon_tex(&game);
+	game.player.num_weapon = 1;
+	game.player.damage = -40;
 	//get_enemy_tex(&game);
 //	get_door_tex(&game);
 //	while (game.SP.next != NULL)

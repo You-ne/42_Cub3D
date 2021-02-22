@@ -6,11 +6,27 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/20 07:04:51 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/21 01:39:55 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+t_img	find_animation(t_game *game, float info, t_img tex)
+{
+	int x1;
+	int y1;
+	char chr;
+
+	chr = (char)((int)info);
+	x1 = (int)((info - (int)info) * 1000.0);
+	y1 = (int)roundf(((info * 1000) - (int)(info * 1000)) * 1000.0);
+	if (chr == '@' || chr == '#' || chr == '!'|| chr == 'H' || chr == 'M')
+		tex = enemy_fire_animation(game, &tex, find_enemy(game, x1, y1, chr));
+	else if (chr == '+' || chr == '%' || chr == '?' || chr == 'm' || chr == 'h')
+		tex = death_animation(game, &tex, find_enemy(game, x1, y1, chr));
+	return (tex);
+}
 
 char	find_death_chr(char chr)
 {

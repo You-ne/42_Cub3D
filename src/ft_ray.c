@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/20 01:39:45 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/21 03:56:07 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,24 @@
 char	ft_ray_collision(char **map, t_coor ray, t_coor dir)
 {
 	int i;
+	int j;
 
-	i = 0;
+	i = (dir.x <= 0) ? -1 : 0;
+	j = (dir.y <= 0) ? -1 : 0;
 	if (ray.x == ((float)((int)ray.x)) && ray.y == ((float)((int)ray.y)))
 	{
-		i = (dir.x <= 0) ? -1 : i;
-		i = (dir.y <= 0) ? -1 : i;
-		if (map[(int)ray.y + i][(int)ray.x + i] != '0')
-			return (map[(int)ray.y + i][(int)ray.x + i]);
+		if (map[(int)ray.y + j][(int)ray.x + i] != '0')
+			return (map[(int)ray.y + j][(int)ray.x + i]);
 	}
 	else if (ray.x == (float)((int)ray.x))
 	{
-		i = (dir.x <= 0) ? -1 : i;
 		if (map[(int)ray.y][(int)ray.x + i] != '0')
 			return (map[(int)ray.y][(int)ray.x + i]);
 	}
 	else
 	{
-		i = (dir.y <= 0) ? -1 : i;
-		if (map[(int)ray.y + i][(int)ray.x] != '0')
-			return (map[(int)ray.y + i][(int)ray.x]);
+		if (map[(int)ray.y + j][(int)ray.x] != '0')
+			return (map[(int)ray.y + j][(int)ray.x]);
 	}
 	return ('0');
 }
@@ -124,6 +122,7 @@ t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 {
 	t_coor *sp;
 
+	ray.dist = -3;
 	if (dir.y > 0)
 		ray.y = (float)((int)ray.y + 1);
 	else
@@ -131,15 +130,7 @@ t_coor ft_vertical_ray(t_coor eqline, t_coor dir, t_coor ray, t_game *game)
 		(float)((int)ray.y);
 	while (ft_ray_collision(game->map, ray, dir) != '1')
 	{
-		if (ft_ray_collision(game->map, ray, dir) != '1' &&
-		ft_ray_collision(game->map, ray, dir) != '0')
-		{
-			ray.dist = -3;
-			sp = ft_add_sprite(game, ray, dir, eqline);
-			sp->dist = sp->dist + (float)((int)ft_ray_collision(game->map, ray, dir));
-			if (sp->x != -1)
-				ray.next = sp;
-		}
+		ft_verif_ray_collision(game, &ray, dir, eqline);
 		if (dir.y > 0)
 			ray.y = (float)((int)ray.y + 1);
 		else
