@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 05:33:11 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/22 07:24:46 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_img	find_animation(t_game *game, float info, t_img tex)
 	chr = (char)((int)info);
 	x1 = (int)((info - (int)info) * 1000.0);
 	y1 = (int)roundf(((info * 1000) - (int)(info * 1000)) * 1000.0);
-	if (chr == '@' || chr == '#' || chr == '!'|| chr == 'H' || chr == 'M')
+	if (chr == '@' || chr == 'V' || chr == '!'|| chr == 'H' || chr == 'M')
 		tex = enemy_fire_animation(game, &tex, find_enemy(game, x1, y1, chr));
 	else if (chr == '+' || chr == '%' || chr == '?' || chr == 'm' || chr == 'h')
 		tex = death_animation(game, &tex, find_enemy(game, x1, y1, chr));
