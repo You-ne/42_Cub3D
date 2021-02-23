@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 13:41:40 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/23 22:17:08 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,14 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 	{
 		t2 = clock();
 		centisec = (int)((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
-		if (centisec % game->player.time_anim_w <
-		(int)((float)game->player.time_anim_w / 3.0))
+		if (centisec % 35 < 11)
 		{
 			do_fire(game);
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next);
 		}
 		else
 			game->player.fire = 0;
-		if (centisec % game->player.time_anim_w >=
-		(int)((float)game->player.time_anim_w / 3.0) && centisec %
-		game->player.time_anim_w < (int)((float)game->player.time_anim_w * 2.0 / 3.0))
+		if (centisec % 35 >= 11 && centisec % 35 < 24)
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next->next);
 	}
 	return (tmp);
