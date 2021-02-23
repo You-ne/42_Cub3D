@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/23 22:17:08 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/23 22:38:59 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	t2 = clock();
 	centisec = (int)roundf((float)(t2) / CLOCKS_PER_SEC * 100);
 	//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
-	if (centisec % enemy->time_anim < 13)
+	if (centisec % enemy->time_anim < 10)
 	{
 		if (enemy->fire == 0)
 		{
@@ -83,6 +83,7 @@ t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	return (*tex);
 }
 
+
 void	do_fire(t_game *game)
 {
 	t_coor *tir;
@@ -104,6 +105,7 @@ void	do_fire(t_game *game)
 	game->player.fire = 1;
 }
 
+
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 {
 	t_img	*tmp;
@@ -114,15 +116,15 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 	if (game->fire == 1)
 	{
 		t2 = clock();
-		centisec = (int)((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
-		if (centisec % 35 < 11)
+		centisec = ((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
+		if ((int)centisec % 33 < 11)
 		{
 			do_fire(game);
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next);
 		}
 		else
 			game->player.fire = 0;
-		if (centisec % 35 >= 11 && centisec % 35 < 24)
+		if ((int)centisec % 33 >= 11 && (int)centisec % 33 < 22)
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next->next);
 	}
 	return (tmp);

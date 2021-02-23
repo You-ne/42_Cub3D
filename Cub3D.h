@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/23 20:06:39 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/23 22:40:09 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ typedef struct s_game
 void	my_delay(int i);
 void	end_screen(t_game *game, t_img *tex, t_img *img);
 
-void	free_ray(t_coor *ray);
+
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 
@@ -308,5 +308,5 @@ void	ft_start_display(t_game);
 void	ft_raymachine(t_game *game, t_img *img);
 t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game);
 void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
-
+void	free_ray(t_coor *ray);
 #endif
