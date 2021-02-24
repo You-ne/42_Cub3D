@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/23 22:38:59 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/24 02:13:00 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	int i;
 	int n;
 
-	if (!enemy->tseen)
+	printf("ANIMATION\n\n");
+	if ((long)enemy->tseen <= 0)
 		enemy->tseen = clock();
 	t2 = clock();
 	n = count_animation_sprites(tex);
+	printf("N=%d; TSEEN=%ld; T2=%ld\n\n", n, (long)enemy->tseen, (long)t2);
 	i = 1;
-	centisec = (int)roundf((float)(t2 - enemy->tseen) / CLOCKS_PER_SEC * 100);
-	while (centisec % (n * 15) > 15 * i && i < n)
+	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
+	while (centisec % (n * 100) > 100 * i && i < n)
 	{
 		tex = tex->next;
 		i++;
@@ -42,10 +44,12 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	clock_t	t2;
 	int		centisec;
 
+	if ((long)enemy->tseen <= 0)
+		enemy->tseen = clock();
 	t2 = clock();
-	centisec = (int)roundf((float)(t2) / CLOCKS_PER_SEC * 100);
+	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
 	//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
-	if (centisec % enemy->time_anim < 10)
+	if (centisec % enemy->time_anim < 14)
 	{
 		if (enemy->fire == 0)
 		{
@@ -70,7 +74,7 @@ t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	t2 = clock();
 	n = count_animation_sprites(tex);
 	i = 1;
-	centisec = (int)roundf((float)(t2 - enemy->tdeath) / CLOCKS_PER_SEC * 100);
+	centisec = (int)roundf((float)((long)t2 - (long)enemy->tdeath) / CLOCKS_PER_SEC * 100);
 	while (centisec % (n * 15) > 15 * i && i < n)
 	{
 		tex = tex->next;

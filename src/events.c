@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 05:30:52 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/24 01:44:12 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void	weapon_fire(t_game *game, t_coor *tir)
 		}
 		if (is_alive_or_dead((char)((int)tir->next->dist)) != 1)
 			return ;
-		enemy = find_enemy(game, (int)((tir->next->dist - (int)tir->next->dist)
-		* 1000.0), (int)roundf(((tir->next->dist * 1000) - (int)
-		(tir->next->dist * 1000)) * 1000.0), (char)((int)tir->next->dist));
+		enemy = find_enemy(game, tir->next->coor_sp / 1000,
+		tir->next->coor_sp % 1000, (char)((int)tir->next->dist));
 		change_enemy_pv(game, enemy, game->player.damage);
 	}
 }

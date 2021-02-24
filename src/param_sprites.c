@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/22 10:21:58 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/24 02:09:09 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,39 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -10;
 		enemy->time_anim = 120;
 	}
+	else if (chr == '(')
+	{
+		enemy->pv = 300;
+		enemy->damage = -5;
+		enemy->time_anim = 200;
+	}
 }
 
-t_img	find_animation(t_game *game, float info, t_img tex)
+t_img	find_animation(t_game *game, int info, t_img tex, char chr)
 {
 	int x1;
     int y1;
-	char chr;
 
-	chr = (char)((int)info);
-	x1 = (int)((info - (int)info) * 1000.0);
-	y1 = (int)roundf(((info * 1000) - (int)(info * 1000)) * 1000.0);
-	if (chr == '@' || chr == '#' || chr == '!'|| chr == 'H' || chr == 'M')
+	x1 = info / 1000;
+	y1 = info % 1000;
+	if (chr == '@' || chr == '#' || chr == '!'|| chr == 'H' || chr == 'M' ||
+        chr == 'A')
 		tex = enemy_fire_animation(game, &tex, find_enemy(game, x1, y1, chr));
-	else if (chr == '+' || chr == '%' || chr == '?' || chr == 'm' || chr == 'h')
+	else if (chr == '-' || chr == '+' || chr == '%' || chr == '?' || chr == 'm' || chr == 'h')
 		tex = death_animation(game, &tex, find_enemy(game, x1, y1, chr));
-	else if (chr == 'f')
+	else if (chr == 'f' || chr == '(')
+	{
 		tex = aim_animation(game, &tex, find_enemy(game, x1, y1, chr));
+	}
 	return (tex);
 }
 
 int	is_alive_or_dead(char chr)
 {
-	if (chr == '@' || chr == '#' || chr == '!' || chr == 'M' || chr == 'H')
+	if (chr == '@' || chr == '#' || chr == '!' || chr == 'M' || chr == 'H'
+	|| chr == '(' || chr == 'A')
 		return (1);
-	if (chr == ':' || chr == '$' || chr  == '=')
+	if (chr == ':' || chr == '$' || chr  == '=' || chr == '-' || chr == ',')
 		return (-1);
 	return (0);
 }
@@ -77,6 +85,8 @@ char	find_shooting_chr(char chr)
 {
 	if (chr == 'f')
 		return ('0');
+	if (chr == '(')
+		return ('A');
 	return ('\0');
 }
 
@@ -102,6 +112,10 @@ char	find_death_chr(char chr)
 		return ('h');
 	if (chr == 'h')
 		return ('t');
+	if (chr == 'A')
+		return ('-');
+	if (chr == '-')
+		return (',');
 
 
 }

@@ -83,6 +83,10 @@ SAX3x ./cont/foes/HitlerMage_dead3.xpm
 SAX4x ./cont/foes/HitlerMage_dead4.xpm
 SAX5x ./cont/foes/HitlerMage_dead5.xpm
 
+SAH1( ./cont/foes/angel1.xpm
+SAH2( ./cont/foes/angel2.xpm
+SAH3( ./cont/foes/angel3.xpm
+SAH4( ./cont/foes/angel4.xpm
 SAH1A ./cont/foes/angel_s1.xpm
 SAH2A ./cont/foes/angel_s2.xpm
 SAJ1- ./cont/foes/angel_d1.xpm
@@ -139,9 +143,9 @@ KY ./cont/color-galaxy.xpm
 100000000000000000001
 111111111*11111111111
 100000000000000000001
-100000000500000000001
+102000000500000000001
 100000000000000000001
-100000000N000000000A1
+100000000N000000000(1
 100000000000000000001
-100030000000000000001
+100030000400000000001
 111111111111111111111

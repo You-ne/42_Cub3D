@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 12:48:17 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/24 01:34:06 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	ft_ray_collision(char **map, t_coor *ray, t_coor *dir)
 void	ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 {
 	t_coor *sp;
+//	float	f;
 
 	if (ft_ray_collision(game->map, ray, dir) == '1')
 	{
@@ -56,11 +57,11 @@ void	ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqli
 	else if (ft_ray_collision(game->map, ray, dir) != '0')
 	{
 		sp = ft_add_sprite(game, ray, dir, eqline);
-		sp->dist = sp->dist +
-		(float)((int)ft_ray_collision(game->map, ray, dir));
+//		f = sp->dist;
+		sp->dist = (float)((int)ft_ray_collision(game->map, ray, dir));
+		//sp->dist = (sp->dist - (int)sp->dist > f ? sp->dist - (sp->dist - (int)sp->dist - f) : sp->dist);
 		ray->next = (sp->x != -1) ? sp : ray->next;
-		if (sp->x == -1)
-			free(sp);
+		sp->x == -1 ? free(sp) : 0;
 	}
 }
 

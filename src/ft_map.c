@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 06:44:50 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/24 01:15:34 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,16 @@ void	add_enemy(int x, int y, char enemy_chr, t_game *game)
 	tmp = game->enemies;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	tmp->next = (t_enemy*)malloc(sizeof(t_enemy));
-	tmp = tmp->next;
+	if (tmp->x != -1)
+	{
+		tmp->next = (t_enemy*)malloc(sizeof(t_enemy));
+		tmp = tmp->next;
+	}
 	tmp->x = x;
 	tmp->y = y;
 	tmp->fire = 0;
 	param_enemy(game, tmp, enemy_chr);
-	tmp->chr = enemy_chr;
+	tmp->chr = find_shooting_chr(enemy_chr);
 	tmp->next = NULL;
 }
 
@@ -130,6 +133,7 @@ void	get_enemies(t_game * game, char *foes_set)
 			if (in_str(game->map[y][x], foes_set))
 			{
 				add_enemy(x, y, game->map[y][x], game);
+				printf("enemy found x = %d y = %d chr = %c \n\n", x, y, game -> map[y][x]);
 				if (game->map[y][x] == 'M')
 					add_enemy(x, y, 'H', game);
 			}
@@ -139,8 +143,11 @@ void	get_enemies(t_game * game, char *foes_set)
 	}
 	free(foes_set);
 	tmp = game->enemies;
-	while (tmp->next != NULL)
+	while (tmp)
+	{
+		printf("Enemy: %c, x = %d, y = %d\n\n", tmp->chr, tmp->x, tmp->y);
 		tmp = tmp->next;
+	}
 }
 
 char	*get_foes_char(t_img *enemies)

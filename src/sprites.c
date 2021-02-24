@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 10:58:27 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/24 01:29:05 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,20 @@ t_coor	ft_sprite_dist(char **map, t_coor *ray, t_coor *dir, t_coor *pos)
 	{
 		i = (dir->x <= 0) ? -1 : i;
 		i = (dir->y <= 0) ? -1 : i;
-		sp.x = (int)ray->x + i + 0.5;
-		sp.y = (int)ray->y + i + 0.5;
+		sp.x = (float)((int)ray->x + i + 0.5);
+		sp.y = (float)((int)ray->y + i + 0.5);
 	}
 	else if (ray->x == (float)((int)ray->x))
 	{
 		i = (dir->x <= 0) ? -1 : i;
-		sp.x = (int)ray->x + i + 0.5;
-		sp.y = (int)ray->y + 0.5;
+		sp.x = (float)((int)ray->x + i + 0.5);
+		sp.y = (float)((int)ray->y + 0.5);
 	}
 	else
 	{
 		i = (dir->y <= 0) ? -1 : i;
-		sp.x = (int)ray->x + 0.5;
-		sp.y = (int)ray->y + i + 0.5;
+		sp.x = (float)((int)ray->x + 0.5);
+		sp.y = (float)((int)ray->y + i + 0.5);
 	}
 	sp.dist = ft_pythagore(sp.y - pos->y, sp.x - pos->x);
 	return (sp);
@@ -126,13 +126,14 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	t_coor *sp;
 	t_img tex;
 	t_coor vect;
-	t_coor *tmp;
+	t_coor tmp;
 	float distproj;
 
 	sp = (struct s_coor*)malloc(sizeof(struct s_coor));
 
 	*sp = ft_sprite_dist(game->map, ray, dir, &game->player.pos);
-	tmp = sp;
+	tmp = *sp;
+//	printf("x = %f,  y = %f\n\n", tmp.x, tmp.y);
 	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
 	vect.x = game->player.pos.x - sp->x;
 	vect.y = game->player.pos.y - sp->y;
@@ -145,7 +146,8 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	&game->player.pos);
 	distproj = ((float)(game->res[0]) / 2) / tan((M_PI / 180) * (FOV / 2));
 	sp->y = roundf((distproj / sp->dist) * sp_size(tex.chr));
-	sp->dist = ((float)((int)tmp->x) / 1000) + ((float)((int)tmp->y) / 1000000);
+	sp->coor_sp = (int)tmp.x * 1000 + (int)tmp.y;
+	//sp->dist = ((float)((int)tmp.x) / 1000) + ((float)((int)tmp.y) / 1000000);
 	sp->next = ray->next;
 	return (sp);
 }

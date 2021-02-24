@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 13:01:51 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/24 01:38:04 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	xy.y = 0;
 	size = sp_size((char)((int)heightncol->dist));
 	tex = find_sprite(game, (char)((int)heightncol->dist));
-	tex = find_animation(game, heightncol->dist, tex);
+	tex = find_animation(game, heightncol->coor_sp, tex, (char)((int)heightncol->dist));
 	img->next = &tex;
 	xy.x = x;
 	mid = game->tilt + (int)(game->res[1] / 2);

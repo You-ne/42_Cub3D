@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/23 22:40:09 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/24 01:38:27 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_coor
 	float			x;
 	float			y;
 	float			dist;
+	int				coor_sp;
 	struct s_coor	*next;
 }		t_coor;
 
@@ -167,7 +168,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 //# define CUB_SIZE	64
-# define NB_PARAMS	8 + 109
+# define NB_PARAMS	8 + 113
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
@@ -253,7 +254,7 @@ void	draw_weapon(t_game *game, t_img *img, t_img *tex);
 t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
-t_img	find_animation(t_game *game, float info, t_img tex);
+t_img	find_animation(t_game *game, int info, t_img tex, char chr);
 t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
