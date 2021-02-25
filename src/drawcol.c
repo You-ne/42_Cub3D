@@ -6,11 +6,12 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/24 01:38:04 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 07:17:51 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+#include "../ft_printf_bonus.h"
 
 void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 {
@@ -65,21 +66,49 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 		ft_drawcol_sp(heightncol->next, game, img, x);
 }
 
+t_coor	*suppr_sp_behind_door(t_coor *hnc)
+{
+	t_coor *tmp;
+	t_coor *tmp2;
+	int i;
+
+	tmp = hnc;
+	i = 0;
+	while (!(tmp->next == 0x0 || (char)((int)tmp->next->dist) == 'P' ||
+	(char)((int)tmp->next->dist) == '*'))
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (i == 0 || tmp->next == 0x0 || ((char)((int)tmp->next->dist) != 'P' &&
+	(char)((int)tmp->next->dist) != '*'))
+		return (hnc);
+	hnc = hnc->next;
+	i--;
+	while (hnc != tmp && i > 0)
+	{
+		tmp2 = hnc->next;
+		free(hnc);
+		hnc = tmp2;
+		i--;
+	}
+	return (hnc);
+}
+
 void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 {
 	int y;
 	int count;
 	int i;
-	int mid;
 
 	y = 0;
 	count = 0;
 	if (((int)(heightncol->y - game->res[1]) / 2) - game->tilt > 0)
 		count = ((int)(heightncol->y - game->res[1]) / 2) - game->tilt;
-	mid = game->tilt + (int)(game->res[1] / 2);
-	while ((y < (mid + (heightncol->y / 2)) && y < game->res[1]))
+	while ((y < ((game->tilt + (int)(game->res[1] / 2)) + (heightncol->y / 2))
+	&& y < game->res[1]))
 	{
-		if (y > mid - (int)(heightncol->y / 2))
+		if (y > game->tilt + (int)(game->res[1] / 2) - (int)(heightncol->y / 2))
 		{
 			i = (int)(((float)tex.height / heightncol->y) * (float)count);
 			i = i * tex.s_line;
@@ -89,7 +118,9 @@ void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 		}
 		y++;
 	}
+	i = (int)heightncol->dist;
+	heightncol = suppr_sp_behind_door(heightncol);
 	if (heightncol->next != 0x0)
-		ft_drawcol_sp(heightncol->next, game, img, heightncol->dist);
+		ft_drawcol_sp(heightncol->next, game, img, i);
 }
 

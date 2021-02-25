@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/24 02:09:09 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 06:06:06 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 	else if (chr == '(')
 	{
 		enemy->pv = 300;
-		enemy->damage = -5;
+		enemy->damage = -10;
 		enemy->time_anim = 200;
 	}
 }
@@ -60,14 +60,12 @@ t_img	find_animation(t_game *game, int info, t_img tex, char chr)
 	x1 = info / 1000;
 	y1 = info % 1000;
 	if (chr == '@' || chr == '#' || chr == '!'|| chr == 'H' || chr == 'M' ||
-        chr == 'A')
+	chr == 'A')
 		tex = enemy_fire_animation(game, &tex, find_enemy(game, x1, y1, chr));
 	else if (chr == '-' || chr == '+' || chr == '%' || chr == '?' || chr == 'm' || chr == 'h')
 		tex = death_animation(game, &tex, find_enemy(game, x1, y1, chr));
 	else if (chr == 'f' || chr == '(')
-	{
 		tex = aim_animation(game, &tex, find_enemy(game, x1, y1, chr));
-	}
 	return (tex);
 }
 

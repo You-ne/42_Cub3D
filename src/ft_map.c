@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/24 01:15:34 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 04:23:27 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void	get_enemies(t_game * game, char *foes_set)
 			if (in_str(game->map[y][x], foes_set))
 			{
 				add_enemy(x, y, game->map[y][x], game);
-				printf("enemy found x = %d y = %d chr = %c \n\n", x, y, game -> map[y][x]);
 				if (game->map[y][x] == 'M')
 					add_enemy(x, y, 'H', game);
 			}
@@ -145,7 +144,6 @@ void	get_enemies(t_game * game, char *foes_set)
 	tmp = game->enemies;
 	while (tmp)
 	{
-		printf("Enemy: %c, x = %d, y = %d\n\n", tmp->chr, tmp->x, tmp->y);
 		tmp = tmp->next;
 	}
 }

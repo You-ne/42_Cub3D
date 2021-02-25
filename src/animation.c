@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/24 02:13:00 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 04:57:59 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	int i;
 	int n;
 
-	printf("ANIMATION\n\n");
 	if ((long)enemy->tseen <= 0)
 		enemy->tseen = clock();
 	t2 = clock();
 	n = count_animation_sprites(tex);
-	printf("N=%d; TSEEN=%ld; T2=%ld\n\n", n, (long)enemy->tseen, (long)t2);
 	i = 1;
 	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
 	while (centisec % (n * 100) > 100 * i && i < n)
@@ -115,20 +113,25 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 	t_img	*tmp;
 	clock_t	t2;
 	int	centisec;
+	int	time_anim;
 
+	if (game->player.num_weapon == 1)
+		time_anim = 66;
+	else if (game->player.num_weapon == 2)
+		time_anim = 33;
 	tmp = (game->player.ammo == 0 ? weapon->next->next : weapon);
 	if (game->fire == 1)
 	{
 		t2 = clock();
 		centisec = ((float)(t2 - game->fire_t1) / CLOCKS_PER_SEC) * 100;
-		if ((int)centisec % 33 < 11)
+		if ((int)centisec % time_anim < 11)
 		{
 			do_fire(game);
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next);
 		}
 		else
 			game->player.fire = 0;
-		if ((int)centisec % 33 >= 11 && (int)centisec % 33 < 22)
+		if ((int)centisec % time_anim >= 11 && (int)centisec % time_anim < 22)
 			tmp = (game->player.ammo == 0 ? tmp : weapon->next->next);
 	}
 	return (tmp);

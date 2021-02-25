@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/24 01:17:40 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 04:24:36 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,6 @@ t_enemy	*find_enemy(t_game *game, int x, int y, char chr)
 	t_enemy	*enemy;
 
 	enemy = game->enemies;
-	printf("x = %d, y = %d, chr = %c\n\n", x, y, chr);
 	while (!(enemy->x == x && enemy->y == y &&
 	(enemy->chr == chr || chr == find_death_chr(enemy->chr) || enemy->chr == find_shooting_chr(chr))))
 		enemy = enemy->next;

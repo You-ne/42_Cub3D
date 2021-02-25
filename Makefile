@@ -1,7 +1,6 @@
 INC=/usr/local/include
 
 INCLIB=$(INC)/../lib
-
 CC=gcc
 
 CFLAGS= -I$(INC) -O3 -I..
@@ -47,7 +46,7 @@ SRC =	./src/main.c \
 all	:$(NAME)
 
 $(NAME)	:$(OBJ)
-	$(CC) -o $(NAME) $(SRC) -D BUFFER_SIZE=32 $(LFLAGS)
+	$(CC) -o $(NAME) $(SRC) libftprintf.a -D BUFFER_SIZE=32 $(LFLAGS)
 
 clean	:
 	rm -f $(NAME) $(OBJ) *~ core *.core

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 05:55:07 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 05:47:01 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 void	ft_texture_put(t_img *img, int x, int y, char *texture)
 {
 	//printf("%d ; ", (int)*(texture + 3));
-	if (LINUX != 1 || (LINUX == 1 && (*(texture) != 255 || 
-	*(texture + 1) != 192 || *(texture + 2) != 203)))
+	if (LINUX != 1 || (LINUX == 1 && (*(texture) != 255 && 
+	*(texture + 1) != 192 && *(texture + 2) != 203)))
 	{
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = *texture;
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = *(texture + 1);
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = *(texture + 2);
-		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
+//		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = *(texture + 3);
 	}
 }
 
@@ -72,17 +72,18 @@ void	end_screen(t_game *game, t_img *tex, t_img *img)
 	int i;
 	int count;
 	float mid;
+	int j;
 
 	x = 0;
 	while (x < game->res[0])
 	{
 		y = 0;
+		j = ((int)(((float)tex->width / game->res[0])* (float)x));
 		while (y < game->res[1])
 		{
-			i = (int)(((float)tex->height / ((float)game->res[1])) * (float)y);
+			i = (int)(((float)tex->height / game->res[1]) * (float)y);
 			i = i * tex->s_line;
-			i = i + ((int)((float)tex->width / (float)game->res[0]
-			* (float)x * (tex->bpp / 8)));
+			i = i + (j * 4);
 			ft_texture_put(img, x, y, &tex->img[i]);
 			y++;
 		}

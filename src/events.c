@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/24 01:44:12 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 04:57:38 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	weapon_fire(t_game *game, t_coor *tir)
 		((tir->next->y * (1 / sp_size((char)((int)tir->next->dist))) / 2)) -
 		tir->next->y || is_alive_or_dead((char)((int)tir->next->dist) == -1))
 		{
+			free_ray(tir->next);
 			tir->next = NULL;
 			weapon_fire(game, tir2);
 			return ;
