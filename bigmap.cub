@@ -1,0 +1,186 @@
+R 1500 800
+F 84, 55 , 14
+C 0, 204, 204
+
+NO ./cont/walls/circuit.xpm
+WE ./cont/walls/panel.xpm
+EA ./cont/walls/purplestone.xpm
+SO ./cont/walls/rusted.xpm
+
+S2 ./cont/obj/chat.xpm
+S3 ./cont/obj/ammo.xpm
+S4 ./cont/obj/barrel.xpm
+S5 ./cont/obj/key.xpm
+S6 ./cont/obj/puit.xpm
+S7 ./cont/obj/puit-sang.xpm
+S8 ./cont/obj/Spear.xpm
+S9 ./cont/obj/statue.xpm
+S* ./cont/walls/panel.xpm
+S/ ./cont/obj/SPRITE.xpm
+
+SP ./cont/walls/doors_close.xpm
+Sp ./cont/walls/doors_open.xpm
+
+S= ./cont/foes/enemy_dead.xpm
+S$ ./cont/foes/enemyPM_dead.xpm
+S: ./cont/foes/enemycapt_dead.xpm
+S} ./cont/foes/mutant_dead.xpm
+S| ./cont/foes/flame_d5.xpm
+Sz ./cont/foes/ss_dead.xpm
+
+S, ./cont/foes/angel_dead.xpm
+St ./cont/foes/Hitler_head.xpm
+Sa ./cont/foes/HitlerMage_dead.xpm
+S> ./cont/foes/uber_dead.xpm
+
+SAE1r ./cont/foes/enemy.xpm
+SAE2r ./cont/foes/enemy_aiming.xpm
+SAE3r ./cont/foes/enemy_aim.xpm
+SAE1e ./cont/foes/enemy_aim.xpm
+SAE2e ./cont/foes/enemy_shoot.xpm
+SAD1+ ./cont/foes/enemy_dead1.xpm
+SAD2+ ./cont/foes/enemy_dead2.xpm
+SAD3+ ./cont/foes/enemy_dead3.xpm
+SAD4+ ./cont/foes/enemy_dead4.xpm
+
+SAP1y ./cont/foes/enemy_PM.xpm
+SAP2y ./cont/foes/enemy_PM_aiming.xpm
+SAP3y ./cont/foes/enemyPM_aim.xpm
+SAP1V ./cont/foes/enemyPM_aim.xpm
+SAP2V ./cont/foes/enemyPM_shoot.xpm
+SAF1% ./cont/foes/enemyPM_dead1.xpm
+SAF2% ./cont/foes/enemyPM_dead2.xpm
+SAF3% ./cont/foes/enemyPM_dead3.xpm
+SAF4% ./cont/foes/enemyPM_dead4.xpm
+SAF5% ./cont/foes/enemyPM_dead.xpm
+
+SAC1k ./cont/foes/enemy_captain.xpm
+SAC2k ./cont/foes/enemy_captain_aiming.xpm
+SAC3k ./cont/foes/enemycapt_aim.xpm
+SAC1c ./cont/foes/enemycapt_aim.xpm
+SAC2c ./cont/foes/enemycapt_shoot.xpm
+SAG1? ./cont/foes/enemycapt_dead1.xpm
+SAG2? ./cont/foes/enemycapt_dead2.xpm
+SAG3? ./cont/foes/enemycapt_dead3.xpm
+SAG4? ./cont/foes/enemycapt_dead4.xpm
+SAG5? ./cont/foes/enemycapt_dead.xpm
+
+SAM1) ./cont/foes/MecaHitler.xpm
+SAM2) ./cont/foes/MecaHitler_aiming.xpm
+SAM1M ./cont/foes/MecaHitler_aim.xpm
+SAM2M ./cont/foes/MecaHitler_fire1.xpm
+SAD1m ./cont/foes/MecaHitler_dead1.xpm
+SAD2m ./cont/foes/MecaHitler_dead2.xpm
+SAD3m ./cont/foes/MecaHitler_dead3.xpm
+SAD4m ./cont/foes/MecaHitler_dead3.xpm
+
+SAM1{ ./cont/foes/Hitler.xpm
+SAM2{ ./cont/foes/Hitler_aiming.xpm
+SAM3{ ./cont/foes/Hitler_aim.xpm
+SAM1H ./cont/foes/Hitler_aim.xpm
+SAM2H ./cont/foes/Hitler_fire.xpm
+SAD1h ./cont/foes/Hitler_dead1.xpm
+SAD2h ./cont/foes/Hitler_dead2.xpm
+SAD3h ./cont/foes/Hitler_dead3.xpm
+SAD4h ./cont/foes/Hitler_dead4.xpm
+SAD5h ./cont/foes/Hitler_dead5.xpm
+SAD6h ./cont/foes/Hitler_dead6.xpm
+SAD7h ./cont/foes/Hitler_dead7.xpm
+SAD8h ./cont/foes/Hitler_dead8.xpm
+SAD9h ./cont/foes/Hitler_head.xpm
+
+SAX1< ./cont/foes/MageHitler_aiming1.xpm
+SAX2< ./cont/foes/MageHitler_aiming2.xpm
+SAX3< ./cont/foes/MageHitler_aiming3.xpm
+SAX4< ./cont/foes/MageHitler_aiming4.xpm
+SAX4< ./cont/foes/MageHitler_aiming5.xpm
+SAX5< ./cont/foes/HitlerMage_aim.xpm
+SAX1X ./cont/foes/HitlerMage_aim.xpm
+SAX2X ./cont/foes/HitlerMage_shoot.xpm
+SAX1x ./cont/foes/HitlerMage_dead1.xpm
+SAX2x ./cont/foes/HitlerMage_dead2.xpm
+SAX3x ./cont/foes/HitlerMage_dead3.xpm
+SAX4x ./cont/foes/HitlerMage_dead4.xpm
+SAX5x ./cont/foes/HitlerMage_dead5.xpm
+SAX6x ./cont/foes/HitlerMage_dead.xpm
+
+SAH1( ./cont/foes/angel1.xpm
+SAH2( ./cont/foes/angel2.xpm
+SAH3( ./cont/foes/angel3.xpm
+SAH4( ./cont/foes/angel4.xpm
+SAH1A ./cont/foes/angel_s1.xpm
+SAH2A ./cont/foes/angel_s2.xpm
+SAJ1- ./cont/foes/angel_d1.xpm
+SAJ2- ./cont/foes/angel_d2.xpm
+SAJ3- ./cont/foes/angel_d3.xpm
+SAJ4- ./cont/foes/angel_d4.xpm
+SAJ5- ./cont/foes/angel_d5.xpm
+SAJ6- ./cont/foes/angel_d6.xpm
+SAJ7- ./cont/foes/angel_d7.xpm
+SAJ8- ./cont/foes/angel_dead.xpm
+
+SAF1; ./cont/foes/flame1.xpm
+SAF2; ./cont/foes/flame2.xpm
+SAF3; ./cont/foes/flame3.xpm
+SAF1l ./cont/foes/flame_s1.xpm
+SAF2l ./cont/foes/flame_s2.xpm
+SAF1L ./cont/foes/flame_d1.xpm
+SAF2L ./cont/foes/flame_d2.xpm
+SAF3L ./cont/foes/flame_d3.xpm
+SAF4L ./cont/foes/flame_d4.xpm
+SAF5L ./cont/foes/flame_d5.xpm
+
+SAM1I ./cont/foes/mutant_shoot1.xpm
+SAM2I ./cont/foes/mutant_shoot2.xpm
+SAM1o ./cont/foes/mutant_d1.xpm
+SAM2o ./cont/foes/mutant_d2.xpm
+SAM3o ./cont/foes/mutant_d3.xpm
+SAM4o ./cont/foes/mutant_dead.xpm
+
+SAS1f ./cont/foes/spectre.xpm
+SAS2f ./cont/foes/spectre2.xpm
+SAS3f ./cont/foes/spectre3.xpm
+SAS4f ./cont/foes/spectre4.xpm
+SAS5f ./cont/foes/spectre5.xpm
+SAS6f ./cont/foes/spectre6.xpm
+SAS7f ./cont/foes/spectre7.xpm
+SAS8f ./cont/foes/spectre8.xpm
+
+
+SAS1# ./cont/foes/ss_face.xpm
+SAS2# ./cont/foes/ss_face2.xpm
+SAS3# ./cont/foes/ss_face3.xpm
+SAS1s ./cont/foes/ss_shoot1.xpm
+SAS2s ./cont/foes/ss_shoot2.xpm
+SAS1_ ./cont/foes/ss_die1.xpm
+SAS2_ ./cont/foes/ss_die2.xpm
+SAS3_ ./cont/foes/ss_dead.xpm
+
+
+SAU1@ ./cont/foes/uber.xpm
+SAU2@ ./cont/foes/uber1.xpm
+SAU3@ ./cont/foes/uber2.xpm
+SAU1U ./cont/foes/uber_s1.xpm
+SAU2U ./cont/foes/uber_s2.xpm
+SAU1u ./cont/foes/uber_d1.xpm
+SAU2u ./cont/foes/uber_d2.xpm
+SAU3u ./cont/foes/uber_d3.xpm
+SAU4u ./cont/foes/uber_d4.xpm
+SAU5u ./cont/foes/uber_dead.xpm
+
+KY ./cont/color-galaxy.xpm
+
+111111111111111111111111111111
+10000000000000f000000000000001
+1000700000000f0f00000000070001
+100000000000f0<0f0000000000001
+1000000000000f0f00000000000001
+100000000000000000000000000001
+100070000000000000000000070001
+100000000000000000000000000001
+11111111111111P111111111111111
+            19091
+            10001
+            10001
+            10N01
+            11111

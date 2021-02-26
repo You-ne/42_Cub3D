@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/25 04:24:36 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/25 09:49:59 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ t_coor	ft_dirsteps(t_coor vecray)
 	return (dir);
 }
 
-t_img find_sprite(t_game *game, char chr)
+t_img *find_sprite(t_game *game, char chr)
 {
 	t_img *tex1;
 	t_img *tex2;
 
-	tex1 = &game->SP;
-	tex2 = &game->SA;
+	tex1 = game->SP;
+	tex2 = game->SA;
 	while (tex1->chr != chr && tex1->next != NULL)
 	{
 		tex1 = tex1->next;
 	}
 	if (tex1->chr == chr)
-		return (*tex1);
+		return (tex1);
 	while (tex2->chr != chr && tex2->next != NULL)
 	{
 		tex2 = tex2->next;
 	}
 	if (tex2->chr == chr)
-		return (*tex2);
+		return (tex2);
 }
 
 void	extract_anim2(t_game *game, char *str, char chr)
@@ -56,10 +56,10 @@ void	extract_anim2(t_game *game, char *str, char chr)
 	t_img	*tex;
 
 
-	tmp = &game->SA;
+	tmp = game->SA;
 	tex = (struct s_img*)malloc(sizeof(struct s_img));
 	tex->img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &tex->width, &tex->height);
-	if (!(game->SA.img_p))
+	if (!(game->SA->img_p))
 		ft_error("Troubles extracting sprites textures !!\n", game);
 	tex->img = mlx_get_data_addr(tex->img_p, &tex->bpp, &tex->s_line, &tex->endian);
 	tex->chr = chr;
@@ -71,14 +71,17 @@ void	extract_anim2(t_game *game, char *str, char chr)
 
 void	extract_anim(t_game *game, char *str, char chr)
 {
-	if (game->SA.chr == '1')
+	if (game->SA->chr == '1')
 	{
-		game->SA.img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &game->SA.width, &game->SA.height);
-		if (!(game->SA.img_p))
+
+		game->SA->img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
+		&game->SA->width, &game->SA->height);
+		if (!(game->SA->img_p))
 			ft_error("Troubles extracting sprites textures !!\n", game);
-		game->SA.img = mlx_get_data_addr(game->SA.img_p, &game->SA.bpp, &game->SA.s_line, &game->SA.endian);
-		game->SA.chr = chr;
-		game->SA.next = NULL;
+		game->SA->img = mlx_get_data_addr(game->SA->img_p, &game->SA->bpp,
+		&game->SA->s_line, &game->SA->endian);
+		game->SA->chr = chr;
+		game->SA->next = NULL;
 	}
 	else
 		extract_anim2(game, str, chr);
@@ -132,10 +135,10 @@ void	extract_sprite_2(t_game *game, char *str, char chr)
 	t_img *tex;
 	t_img *tmp;
 
-	tmp = &game->SP;
+	tmp = game->SP;
 	tex = (struct s_img*)malloc(sizeof(struct s_img));
 	tex->img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &tex->width, &tex->height);
-	if (!(game->SP.img_p))
+	if (!(game->SP->img_p))
 		ft_error("Troubles extracting sprites textures !!\n", game);
 	tex->img = mlx_get_data_addr(tex->img_p, &tex->bpp, &tex->s_line, &tex->endian);
 	tex->chr = chr;
@@ -149,12 +152,14 @@ void	extract_sprite(t_game *game, char *str, char chr)
 {
 	if (chr == '2')
 	{
-		game->SP.img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &game->SP.width, &game->SP.height);
-		if (!(game->SP.img_p))
+		game->SP->img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
+		&game->SP->width, &game->SP->height);
+		if (!(game->SP->img_p))
 			ft_error("Troubles extracting sprites textures !!\n", game);
-		game->SP.img = mlx_get_data_addr(game->SP.img_p, &game->SP.bpp, &game->SP.s_line, &game->SP.endian);
-		game->SP.chr = '2';
-		game->SP.next = NULL;
+		game->SP->img = mlx_get_data_addr(game->SP->img_p, &game->SP->bpp,
+		&game->SP->s_line, &game->SP->endian);
+		game->SP->chr = '2';
+		game->SP->next = NULL;
 	}
 	else
 		extract_sprite_2(game, str, chr);

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/24 01:38:27 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 09:29:45 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,8 @@ typedef struct s_game
 	t_img		SO;
 	t_img		WE;
 	t_img		EA;
-	t_img		SP;
-	t_img		SA;
+	t_img		*SP;
+	t_img		*SA;
 }		t_game;
 
 /*
@@ -168,7 +168,7 @@ typedef struct s_game
 # define LINUX		1
 # define FOV		60
 //# define CUB_SIZE	64
-# define NB_PARAMS	8 + 113
+# define NB_PARAMS	8 + 143
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2
@@ -239,7 +239,7 @@ void	get_res(char *info, t_game *game);
 int		find_map(t_game *game, int line, int nb_params);
 t_coor	find_char(t_game *game);
 t_coor	init_dir(char **map, t_coor coor);
-t_img	find_sprite(t_game *game, char chr);
+t_img	*find_sprite(t_game *game, char chr);
 void	param_enemy(t_game *game, t_enemy *enemy, char chr);
 t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
 
@@ -254,10 +254,10 @@ void	draw_weapon(t_game *game, t_img *img, t_img *tex);
 t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
-t_img	find_animation(t_game *game, int info, t_img tex, char chr);
-t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
-t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy);
-t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img	*find_animation(t_game *game, int info, t_img *tex, char chr);
+t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon);
 char	find_shooting_chr(char chr);
 int		is_alive_or_dead(char chr);
@@ -304,10 +304,9 @@ void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img);
 void	extract_texture(t_game *game, char *str, char *img, char chr);
 void	extract_anim(t_game *game, char *str, char chr);
 void	extract_file(char *path, t_game *game);
-char	*ft_resize_col_texture(t_img texture, int height, int ncol);
 void	ft_start_display(t_game);
 void	ft_raymachine(t_game *game, t_img *img);
 t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game);
-void	ft_drawcol(t_coor *heightncol, t_img texture, t_game *game, t_img *img);
+void	ft_drawcol(t_coor *heightncol, t_img *texture, t_game *game, t_img *img);
 void	free_ray(t_coor *ray);
 #endif

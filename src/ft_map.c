@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/25 04:23:27 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/25 09:34:41 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*count_sprites(t_game *game, int time, char *sp_set) //norme
 	t_img	*sp;
 
 	if (time == 0)
-		sp = &game->SP;
+		sp = game->SP;
 	else
-		sp = &game->SA;
+		sp = game->SA;
 	while (sp->next != NULL)
 	{
 		if (!(in_str(sp->chr, sp_set)))
@@ -210,7 +210,7 @@ int		find_map(t_game *game, int line, int nb_params) // good size
 		end++;
 	get_map(game, line, end - line, sp_set);
 	verify_map(game, sp_set);
-	get_enemies(game, get_foes_char(&game->SA));
+	get_enemies(game, get_foes_char(game->SA));
 	find_secret_door(game);
 	free(sp_set);
 	game->map_found = 1;

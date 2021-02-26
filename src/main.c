@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 10:07:01 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/25 09:49:21 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,11 @@ void	init(t_game *game)
 	game->secret.x = 0;
 	game->secret.y = 0;
 	game->secret.dist = 0;
-	game->SA.chr = '1';
+	game->SA = (struct s_img*)malloc(sizeof(struct s_img));
+
+	game->SP = (struct s_img*)malloc(sizeof(struct s_img));
+
+	game->SA->chr = '1';
 	game->player.num_weapon = 1;
 	game->player.damage = -40;
 	game->player.pv = 100.0;

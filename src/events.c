@@ -6,8 +6,9 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/25 04:57:38 by antoine          ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2021/02/25 08:32:36 by yotillar         ###   ########.fr       */
+//Colors
+#/*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
@@ -71,6 +72,7 @@ void	change_map(t_game *game, int x, int y, char chr)
 void	change_pv(t_player *player, float pv)
 {
 	player->pv = player->pv + pv;
+	printf("PV = %f, DMG = %f\n\n", player->pv, pv);
 	if (player->pv > 100)
 		player->pv = 100;
 }

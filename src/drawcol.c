@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/25 07:17:51 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/25 09:18:07 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 
 void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 {
-	t_img tex;
+	t_img *tex;
 	float size;
 	t_coor xy;
 	int mid;
@@ -50,7 +50,7 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	size = sp_size((char)((int)heightncol->dist));
 	tex = find_sprite(game, (char)((int)heightncol->dist));
 	tex = find_animation(game, heightncol->coor_sp, tex, (char)((int)heightncol->dist));
-	img->next = &tex;
+	img->next = tex;
 	xy.x = x;
 	mid = game->tilt + (int)(game->res[1] / 2);
 	xy.dist = (mid + ((heightncol->y * (1 / size)) / 2) - heightncol->y < 0) ?
@@ -88,14 +88,13 @@ t_coor	*suppr_sp_behind_door(t_coor *hnc)
 	while (hnc != tmp && i > 0)
 	{
 		tmp2 = hnc->next;
-		free(hnc);
 		hnc = tmp2;
 		i--;
 	}
 	return (hnc);
 }
 
-void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
+void	ft_drawcol(t_coor *heightncol, t_img *tex, t_game *game, t_img *img)
 {
 	int y;
 	int count;
@@ -110,10 +109,10 @@ void	ft_drawcol(t_coor *heightncol, t_img tex, t_game *game, t_img *img)
 	{
 		if (y > game->tilt + (int)(game->res[1] / 2) - (int)(heightncol->y / 2))
 		{
-			i = (int)(((float)tex.height / heightncol->y) * (float)count);
-			i = i * tex.s_line;
-			i = i + ((int)(heightncol->x)) * (tex.bpp / 8);
-			ft_texture_put(img, heightncol->dist, y, &tex.img[i]);
+			i = (int)(((float)tex->height / heightncol->y) * (float)count);
+			i = i * tex->s_line;
+			i = i + ((int)(heightncol->x)) * (tex->bpp / 8);
+			ft_texture_put(img, heightncol->dist, y, &tex->img[i]);
 			count++;
 		}
 		y++;

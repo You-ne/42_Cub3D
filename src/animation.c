@@ -6,13 +6,13 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/25 04:57:59 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/25 09:02:51 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
+t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
 	clock_t t2;
 	int		centisec;
@@ -34,10 +34,10 @@ t_img aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	{
 		change_map(game, enemy->x, enemy->y, find_shooting_chr(tex->chr));
 	}
-	return (*tex);
+	return (tex);
 }
 
-t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
+t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
 	clock_t	t2;
 	int		centisec;
@@ -55,14 +55,14 @@ t_img enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 			change_pv(&game->player, enemy->damage);
 		}
 		enemy->fire = 1;
-		return (*(tex->next));
+		return (tex->next);
 	}
 	else
 		enemy->fire = 0;
-	return (*tex);
+	return (tex);
 }
 
-t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
+t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
 	clock_t t2;
 	int		centisec;
@@ -82,7 +82,7 @@ t_img death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	{
 		change_map(game, enemy->x, enemy->y, find_death_chr(tex->chr));
 	}
-	return (*tex);
+	return (tex);
 }
 
 

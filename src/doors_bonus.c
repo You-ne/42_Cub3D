@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:31:01 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/22 12:48:19 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/25 09:08:57 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	t_coor *door;
 	t_coor vect;
 	float eqsol;
-	t_img tex;
+	t_img *tex;
 
 	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
 	if (ray->dist == -3)
-		return (ft_vertical_door(game, dir, ray, tex.width));
+		return (ft_vertical_door(game, dir, ray, tex->width));
 	else
 		door = ft_door_xray(ray, eqline, &game->player.pos, dir);
 	if (door == NULL)
@@ -112,7 +112,7 @@ t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	ft_pythagore(game->player.vect.x, game->player.vect.y));
 	door->dist = fabs(vect.dist) * ft_pythagore(door->y - game->player.pos.y, 
 	door->x - game->player.pos.x);
-	ft_add_door2(game, door, tex.width, eqline);
+	ft_add_door2(game, door, tex->width, eqline);
 	door->dist = (float)((int)ft_ray_collision(game->map, ray, dir));
 	door->next = ray->next;
 	return (door);
