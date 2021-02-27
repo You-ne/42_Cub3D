@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 07:15:35 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 19:52:05 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	get_map(t_game *game, int line, int nlines, char *sp_set) // good size
 	while (game->map[line] != NULL)
 	{
 		if (!is_str_charset(new_set, game->map[line]) || !in_str('1', game->map[line]))
-			ft_error("Erreur: Ligne incorrect !\n", game);
+			ft_error("Mauvais char dans la map !\n", game);
 		new[i] = ft_strdup(game->map[line++]);
 		if (!(new[i++]))
-			ft_error("Erreur !\n", game);
+			ft_error("Erreur durant la copie de la map !\n", game);
 	}
 	new[i] = NULL;
 	i = 0;
@@ -126,7 +126,7 @@ void	get_enemies(t_game * game, char *foes_set)
 
 	y = 0;
 	if (!(game->enemies = (t_enemy*)malloc(sizeof(t_enemy))))
-		ft_error("Erreur: Malloc a échoué !\n", game);
+		ft_error("Malloc a échoué !\n", game);
 	game->enemies->next = NULL;
 	game->enemies->x = -1;
 	game->enemies->chr = '0';
@@ -200,7 +200,7 @@ int		find_map(t_game *game, int line, int nb_params) // good size
 	char	*sp_set;
 	char	*tmp_set;
 
-	tmp_set = ft_strdup("NEWSO");
+	tmp_set = ft_strdup("NEWS0");
 	tmp_set = count_sprites(game, 0, tmp_set);
 	sp_set = count_sprites(game, 1, tmp_set);
 	end = line;

@@ -3,7 +3,7 @@ INC=/usr/local/include
 INCLIB=$(INC)/../lib
 CC=gcc
 
-LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -O3 -fsanitize=address
+	LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -O3 -fsanitize=address
 
 NAME= ./cub3D
 

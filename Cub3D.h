@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 06:32:29 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:30:28 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_game
 	int			Fl; // Int colors
 	int			Ce;
 
+	int			found[8];
 	int			nb_params;
 	int			map_found;
 
@@ -144,6 +145,7 @@ typedef struct s_game
 	clock_t		enemy_fire_t1;
 	t_enemy		*enemies;
 
+	int			win_created;
 	t_win		win;
 	t_player	player;
 
@@ -233,6 +235,8 @@ void	end_screen(t_game *game, t_img *tex, t_img *img);
 
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
+void	checkpath(char *path,  t_game *game);
+void	check_res(t_game *game);
 
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);
@@ -304,7 +308,7 @@ void	extract_anim(t_game *game, char *str, char chr);
 void	extract_file(char *path, t_game *game);
 
 
-void	ft_start_display(t_game);
+void	ft_start_display(t_game *game);
 
 void	ft_raymachine(t_game *game, t_img *img);
 t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game);

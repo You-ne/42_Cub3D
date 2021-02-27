@@ -6,11 +6,23 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:29:04 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 03:57:24 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 00:33:00 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+void	check_res(t_game *game)
+{
+	int		wmax;
+	int		hmax;
+
+	mlx_get_screen_size(game->win.mlxp, &wmax, &hmax);
+	if (game->res[0] > wmax)
+		game->res[0] = wmax;
+	if (game->res[1] >hmax)
+		game->res[1] = hmax;
+}
 
 void	check_args(t_game *game, char **argv, int argc)
 {
@@ -50,3 +62,29 @@ void	check_fd(t_game *game, char *argv)
 	else
 		ft_error("Wrong file extension for map ! \n", game);
 }
+
+void	checkpath(char *path, t_game *game)
+{
+	int		fd;
+	int		ret;
+	char	buffer[1];
+	char	*ext;
+
+	fd = open(path, O_RDONLY);
+	if (fd == 0 || (ret = read(fd, buffer, 1)) < 0)
+		ft_error("Cannot read texture, please verify path! \n", game);
+	if ((ext = ft_strrchr(path + 1, '.')) != NULL)
+	{
+		if (ft_strlen(ext) == 4)
+		{
+			if (ft_strncmp(ext, ".xpm", 4) != 0)
+				ft_error("Wrong file extension for texture ! \n", game);
+			return ;
+		}
+		ft_error("Wrong file extension for texture ! \n", game);
+	}
+	else
+		ft_error("Wrong file extension for texture ! \n", game);
+}
+
+

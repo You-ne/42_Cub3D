@@ -1,4 +1,4 @@
-R 1400 650
+R 1400 500
 F 84, 55 , 14
 C 0, 204, 204
 
@@ -38,10 +38,10 @@ SAE2r ./cont/foes/enemy_aiming.xpm
 SAE3r ./cont/foes/enemy_aim.xpm
 SAE1e ./cont/foes/enemy_aim.xpm
 SAE2e ./cont/foes/enemy_shoot.xpm
-SAD1+ ./cont/foes/enemy_dead1.xpm
-SAD2+ ./cont/foes/enemy_dead2.xpm
-SAD3+ ./cont/foes/enemy_dead3.xpm
-SAD4+ ./cont/foes/enemy_dead4.xpm
+SAE1+ ./cont/foes/enemy_dead1.xpm
+SAE2+ ./cont/foes/enemy_dead2.xpm
+SAE3+ ./cont/foes/enemy_dead3.xpm
+SAE4+ ./cont/foes/enemy_dead4.xpm
 
 SAP1y ./cont/foes/enemy_PM.xpm
 SAP2y ./cont/foes/enemy_PM_aiming.xpm
@@ -59,35 +59,35 @@ SAC2k ./cont/foes/enemy_captain_aiming.xpm
 SAC3k ./cont/foes/enemycapt_aim.xpm
 SAC1c ./cont/foes/enemycapt_aim.xpm
 SAC2c ./cont/foes/enemycapt_shoot.xpm
-SAG1? ./cont/foes/enemycapt_dead1.xpm
-SAG2? ./cont/foes/enemycapt_dead2.xpm
-SAG3? ./cont/foes/enemycapt_dead3.xpm
-SAG4? ./cont/foes/enemycapt_dead4.xpm
-SAG5? ./cont/foes/enemycapt_dead.xpm
+SAC1? ./cont/foes/enemycapt_dead1.xpm
+SAC2? ./cont/foes/enemycapt_dead2.xpm
+SAC3? ./cont/foes/enemycapt_dead3.xpm
+SAC4? ./cont/foes/enemycapt_dead4.xpm
+SAC5? ./cont/foes/enemycapt_dead.xpm
 
 SAM1) ./cont/foes/MecaHitler.xpm
 SAM2) ./cont/foes/MecaHitler_aiming.xpm
 SAM1M ./cont/foes/MecaHitler_aim.xpm
 SAM2M ./cont/foes/MecaHitler_fire1.xpm
-SAD1m ./cont/foes/MecaHitler_dead1.xpm
-SAD2m ./cont/foes/MecaHitler_dead2.xpm
-SAD3m ./cont/foes/MecaHitler_dead3.xpm
-SAD4m ./cont/foes/MecaHitler_dead3.xpm
+SAM1m ./cont/foes/MecaHitler_dead1.xpm
+SAM2m ./cont/foes/MecaHitler_dead2.xpm
+SAM3m ./cont/foes/MecaHitler_dead3.xpm
+SAM4m ./cont/foes/MecaHitler_dead3.xpm
 
-SAM1{ ./cont/foes/Hitler.xpm
-SAM2{ ./cont/foes/Hitler_aiming.xpm
-SAM3{ ./cont/foes/Hitler_aim.xpm
-SAM1H ./cont/foes/Hitler_aim.xpm
-SAM2H ./cont/foes/Hitler_fire.xpm
-SAD1h ./cont/foes/Hitler_dead1.xpm
-SAD2h ./cont/foes/Hitler_dead2.xpm
-SAD3h ./cont/foes/Hitler_dead3.xpm
-SAD4h ./cont/foes/Hitler_dead4.xpm
-SAD5h ./cont/foes/Hitler_dead5.xpm
-SAD6h ./cont/foes/Hitler_dead6.xpm
-SAD7h ./cont/foes/Hitler_dead7.xpm
-SAD8h ./cont/foes/Hitler_dead8.xpm
-SAD9h ./cont/foes/Hitler_head.xpm
+SAH1{ ./cont/foes/Hitler.xpm
+SAH2{ ./cont/foes/Hitler_aiming.xpm
+SAH3{ ./cont/foes/Hitler_aim.xpm
+SAH1H ./cont/foes/Hitler_aim.xpm
+SAH2H ./cont/foes/Hitler_fire.xpm
+SAH1h ./cont/foes/Hitler_dead1.xpm
+SAH2h ./cont/foes/Hitler_dead2.xpm
+SAH3h ./cont/foes/Hitler_dead3.xpm
+SAH4h ./cont/foes/Hitler_dead4.xpm
+SAH5h ./cont/foes/Hitler_dead5.xpm
+SAH6h ./cont/foes/Hitler_dead6.xpm
+SAH7h ./cont/foes/Hitler_dead7.xpm
+SAH8h ./cont/foes/Hitler_dead8.xpm
+SAH9h ./cont/foes/Hitler_head.xpm
 
 SAX1< ./cont/foes/MageHitler_aiming1.xpm
 SAX2< ./cont/foes/MageHitler_aiming2.xpm
@@ -104,20 +104,20 @@ SAX4x ./cont/foes/HitlerMage_dead4.xpm
 SAX5x ./cont/foes/HitlerMage_dead5.xpm
 SAX6x ./cont/foes/HitlerMage_dead.xpm
 
-SAH1( ./cont/foes/angel1.xpm
-SAH2( ./cont/foes/angel2.xpm
-SAH3( ./cont/foes/angel3.xpm
-SAH4( ./cont/foes/angel4.xpm
-SAH1A ./cont/foes/angel_s1.xpm
-SAH2A ./cont/foes/angel_s2.xpm
-SAJ1- ./cont/foes/angel_d1.xpm
-SAJ2- ./cont/foes/angel_d2.xpm
-SAJ3- ./cont/foes/angel_d3.xpm
-SAJ4- ./cont/foes/angel_d4.xpm
-SAJ5- ./cont/foes/angel_d5.xpm
-SAJ6- ./cont/foes/angel_d6.xpm
-SAJ7- ./cont/foes/angel_d7.xpm
-SAJ8- ./cont/foes/angel_dead.xpm
+SAA1( ./cont/foes/angel1.xpm
+SAA2( ./cont/foes/angel2.xpm
+SAA3( ./cont/foes/angel3.xpm
+SAA4( ./cont/foes/angel4.xpm
+SAA1A ./cont/foes/angel_s1.xpm
+SAA2A ./cont/foes/angel_s2.xpm
+SAA1- ./cont/foes/angel_d1.xpm
+SAA2- ./cont/foes/angel_d2.xpm
+SAA3- ./cont/foes/angel_d3.xpm
+SAA4- ./cont/foes/angel_d4.xpm
+SAA5- ./cont/foes/angel_d5.xpm
+SAA6- ./cont/foes/angel_d6.xpm
+SAA7- ./cont/foes/angel_d7.xpm
+SAA8- ./cont/foes/angel_dead.xpm
 
 SAF1; ./cont/foes/flame1.xpm
 SAF2; ./cont/foes/flame2.xpm

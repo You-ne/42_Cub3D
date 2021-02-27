@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 07:45:02 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:20:26 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,24 @@ void	ft_start_bmp(t_game *game)
 	ft_exit(65307, game);
 }
 
-void	ft_start_display(t_game game)
+void	ft_start_display(t_game *game)
 {
-	printf("\nStarting X Server with resolution %dx%d\n\n", game.res[0], game.res[1]);
-	if (game.is_bmp == 0)
+	if (game->is_bmp == 0)
 	{
-		game.win.winp = mlx_new_window(game.win.mlxp, game.res[0], game.res[1], "Cub3D");
+		if (game->res[0] > 0 && game -> res[1] > 0)
+			game->win.winp = mlx_new_window(game->win.mlxp, game->res[0], game->res[1], "Cub3D");
+		else
+			ft_error("Window's heigth or width is <= 0\n", game);
+		if (game->win.winp != NULL)
+			game->win_created = 1;
 		printf(GREEN);
-		printf("\nStarting Raymachine.....\n\n");
-//		ft_raymachine(&game);
 		printf(RESET);
-		printf("Hooking...\n\n");
-		mlx_hook(game.win.winp, 2, KEY_PRESS_M, key_press, &game);
-		mlx_hook(game.win.winp, 3, KEY_RELEASE_M, key_release, &game);
-		mlx_hook(game.win.winp, 17, (1L<<17), ft_exit, &game);
-		printf("%.2f PV\n\n", game.player.pv);
-		mlx_loop_hook(game.win.mlxp, next_frame, &game);
-		mlx_loop(game.win.mlxp);
-		printf("\nXserv start looping, waiting for events:\n\n");
-		printf("\nDisplay done!\n\n");
+		mlx_hook(game->win.winp, 2, KEY_PRESS_M, key_press, game);
+		mlx_hook(game->win.winp, 3, KEY_RELEASE_M, key_release, game);
+		mlx_hook(game->win.winp, 17, (1L<<17), ft_exit, game);
+		mlx_loop_hook(game->win.mlxp, next_frame, game);
+		mlx_loop(game->win.mlxp);
 	}
-	else if (game.is_bmp == 1)
-		ft_start_bmp(&game);
+	else if (game->is_bmp == 1)
+		ft_start_bmp(game);
 }

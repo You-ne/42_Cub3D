@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 22:19:45 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/18 19:38:30 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 19:39:43 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_clean_game(t_game *game)
 		ft_clean_map(&game->map);*/
 	/*ft_clean_tex(game);
 	ft_clean_sprites(game);*/
-	if (game->is_bmp == 0)
+	if (game->is_bmp == 0 && game->win_created == 1)
 		mlx_destroy_window(game->win.mlxp, game->win.winp);
 }
 
