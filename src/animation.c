@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 03:12:12 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 07:40:13 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 		enemy->tseen = clock();
 	t2 = clock();
 	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
-	//	printf("centisec=%i, fire_t1=%i\n", centisec, game->fire_t1);
 	if (centisec % enemy->time_anim < 14)
 	{
 		if (enemy->fire == 0)
 		{
-			system("aplay -N -q ./sprites/gun_shot.wav &");
+			system("aplay -N -q ./sprites/357_Magnum.wav &");
 			change_pv(&game->player, enemy->damage);
 		}
 		enemy->fire = 1;
@@ -96,7 +95,7 @@ void	do_fire(t_game *game)
 		{
 			tir =
 			ft_raycannon(&game->player.pos, &game->player.vect, 0.0, game);
-			system("aplay -N -q ./cont/sounds/gun_shot.wav &");
+			system("aplay -N -q ./cont/sounds/357_Magnum.wav &");
 			weapon_fire(game, tir);
 			game->player.ammo -= 1;
 			free_ray(tir);

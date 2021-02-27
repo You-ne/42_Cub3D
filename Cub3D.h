@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 04:22:03 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 06:32:29 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,7 @@ typedef struct s_game
 */
 
 //Parameters
-# define LINUX		1
 # define FOV		60
-//# define CUB_SIZE	64
-# define NB_PARAMS	8 + 143
 
 # define ROT_SPEED		0.07
 # define ZROT_SPEED		2

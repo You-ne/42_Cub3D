@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 03:45:16 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 07:16:52 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 	return (col);
 }
 
-t_coor	*ft_sprite_dist(char **map, t_coor *ray, t_coor *dir)
+t_coor	*ft_sprite_dist(char **map, t_coor *ray, t_coor *dir, t_game *game)
 {
 	t_coor *sp;
 	int i;
 
-	sp = (struct s_coor*)malloc(sizeof(struct s_coor));
-
+	if (!(sp = (struct s_coor*)malloc(sizeof(struct s_coor))))
+		ft_error("Erreur: Malloc a échoué !\n", game);
 	if (ray->x == ((float)((int)ray->x)) && ray->y == ((float)((int)ray->y)))
 	{
 		i = (dir->x <= 0) ? -1 : 0;
@@ -129,7 +129,7 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	t_coor tmp;
 	float distproj;
 
-	sp = ft_sprite_dist(game->map, ray, dir);
+	sp = ft_sprite_dist(game->map, ray, dir, game);
 	sp->dist = ft_pythagore(sp->y - game->player.pos.y,
 	sp->x - game->player.pos.x);
 	tmp = *sp;

@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/25 08:59:20 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 07:41:13 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,10 @@ int		sp_collision(int x, int y, char **map)
 	map[y][x] == 's' || map[y][x] == 'U' || map[y][x] == '<' ||
 	map[y][x] == '{' || map[y][x] == ')' || map[y][x] == 'k' ||
 	map[y][x] == 'y' || map[y][x] == 'r')
+	{
+		system("aplay -N -q ./sprites/collision.wav &");
 		return (1);
+	}
 	else
 		return (0);
 }

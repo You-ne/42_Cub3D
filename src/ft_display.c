@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/22 03:39:48 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 07:45:02 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		next_frame(t_game *game)
 	t_enemy *enemy;
 	clock_t t2;
 
-	//cleaning?
 	t2 = clock();
 	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
@@ -45,7 +44,6 @@ int		next_frame(t_game *game)
 		mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
 		mlx_destroy_image(game->win.mlxp, img.img_p);
 	}
-	//image management?
 	return (0);
 }
 

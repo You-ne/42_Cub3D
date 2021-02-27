@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:34:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 03:45:05 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 07:20:06 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_coor	*ft_ray(t_coor *pos, t_coor *dir, t_coor *eqline, t_game *game)
 {
 	t_coor *ray;
 
-	ray = (struct s_coor *)malloc(sizeof(struct s_coor));
-
+	if (!(ray = (struct s_coor *)malloc(sizeof(struct s_coor))))
+		ft_error("Erreur: Malloc a échoué\n", game);
 	ray->x = pos->x;
 	ray->y = pos->y;
 	ray->dist = -2;
@@ -64,7 +64,7 @@ void	ft_raymachine(t_game *game, t_img *img)
 	angle = (float)FOV / (float)game->res[0];
 	while (x < game->res[0])
 	{
-		ray = ft_raycannon(&game->player.pos, &game->player.vect, 
+		ray = ft_raycannon(&game->player.pos, &game->player.vect,
 		(M_PI / 180) * ((angle * x) - (FOV / 2)), game);
 		ft_projection(game, ray, x, img);
 		x++;
@@ -93,8 +93,10 @@ t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game)
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, &dir, &eqline, game);
 	if (dir.x == -2)
-		ray->dist = (ray->y - pos->y) < 0 ? -(ray->y - pos->y) : (ray->y - pos->y);
+		ray->dist = (ray->y - pos->y) < 0 ? -(ray->y - pos->y) : (ray->y -
+		pos->y);
 	else
-		ray->dist = ft_pythagore((ray->x - pos->x), (ray->y - pos->y)) * cos(angle);
+		ray->dist = ft_pythagore((ray->x - pos->x), (ray->y - pos->y)) *
+		cos(angle);
 	return(ray);
 }
