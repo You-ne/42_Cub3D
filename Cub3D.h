@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/25 09:29:45 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 03:12:56 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,9 @@ typedef struct s_game
 
 # define GAME_OVER "./cont/GameOver.xpm"
 # define YOU_WIN "./cont/YOUWIN.xpm"
+
+# define T_AIM_ANIM 20
+# define T_DEATH_ANIM 15
 
 
 //Colors

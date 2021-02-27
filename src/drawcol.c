@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/25 09:18:07 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 03:52:29 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 		i = (int)(((float)tex->height / heightncol->y) * xy->dist);
 		i = i * tex->s_line;
 		i = i + ((int)(heightncol->x)) * (tex->bpp / 8);
-		if ((char)((int)heightncol->dist) == 'p' ||
-		(char)((int)heightncol->dist) == 'p' ||
-		(char)((int)heightncol->dist) == '*')
-			ft_texture_put(img, xy->x, xy->y, (tex->img +i));
-		else
+		if ((char)((int)heightncol->dist) != 'P' &&
+		(char)((int)heightncol->dist) != 'p' &&
+		(char)((int)heightncol->dist) != '*')
 			ft_texture_put_sp(img, *xy, tex->img, i);
+		else
+			ft_texture_put(img, xy->x, xy->y, (tex->img +i));
 		xy->dist = xy->dist + 1;
 	}
 	return ;
@@ -49,14 +49,15 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 	xy.y = 0;
 	size = sp_size((char)((int)heightncol->dist));
 	tex = find_sprite(game, (char)((int)heightncol->dist));
-	tex = find_animation(game, heightncol->coor_sp, tex, (char)((int)heightncol->dist));
+	tex = find_animation(game, heightncol->coor_sp, tex,
+	(char)((int)heightncol->dist));
 	img->next = tex;
 	xy.x = x;
 	mid = game->tilt + (int)(game->res[1] / 2);
 	xy.dist = (mid + ((heightncol->y * (1 / size)) / 2) - heightncol->y < 0) ?
 	(float)(-1 * (int)(mid + ((heightncol->y * (1 / size)) / 2) -
 	heightncol->y)) : 0;
-	while ((float)xy.y <= (mid + ((heightncol->y * (1 / size)) / 2))
+	while ((float)xy.y < (mid + ((heightncol->y * (1 / size)) / 2))
 	&& xy.y < game->res[1])
 	{
 		ft_drawcol_sp2(heightncol, game, img, &xy);

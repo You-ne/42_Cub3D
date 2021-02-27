@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/25 09:02:51 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 03:12:12 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	n = count_animation_sprites(tex);
 	i = 1;
 	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
-	while (centisec % (n * 100) > 100 * i && i < n)
+	while (centisec % (n * T_AIM_ANIM) > T_AIM_ANIM * i && i < n)
 	{
 		tex = tex->next;
 		i++;
@@ -73,7 +73,7 @@ t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	n = count_animation_sprites(tex);
 	i = 1;
 	centisec = (int)roundf((float)((long)t2 - (long)enemy->tdeath) / CLOCKS_PER_SEC * 100);
-	while (centisec % (n * 15) > 15 * i && i < n)
+	while (centisec % (n * T_DEATH_ANIM) > T_DEATH_ANIM * i && i < n)
 	{
 		tex = tex->next;
 		i++;
