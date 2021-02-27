@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 03:12:56 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/27 04:22:03 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,17 +299,22 @@ float	ft_pythagore(float x, float y);
 
 t_coor	*ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
 
-void	ft_pixel_put(t_img *img, int x, int y, int color);
-void	ft_texture_put(t_img *img, int x, int y, char *texture);
-void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i);
-void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img);
-
+t_img	*get_weapon_tex(t_game *game, char *n1, char *n2, char *n3);
 void	extract_texture(t_game *game, char *str, char *img, char chr);
+void	no_we_ea_textures(t_game *game, char param, char *str);
+void	so_sky_textures(t_game *game, char param, char *str);
 void	extract_anim(t_game *game, char *str, char chr);
 void	extract_file(char *path, t_game *game);
+
+
 void	ft_start_display(t_game);
+
 void	ft_raymachine(t_game *game, t_img *img);
 t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game);
 void	ft_drawcol(t_coor *heightncol, t_img *texture, t_game *game, t_img *img);
 void	free_ray(t_coor *ray);
+void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img);
+void	ft_texture_put(t_img *img, int x, int y, char *texture);
+void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i);
+void	ft_pixel_put(t_img *img, int x, int y, int color);
 #endif

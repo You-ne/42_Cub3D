@@ -8,6 +8,8 @@ LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -O3 -fsanitize=address
 NAME= ./cub3D
 
 SRC =	./src/main.c \
+		./src/extract_textures.c \
+		./src/extract_textures2.c \
 		./src/param_sprites.c \
 		./src/draw.c \
 		./src/drawcol.c \
