@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/25 09:28:38 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/27 02:23:15 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,20 +100,20 @@ t_coor	*ft_sprite_dist(char **map, t_coor *ray, t_coor *dir)
 
 	if (ray->x == ((float)((int)ray->x)) && ray->y == ((float)((int)ray->y)))
 	{
-		i = (dir->x <= 0) ? -1 : i;
-		i = (dir->y <= 0) ? -1 : i;
+		i = (dir->x <= 0) ? -1 : 0;
+		i = (dir->y <= 0) ? -1 : 0;
 		sp->x = (float)((int)ray->x + i + 0.5);
 		sp->y = (float)((int)ray->y + i + 0.5);
 	}
 	else if (ray->x == (float)((int)ray->x))
 	{
-		i = (dir->x <= 0) ? -1 : i;
+		i = (dir->x <= 0) ? -1 : 0;
 		sp->x = (float)((int)ray->x + i + 0.5);
 		sp->y = (float)((int)ray->y + 0.5);
 	}
 	else
 	{
-		i = (dir->y <= 0) ? -1 : i;
+		i = (dir->y <= 0) ? -1 : 0;
 		sp->x = (float)((int)ray->x + 0.5);
 		sp->y = (float)((int)ray->y + i + 0.5);
 	}
