@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 20:11:47 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 23:11:44 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_game
 	int			found[8];
 	int			nb_params;
 	int			map_found;
+	int			start_found;
 
 	int			up;
 	int			down;
@@ -238,7 +239,7 @@ void	get_res(char *info, t_game *game);
 int		get_color(char *info, t_game *game, char param);
 int		find_map(t_game *game, int line, int nb_params);
 void	verify_map(t_game *game, char *sp_set);
-t_coor	find_char(t_game *game);
+t_coor	find_start(t_game *game);
 t_img	*find_sprite(t_game *game, char chr);
 char	*count_sprites(t_game *game, int time, char *sp_set);
 void	param_enemy(t_game *game, t_enemy *enemy, char chr);

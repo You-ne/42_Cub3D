@@ -6,13 +6,26 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 07:25:27 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/20 22:14:20 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 23:09:57 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-t_coor		find_char(t_game *game) // norme
+void		start_found(t_coor *coor, t_game *game, int i, int j)
+{
+	if (game->start_found == 1)
+		ft_error("Starting char appears twice on map!\n", game);
+	else
+	{
+		coor->x = (double)(j) + 0.5;
+		coor->y = (double)(i) + 0.5;
+		coor->dist = 0;
+		game->start_found = 1;
+	}
+}
+
+t_coor		find_start(t_game *game)
 {
 	t_coor	coor;
 	int	i;
@@ -28,19 +41,15 @@ t_coor		find_char(t_game *game) // norme
 		{
 			if(game->map[i][j] == 'N' || game->map[i][j] == 'S' 
 					|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
-			{
-				coor.x = (double)(j) + 0.5;
-				coor.y = (double)(i) + 0.5;
-				coor.dist = 0;
-				return (coor);
-			}
+				start_found(&coor, game, i, j);
 			j++;
 		}
 		i++;
 	}
+	return (coor);
 }
 
-t_coor		init_dir_2(char **map, t_coor coor)// a test
+t_coor		init_dir_2(char **map, t_coor coor)
 {
 	int		i;
 	int		j;
@@ -63,7 +72,7 @@ t_coor		init_dir_2(char **map, t_coor coor)// a test
 	return (vect);
 }
 
-t_coor		init_dir(char **map, t_coor coor)// a test
+t_coor		init_dir(char **map, t_coor coor)
 {
 	int		i;
 	int		j;
