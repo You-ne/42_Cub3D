@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:29:04 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 17:55:37 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 20:09:18 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,13 @@ void	checkpath(char *path, t_game *game)
 	}
 	else
 		ft_error("Wrong file extension for texture ! \n", game);
+}
+
+void	check_settings(t_game *game)
+{
+	if (game->found[2] == 0 || game->found[3] == 0 || game->found[4] == 0 ||
+	game->found[5] == 0)
+		ft_error("Missing a wall texture!\n", game);
+	if (game->found[0] == 0 || game->found[1] == 0)
+		ft_error("Missing Floor Or Ceiling Color!\n", game);
 }

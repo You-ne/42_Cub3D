@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 09:02:36 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 20:11:47 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 void	checkpath(char *path,  t_game *game);
 void	check_res(t_game *game);
+void	check_settings(t_game *game);
 
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);

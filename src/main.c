@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 07:58:56 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 20:13:46 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ int			main(int argc, char **argv)
 	extract_file(argv[1], &game);
 	game.win.mlxp = mlx_init();
 	find_res(&game);
-	parser(&game);
+	if (!(parser(&game) == 1))
+		ft_error("Map not found!\n", &game);
 	game.player.pos = find_char(&game);
 	game.player.weapon = get_weapon_tex(&game, P1, P2, P3);
 	game.player.weapon2 = get_weapon_tex(&game, M1, M2, M3);
