@@ -3,14 +3,17 @@ INC=/usr/local/include
 INCLIB=$(INC)/../lib
 CC=gcc
 
-	LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -O3 -fsanitize=address
+	LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -g3 -fsanitize=address
 
 NAME= ./cub3D
 
 SRC =	./src/main.c \
+		./src/init.c \
 		./src/extract_textures.c \
 		./src/extract_textures2.c \
+		./src/find_chars.c \
 		./src/param_sprites.c \
+		./src/param_enemy.c \
 		./src/draw.c \
 		./src/drawcol.c \
 		./src/sprites.c \
@@ -21,11 +24,14 @@ SRC =	./src/main.c \
 		./src/ft_ray_col.c \
 		./src/events.c \
 		./src/ft_control.c \
+		./src/ft_control2.c \
 		./src/ft_coor.c \
 		./src/ft_display.c \
 		./src/ft_images.c \
 		./src/ft_save.c \
 		./src/ft_map.c \
+		./src/ft_map2.c \
+		./src/find_info.c \
 		./src/ft_parsing.c \
 		./src/ft_ray.c \
 		./src/ft_utils.c \

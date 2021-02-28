@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 23:30:28 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 02:55:14 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,6 @@ typedef struct s_game
 void	my_delay(int i);
 void	end_screen(t_game *game, t_img *tex, t_img *img);
 
-
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 void	checkpath(char *path,  t_game *game);
@@ -240,17 +239,23 @@ void	check_res(t_game *game);
 
 void	find_info(char *info, t_game *game);
 void	get_res(char *info, t_game *game);
+int		get_color(char *info, t_game *game, char param);
 int		find_map(t_game *game, int line, int nb_params);
+void	verify_map(t_game *game, char *sp_set);
 t_coor	find_char(t_game *game);
-t_coor	init_dir(char **map, t_coor coor);
 t_img	*find_sprite(t_game *game, char chr);
+char	*count_sprites(t_game *game, int time, char *sp_set);
 void	param_enemy(t_game *game, t_enemy *enemy, char chr);
+void	find_secret_door(t_game *game);
 t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
+
+t_coor	init_dir(char **map, t_coor coor);
+void	init(t_game *game);
+void	init_screens(t_game *game);
 
 void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
 void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
 void	ft_vertical_ray(t_coor *eqline, t_coor *dir, t_coor *ray, t_game *game);
-
 
 void	draw_sky(t_game *game, t_img *img);
 void	draw_life(t_game *game, t_img *img);
@@ -259,9 +264,9 @@ t_img	*weapon_fire_animation(t_game *game, t_img *);
 void	weapon_fire(t_game *game, t_coor *tir);
 
 t_img	*find_animation(t_game *game, int info, t_img *tex, char chr);
-t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
-t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy);
-t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img	*enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img	*death_animation(t_game *game, t_img *tex, t_enemy *enemy);
+t_img	*aim_animation(t_game *game, t_img *tex, t_enemy *enemy);
 t_img	*weapon_fire_animation(t_game *game, t_img *weapon);
 char	find_shooting_chr(char chr);
 int		is_alive_or_dead(char chr);
@@ -277,6 +282,8 @@ void	change_enemy_pv(t_game *game, t_enemy* enemy, int pv);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 void	apply_mvmt(t_game *game);
+void	rotation(t_coor *vect, float angle);
+void	open_door(t_game *game);
 
 void	ft_error(const char *str, t_game *game);
 int		ft_exit(int keycode, t_game *game);
@@ -300,13 +307,16 @@ float	ft_pythagore(float x, float y);
 
 t_coor	*ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
 
+void	extract_file(char *path, t_game *game);
 t_img	*get_weapon_tex(t_game *game, char *n1, char *n2, char *n3);
 void	extract_texture(t_game *game, char *str, char *img, char chr);
-void	no_we_ea_textures(t_game *game, char param, char *str);
-void	so_sky_textures(t_game *game, char param, char *str);
+int		save_texture(char *info, t_game *game, char param);
+void	no_we_textures(t_game *game, char param, char *str);
+void	so_ea_textures(t_game *game, char param, char *str);
+void	sky_texture(t_game *game, char param, char *str);
 void	extract_anim(t_game *game, char *str, char chr);
-void	extract_file(char *path, t_game *game);
-
+void	extract_sprite(t_game *game, char *str, char chr);
+int		save_sprite(char *info, t_game *game, char chr, char mode);
 
 void	ft_start_display(t_game *game);
 
