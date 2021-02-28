@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 04:03:28 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 17:17:04 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	extract_anim2(t_game *game, char *str, char chr)
 
 void	extract_anim(t_game *game, char *str, char chr)
 {
-	if (game->SA->chr == '1')
+	if (game->SA->chr == '0')
 	{
 		game->SA->img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
 		&game->SA->width, &game->SA->height);
@@ -67,7 +67,6 @@ void	extract_anim(t_game *game, char *str, char chr)
 		game->SA->img = mlx_get_data_addr(game->SA->img_p, &game->SA->bpp,
 		&game->SA->s_line, &game->SA->endian);
 		game->SA->chr = chr;
-		game->SA->next = NULL;
 	}
 	else
 		extract_anim2(game, str, chr);

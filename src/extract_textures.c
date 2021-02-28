@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 04:03:58 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 17:17:23 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	extract_sprite(t_game *game, char *str, char chr)
 		game->SP->img = mlx_get_data_addr(game->SP->img_p, &game->SP->bpp,
 		&game->SP->s_line, &game->SP->endian);
 		game->SP->chr = '2';
-		game->SP->next = NULL;
 	}
 	else
 		extract_sprite_2(game, str, chr);

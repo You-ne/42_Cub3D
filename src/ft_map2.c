@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:52:24 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 01:53:46 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:18:15 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*count_sprites(t_game *game, int time, char *sp_set)
 		sp = game->SP;
 	else
 		sp = game->SA;
-	while (sp->next != NULL)
+	while (sp != NULL)
 	{
 		if (!(in_str(sp->chr, sp_set)))
 		{
@@ -85,10 +85,7 @@ char	*count_sprites(t_game *game, int time, char *sp_set)
 			sp_set = ft_strmcat(sp_set, tmp);
 			free(tmp);
 		}
-		if (sp->next != NULL)
-			sp = sp->next;
-		else
-			break ;
+		sp = sp->next;
 	}
 	return (sp_set);
 }

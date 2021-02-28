@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 08:04:08 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 17:22:42 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	init_enemies(t_game *game)
 	game->enemies->next = NULL;
 	game->enemies->x = -1;
 	game->enemies->chr = '0';
+	game->SA->next = NULL;
+	game->SA->chr = 0;
+	game->SP->next = NULL;
+	game->SP->chr = 0;
 }
 
 void	init_keys(t_game *game)
@@ -60,11 +64,11 @@ void	init(t_game *game)
 	game->secret.x = 0;
 	game->secret.y = 0;
 	game->secret.dist = 0;
+	game->SKY.img_p = NULL;
 	if (!(game->SA = (struct s_img*)malloc(sizeof(struct s_img))))
-		ft_error("Erreur: Malloc a échoué !\n", game);
+		ft_error("Erreur: Malloc a échoué !\n", game);	
 	if (!(game->SP = (struct s_img*)malloc(sizeof(struct s_img))))
 		ft_error("Erreur: Malloc a échoué !\n", game);
-	game->SA->chr = '1';
 	game->player.num_weapon = 1;
 	game->player.damage = -50;
 	game->player.pv = 100.0;

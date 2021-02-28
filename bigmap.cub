@@ -16,7 +16,7 @@ S7 ./cont/obj/puit-sang.xpm
 S8 ./cont/obj/Spear.xpm
 S9 ./cont/obj/statue.xpm
 S* ./cont/walls/panel.xpm
-S/ ./cont/obj/SPRITE.xpm
+S/ ./cont/obj/colonne.xpm
 
 SP ./cont/walls/doors_close.xpm
 Sp ./cont/walls/doors_open.xpm
@@ -26,7 +26,6 @@ S$ ./cont/foes/enemyPM_dead.xpm
 S: ./cont/foes/enemycapt_dead.xpm
 S} ./cont/foes/mutant_dead.xpm
 S| ./cont/foes/flame_d5.xpm
-Sz ./cont/foes/ss_dead.xpm
 
 S, ./cont/foes/angel_dead.xpm
 St ./cont/foes/Hitler_head.xpm
@@ -145,17 +144,6 @@ SAS5f ./cont/foes/spectre5.xpm
 SAS6f ./cont/foes/spectre6.xpm
 SAS7f ./cont/foes/spectre7.xpm
 SAS8f ./cont/foes/spectre8.xpm
-
-
-SAS1# ./cont/foes/ss_face.xpm
-SAS2# ./cont/foes/ss_face2.xpm
-SAS3# ./cont/foes/ss_face3.xpm
-SAS1s ./cont/foes/ss_shoot1.xpm
-SAS2s ./cont/foes/ss_shoot2.xpm
-SAS1_ ./cont/foes/ss_die1.xpm
-SAS2_ ./cont/foes/ss_die2.xpm
-SAS3_ ./cont/foes/ss_dead.xpm
-
 
 SAU1@ ./cont/foes/uber.xpm
 SAU2@ ./cont/foes/uber1.xpm

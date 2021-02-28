@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:29:04 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 01:09:09 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:27:46 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	checkpath(char *path, t_game *game)
 	char	buffer[1];
 	char	*ext;
 
+	printf("Path: %s\n", path);
 	fd = open(path, O_RDONLY);
 	if (fd == 0 || (ret = read(fd, buffer, 1)) < 0)
 		ft_error("Cannot read texture, please verify path! \n", game);
