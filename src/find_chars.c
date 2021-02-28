@@ -1,0 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_chars.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
+/*   Updated: 2021/02/28 03:50:45 by yotillar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../Cub3D.h"
+
+t_img	*find_animation(t_game *game, int info, t_img *tex, char chr)
+{
+	int x1;
+	int y1;
+
+	x1 = info / 1000;
+	y1 = info % 1000;
+	if (chr == 'e' || chr == 'V' || chr == 'C' || chr == 'M' || chr == 'X' ||
+	chr == 'A' || chr == 'l' || chr == 'I' || chr == 's' || chr == 'U')
+		tex = enemy_fire_animation(game, tex, find_enemy(game, x1, y1, chr));
+	else if (chr == '-' || chr == '+' || chr == '%' || chr == '?' || chr == 'm'
+		|| chr == 'h' || chr == 'x' || chr == 'L' || chr == 'o' || chr == 'u')
+		tex = death_animation(game, tex, find_enemy(game, x1, y1, chr));
+	else if (chr == 'f' || chr == '(' || chr == ';' || chr == '#' || chr == '@'
+		|| chr == '<' || chr == '{' || chr == ')' || chr == 'k' ||
+		chr == 'y' || chr == 'r')
+	{
+		tex = aim_animation(game, tex, find_enemy(game, x1, y1, chr));
+	}
+	return (tex);
+}
+
+char	find_shooting_chr(char chr)
+{
+	if (chr == 'f')
+		return ('0');
+	if (chr == '(')
+		return ('A');
+	if (chr == ';')
+		return ('l');
+	if (chr == '#')
+		return ('s');
+	if (chr == '@')
+		return ('U');
+	if (chr == '<')
+		return ('X');
+	if (chr == '{')
+		return ('H');
+	if (chr == ')')
+		return ('M');
+	if (chr == 'k')
+		return ('C');
+	if (chr == 'y')
+		return ('V');
+	if (chr == 'r')
+		return ('e');
+	return ('\0');
+}
+
+char	find_death_chr2(char chr)
+{
+	if (chr == 'A')
+		return ('-');
+	if (chr == '-')
+		return (',');
+	if (chr == 'X')
+		return ('x');
+	if (chr == 'x')
+		return ('a');
+	if (chr == 'l')
+		return ('L');
+	if (chr == 'L')
+		return ('|');
+	if (chr == 'I')
+		return ('o');
+	if (chr == 'o')
+		return ('}');
+	if (chr == 's')
+		return ('_');
+	if (chr == '_')
+		return ('z');
+	if (chr == 'U')
+		return ('u');
+	if (chr == 'u')
+		return ('>');
+}
+
+char	find_death_chr(char chr)
+{
+	if (chr == 'e')
+		return ('+');
+	if (chr == '+')
+		return ('=');
+	if (chr == 'V')
+		return ('%');
+	if (chr == '%')
+		return ('$');
+	if (chr == 'c')
+		return ('?');
+	if (chr == '?')
+		return (':');
+	if (chr == 'M')
+		return ('m');
+	if (chr == 'm')
+		return ('H');
+	if (chr == 'H')
+		return ('h');
+	if (chr == 'h')
+		return ('t');
+	else
+		return (find_death_chr2(chr));
+}

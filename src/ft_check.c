@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:29:04 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 00:33:00 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 01:09:09 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_res(t_game *game)
 	mlx_get_screen_size(game->win.mlxp, &wmax, &hmax);
 	if (game->res[0] > wmax)
 		game->res[0] = wmax;
-	if (game->res[1] >hmax)
+	if (game->res[1] > hmax)
 		game->res[1] = hmax;
 }
 
@@ -86,5 +86,3 @@ void	checkpath(char *path, t_game *game)
 	else
 		ft_error("Wrong file extension for texture ! \n", game);
 }
-
-
