@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 07:40:13 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 07:55:17 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 		enemy->tseen = clock();
 	t2 = clock();
 	n = count_animation_sprites(tex);
+	printf("n=%i\n", n);
 	i = 1;
-	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
+	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) /
+	CLOCKS_PER_SEC * 100);
 	while (centisec % (n * T_AIM_ANIM) > T_AIM_ANIM * i && i < n)
 	{
 		tex = tex->next;
@@ -45,12 +47,14 @@ t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	if ((long)enemy->tseen <= 0)
 		enemy->tseen = clock();
 	t2 = clock();
-	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) / CLOCKS_PER_SEC * 100);
+	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) /
+	CLOCKS_PER_SEC * 100);
 	if (centisec % enemy->time_anim < 14)
 	{
 		if (enemy->fire == 0)
 		{
-			system("aplay -N -q ./sprites/357_Magnum.wav &");
+			system("aplay -N -q ./cont/sounds/357_Magnum.wav &");
+			system("aplay -N -q ./cont/sounds/Pain.wav &");
 			change_pv(&game->player, enemy->damage);
 		}
 		enemy->fire = 1;
@@ -71,7 +75,8 @@ t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	t2 = clock();
 	n = count_animation_sprites(tex);
 	i = 1;
-	centisec = (int)roundf((float)((long)t2 - (long)enemy->tdeath) / CLOCKS_PER_SEC * 100);
+	centisec = (int)roundf((float)((long)t2 - (long)enemy->tdeath) /
+	CLOCKS_PER_SEC * 100);
 	while (centisec % (n * T_DEATH_ANIM) > T_DEATH_ANIM * i && i < n)
 	{
 		tex = tex->next;

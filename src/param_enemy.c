@@ -6,27 +6,11 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 03:47:54 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 07:53:35 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
-
-void	param_enemy4(t_game *game, t_enemy *enemy, char chr)
-{
-	if (chr == ')')
-	{
-		enemy->pv = 250;
-		enemy->damage = -30;
-		enemy->time_anim = 80;
-	}
-	else if (chr == '{')
-	{
-		enemy->pv = 250;
-		enemy->damage = -15;
-		enemy->time_anim = 120;
-	}
-}
 
 void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 {
@@ -39,8 +23,8 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 	else if (chr == '<')
 	{
 		enemy->pv = 300;
-		enemy->damage = -1;
-		enemy->time_anim = 150;
+		enemy->damage = -12;
+		enemy->time_anim = 130;
 	}
 	else if (chr == '@')
 	{
@@ -48,6 +32,13 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -15;
 		enemy->time_anim = 200;
 	}
+	else if (chr == '#')
+	{
+		enemy->pv = 100;
+		enemy->damage = -2;
+		enemy->time_anim = 20;
+	}
+//		param_enemy4(game, enemy, chr);
 }
 
 void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
@@ -70,6 +61,12 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -25;
 		enemy->time_anim = 150;
 	}
+	else if (chr == '(')
+	{
+		enemy->pv = 250;
+		enemy->damage = -15;
+		enemy->time_anim = 200;
+	}
 	param_enemy3(game, enemy, chr);
 }
 
@@ -79,7 +76,7 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 	{
 		enemy->pv = 100;
 		enemy->damage = -5;
-		enemy->time_anim = 50;
+		enemy->time_anim = 200;
 	}
 	else if (chr == 'f')
 	{
@@ -90,8 +87,14 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 	else if (chr == 'y')
 	{
 		enemy->pv = 100;
+		enemy->damage = -4;
+		enemy->time_anim = 35;
+	}
+	else if (chr == '{')
+	{
+		enemy->pv = 250;
 		enemy->damage = -15;
-		enemy->time_anim = 150;
+		enemy->time_anim = 120;
 	}
 	param_enemy2(game, enemy, chr);
 }

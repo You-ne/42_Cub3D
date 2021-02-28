@@ -1,9 +1,6 @@
-INC=/usr/local/include
-
-INCLIB=$(INC)/../lib
 CC=gcc
 
-	LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -g3 -fsanitize=address
+LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -O3 -fsanitize=address
 
 NAME= ./cub3D
 
@@ -37,22 +34,22 @@ SRC =	./src/main.c \
 		./src/ft_utils.c \
 		./src/ft_clean.c \
 		./src/ft_check.c \
-		./src/Gnl/get_next_line_utils.c \
-		./src/Gnl/get_next_line.c \
-		./src/Libft/ft_atoi.c \
-		./src/Libft/ft_strmcat.c \
-		./src/Libft/ft_strlen.c \
-		./src/Libft/ft_substr.c \
-		./src/Libft/ft_ctostr.c \
-		./src/Libft/ft_strncmp.c \
-		./src/Libft/ft_strdup.c \
-		./src/Libft/ft_putstr_fd.c \
-		./src/Libft/ft_strrchr.c \
+		./Gnl/get_next_line_utils.c \
+		./Gnl/get_next_line.c \
+		./Libft/ft_atoi.c \
+		./Libft/ft_strmcat.c \
+		./Libft/ft_strlen.c \
+		./Libft/ft_substr.c \
+		./Libft/ft_ctostr.c \
+		./Libft/ft_strncmp.c \
+		./Libft/ft_strdup.c \
+		./Libft/ft_putstr_fd.c \
+		./Libft/ft_strrchr.c \
 
 all	:$(NAME)
 
 $(NAME)	:$(OBJ)
-	$(CC) -o $(NAME) $(SRC) libftprintf.a -D BUFFER_SIZE=32 $(LFLAGS)
+	$(CC) -o $(NAME) $(SRC) -D BUFFER_SIZE=32 $(LFLAGS)
 
 clean	:
 	rm -f $(NAME) $(OBJ) *~ core *.core

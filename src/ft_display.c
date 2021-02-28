@@ -6,25 +6,35 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 01:44:11 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 09:14:13 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	victory(t_game *game, t_img img)
+void	end(t_game *game, t_img *img, int i)
 {
-	end_screen(game, &game->you_win, &img);
-	mlx_put_image_to_window(game->win.mlxp, game->win.winp, img.img_p, 0, 0);
-	mlx_destroy_image(game->win.mlxp, img.img_p);
+	if (i == 0)
+		end_screen(game, &game->game_over, img);
+	else
+		end_screen(game, &game->you_win, img);
+	mlx_put_image_to_window(game->win.mlxp, game->win.winp, img->img_p, 0, 0);
+	mlx_destroy_image(game->win.mlxp, img->img_p);
 }
 
-void	next_frame2(t_game *game, t_img img)
+void	frame(t_game *game, t_img *img)
 {
-	end_screen(game, &game->game_over, &img);
+	sp_events(game);
+	apply_mvmt(game);
+	draw_sky(game, img);
+	ft_raymachine(game, img);
+	draw_life(game, img);
+	draw_weapon(game, img, weapon_fire_animation(game,
+	(game->player.num_weapon == 1 ? game->player.weapon :
+	game->player.weapon2)));
 	mlx_put_image_to_window(game->win.mlxp, game->win.winp,
-	img.img_p, 0, 0);
-	mlx_destroy_image(game->win.mlxp, img.img_p);
+	img->img_p, 0, 0);
+	mlx_destroy_image(game->win.mlxp, img->img_p);
 }
 
 int		next_frame(t_game *game)
@@ -35,24 +45,15 @@ int		next_frame(t_game *game)
 
 	t2 = clock();
 	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
+	if (img.img_p == NULL)
+		ft_error("Erreur: Probleme création image minilibx", game);
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
 	if (game->victory && (t2 - game->victory) / CLOCKS_PER_SEC > 10)
-		victory(game, img);
+		end(game, &img, 1);
 	else if (game->player.pv > 0)
-	{
-		sp_events(game);
-		apply_mvmt(game);
-		draw_sky(game, &img);
-		ft_raymachine(game, &img);
-		draw_life(game, &img);
-		draw_weapon(game, &img, weapon_fire_animation(game,
-		game->player.weapon));
-		mlx_put_image_to_window(game->win.mlxp, game->win.winp,
-		img.img_p, 0, 0);
-		mlx_destroy_image(game->win.mlxp, img.img_p);
-	}
+		frame(game, &img);
 	else
-		next_frame2(game, img);
+		end(game, &img, 0);
 	return (0);
 }
 
@@ -82,11 +83,10 @@ void	ft_start_display(t_game *game)
 			ft_error("Window's heigth or width is <= 0\n", game);
 		if (game->win.winp != NULL)
 			game->win_created = 1;
-		printf(GREEN);
-		printf(RESET);
 		mlx_hook(game->win.winp, 2, KEY_PRESS_M, key_press, game);
 		mlx_hook(game->win.winp, 3, KEY_RELEASE_M, key_release, game);
 		mlx_hook(game->win.winp, 17, (1L << 17), ft_exit, game);
+		write(1, "Follow the cat and kill MecaHitler !", 36);
 		mlx_loop_hook(game->win.mlxp, next_frame, game);
 		mlx_loop(game->win.mlxp);
 	}

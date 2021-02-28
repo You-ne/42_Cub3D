@@ -6,12 +6,11 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 03:52:29 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 05:18:10 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
-#include "../ft_printf_bonus.h"
 
 void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 {
@@ -29,7 +28,6 @@ void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 		i = i * tex->s_line;
 		i = i + ((int)(heightncol->x)) * (tex->bpp / 8);
 		if ((char)((int)heightncol->dist) != 'P' &&
-		(char)((int)heightncol->dist) != 'p' &&
 		(char)((int)heightncol->dist) != '*')
 			ft_texture_put_sp(img, *xy, tex->img, i);
 		else

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 02:41:11 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 04:03:28 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	extract_anim2(t_game *game, char *str, char chr)
 	char	*s;
 
 	tmp = game->SA;
-	tex = (struct s_img*)malloc(sizeof(struct s_img));
+	if (!(tex = (struct s_img*)malloc(sizeof(struct s_img))))
+		ft_error("Erreur: Malloc a échoué !\n", game);
 	p = mlx_xpm_file_to_image(game->win.mlxp, str, &tex->width, &tex->height);
 	tex->img_p = p;
 	if (!(game->SA->img_p))

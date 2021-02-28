@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/28 03:51:05 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 09:02:17 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int		is_alive_or_dead(char chr)
 	|| chr == 'U' | chr == '<' || chr == '{' || chr == ')' || chr == 'k'
 	|| chr == 'y' || chr == 'r')
 		return (1);
-	if (chr == ':' || chr == '$' || chr == '=' || chr == 't' || chr == ','
-	|| chr == 'a' || chr == '|' || chr == '}' || chr == 'z' | chr == '>')
+	else if (chr == ':' || chr == '$' || chr == '=' || chr == 't' || chr == ','
+	|| chr == 'a' || chr == '|' || chr == '}' || chr == 'z' || chr == '>' ||
+	chr == '_' || chr == 'p')
 		return (-1);
 	return (0);
 }
@@ -38,7 +39,7 @@ int		sp_collision(int x, int y, char **map)
 	map[y][x] == '{' || map[y][x] == ')' || map[y][x] == 'k' ||
 	map[y][x] == 'y' || map[y][x] == 'r')
 	{
-		system("aplay -N -q ./sprites/collision.wav &");
+		system("aplay -N -q ./cont/sounds/collision.wav &");
 		return (1);
 	}
 	else
@@ -58,25 +59,31 @@ void	sp_events(t_game *game)
 
 	chr = game->map[(int)game->player.pos.y][(int)game->player.pos.x];
 	if (chr == '2')
-		teleportation(&game->player, 61.5, 12.5);
+		teleportation(&game->player, 46.5, 1.5);
 	if (chr == '3')
 	{
-		game->player.ammo += 15;
-		if (game->player.ammo > 30)
-			game->player.ammo = 30;
+		system("aplay -N -q ./cont/sounds/recharger.wav &");
+		game->player.ammo += 10;
+		if (game->player.ammo > AMMO_MAX)
+			game->player.ammo = AMMO_MAX;
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 	}
 	if (chr == '4')
 	{
+		system("aplay -N -q ./cont/sounds/rot.wav &");
 		change_pv(&game->player, 15);
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 	}
 	if (chr == '5')
+	{
+		system("aplay -N -q ./cont/sounds/door.wav &");
 		key_found(game);
+	}
 	if (chr == '~')
 	{
+		system("aplay -N -q ./cont/sounds/TakeWeapon.wav &");
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 		game->player.num_weapon = 2;
-		game->player.damage = -100;
+		game->player.damage = -120;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 02:55:14 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 09:02:36 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include <time.h>
 # include <mlx.h>
-//# include "./minilibx/mlx_int.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -29,8 +28,8 @@
 # include <string.h>
 # include <math.h>
 # include <limits.h>
-# include "./src/Gnl/get_next_line.h"
-# include "./src/Libft/libft.h"
+# include "./Gnl/get_next_line.h"
+# include "./Libft/libft.h"
 
 /*
 **------------------------------- Structures -----------------------------------
@@ -113,12 +112,12 @@ typedef struct s_game
 	int			is_bmp;
 	t_bmp		bmp;
 
-	int			res[2]; // resolution X * Y
+	int			res[2];
 
-	int			F[3]; // RGB colors
+	int			F[3];
 	int			C[3];
 	
-	int			Fl; // Int colors
+	int			Fl;
 	int			Ce;
 
 	int			found[8];
@@ -154,7 +153,7 @@ typedef struct s_game
 	t_img		game_over;
 	t_img		you_win;
 	t_img		SKY;
-	t_img		NO; //Textures and Sprite
+	t_img		NO;
 	t_img		SO;
 	t_img		WE;
 	t_img		EA;
@@ -190,11 +189,7 @@ typedef struct s_game
 # define T_AIM_ANIM 20
 # define T_DEATH_ANIM 15
 
-
-//Colors
-# define GREEN	"\e[0;92m"
-# define RED	"\e[0;91m"
-# define RESET	"\033[0m"
+# define AMMO_MAX 30
 
 //KEY CODES
 
@@ -204,12 +199,12 @@ typedef struct s_game
 # define DOWN		65364
 # define ESC		65307
 # define SHIFT_R	0xffe2
-# define Z			119 /* but its W */
-# define A			97
-# define S			115
+# define Z			0x7a
+# define A			0x61
+# define S			0x73
 # define D			100
 # define Q			113
-# define E			101
+# define E			0x65
 # define X			0x78
 # define TC			0x63
 # define T			0x74
@@ -231,7 +226,7 @@ typedef struct s_game
 */
 void	my_delay(int i);
 void	end_screen(t_game *game, t_img *tex, t_img *img);
-
+void	init_keys(t_game *game);
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
 void	checkpath(char *path,  t_game *game);
@@ -322,7 +317,7 @@ void	ft_start_display(t_game *game);
 
 void	ft_raymachine(t_game *game, t_img *img);
 t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game);
-void	ft_drawcol(t_coor *heightncol, t_img *texture, t_game *game, t_img *img);
+void	ft_drawcol(t_coor *heightncol, t_img *texture, t_game *gam, t_img *img);
 void	free_ray(t_coor *ray);
 void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img);
 void	ft_texture_put(t_img *img, int x, int y, char *texture);

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 02:36:10 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 08:10:14 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int		count_animation_sprites(t_img *tex)
 			break ;
 		tmp = tmp->next;
 	}
+	if (i == 0)
+		i = 1;
 	return (i);
 }
 

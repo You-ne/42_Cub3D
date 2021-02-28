@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 03:50:45 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 06:53:21 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,25 @@ char	find_death_chr2(char chr)
 {
 	if (chr == 'A')
 		return ('-');
-	if (chr == '-')
+	else if (chr == '-')
 		return (',');
-	if (chr == 'X')
+	else if (chr == 'X')
 		return ('x');
-	if (chr == 'x')
+	else if (chr == 'x')
 		return ('a');
-	if (chr == 'l')
+	else if (chr == 'l')
 		return ('L');
-	if (chr == 'L')
+	else if (chr == 'L')
 		return ('|');
-	if (chr == 'I')
+	else if (chr == 'I')
 		return ('o');
-	if (chr == 'o')
+	else if (chr == 'o')
 		return ('}');
-	if (chr == 's')
+	else if (chr == 's')
 		return ('_');
-	if (chr == '_')
+	else if (chr == '_')
 		return ('z');
-	if (chr == 'U')
+	else if (chr == 'U')
 		return ('u');
 	if (chr == 'u')
 		return ('>');

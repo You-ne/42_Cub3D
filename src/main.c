@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 02:57:07 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 07:58:56 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int			main(int argc, char **argv)
 
 	i = 0;
 	init(&game);
+	init_keys(&game);
 	check_args(&game, argv, argc);
 	check_fd(&game, argv[1]);
 	extract_file(argv[1], &game);
@@ -113,7 +114,6 @@ int			main(int argc, char **argv)
 	game.enemy_fire_t1 = clock();
 	init_screens(&game);
 	change_map(&game, (int)game.player.pos.x, (int)game.player.pos.y, '0');
-	system("aplay -N -q ./cont/sounds/morning-mood.wav &");
 	ft_start_display(&game);
 	return (0);
 }

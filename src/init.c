@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 02:55:48 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 08:04:08 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ void	init_enemies(t_game *game)
 	game->enemies->chr = '0';
 }
 
+void	init_keys(t_game *game)
+{
+	game->up = 0;
+	game->down = 0;
+	game->left = 0;
+	game->right = 0;
+	game->rot_left = 0;
+	game->rot_right = 0;
+	game->map = NULL;
+	game->sprint = 0;
+	game->tilt = 0;
+	game->fire = 0;
+}
+
 void	init(t_game *game)
 {
 	game->Fl = 0;
@@ -52,10 +66,10 @@ void	init(t_game *game)
 		ft_error("Erreur: Malloc a échoué !\n", game);
 	game->SA->chr = '1';
 	game->player.num_weapon = 1;
-	game->player.damage = -40;
+	game->player.damage = -50;
 	game->player.pv = 100.0;
-	game->tilt = 0;
 	game->player.ammo = 30;
+	game->player.fire = 0;
 	init_params(game);
 	init_enemies(game);
 }
