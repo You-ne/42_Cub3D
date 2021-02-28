@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 02:32:40 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 23:24:25 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		save_sprite(char *info, t_game *game, char chr, char mode)
 	i = 0;
 	while (info[i] == ' ')
 		i++;
+	printf("sp: %s\n", &info[i]);
 	if (info[i] == '.' && info[i + 1] == '/')
 	{
 		checkpath(info + i, game);

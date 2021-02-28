@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 17:17:23 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 23:15:03 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sky_texture(t_game *game, char param, char *str)
 		game->SKY.img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
 		&game->SKY.width, &game->SKY.height);
 		if (!(game->SKY.img_p))
-			ft_error("Troubles extracting sprites textures !!\n", game);
+			ft_error("Troubles extracting sky textures !!\n", game);
 		game->SKY.img = mlx_get_data_addr(game->SKY.img_p, &game->SKY.bpp,
 		&game->SKY.s_line, &game->SKY.endian);
 	}

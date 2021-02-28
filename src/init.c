@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:11:04 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 23:28:13 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	init_enemies(t_game *game)
 	game->enemies->x = -1;
 	game->enemies->chr = '0';
 	game->SA->next = NULL;
-	game->SA->chr = 0;
+	game->SA->chr = '0';
 	game->SP->next = NULL;
-	game->SP->chr = 0;
+	game->SP->chr = '0';
 }
 
 void	init_keys(t_game *game)

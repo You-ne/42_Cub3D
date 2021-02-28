@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 17:17:04 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/02/28 23:27:45 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	extract_anim2(t_game *game, char *str, char chr)
 	p = mlx_xpm_file_to_image(game->win.mlxp, str, &tex->width, &tex->height);
 	tex->img_p = p;
 	if (!(game->SA->img_p))
-		ft_error("Troubles extracting sprites textures !!\n", game);
+		ft_error("Troubles extracting anim sprites textures !!\n", game);
 	s = mlx_get_data_addr(tex->img_p, &tex->bpp, &tex->s_line, &tex->endian);
 	tex->img = s;
 	tex->chr = chr;
@@ -63,7 +63,7 @@ void	extract_anim(t_game *game, char *str, char chr)
 		game->SA->img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
 		&game->SA->width, &game->SA->height);
 		if (!(game->SA->img_p))
-			ft_error("Troubles extracting sprites textures !!\n", game);
+			ft_error("Troubles extracting anim sprites textures !!\n", game);
 		game->SA->img = mlx_get_data_addr(game->SA->img_p, &game->SA->bpp,
 		&game->SA->s_line, &game->SA->endian);
 		game->SA->chr = chr;
