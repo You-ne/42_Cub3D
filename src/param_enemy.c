@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 06:33:59 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 00:53:42 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -10;
 		enemy->time_anim = 150;
 	}
-	else if (chr == 'I')
+	else if (chr == 'i')
 	{
 		enemy->pv = 150;
 		enemy->damage = -20;
@@ -111,7 +111,7 @@ float	sp_size(char chr)
 	|| chr == '$' || chr == 'C' || chr == '?' || chr == ':' || chr == ';' ||
 	chr == 'l' || chr == 'L' || chr == '|' || chr == 'I' || chr == 'o' ||
 	chr == '}' || chr == '#' || chr == 's' || chr == '_' || chr == 'z' ||
-	chr == 'f' || chr == 'k' || chr == 'y' || chr == 'r')
+	chr == 'f' || chr == 'k' || chr == 'y' || chr == 'r' || chr == 'i')
 		size = 0.6;
 	else if (chr == '3')
 		size = 0.4;

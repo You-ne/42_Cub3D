@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/01 06:31:06 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 00:43:16 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int		is_alive_or_dead(char chr)
 	|| chr == '(' || chr == 'A' || chr == 'X' || chr == ';' || chr == 'l'
 	|| chr == 'x' || chr == 'I' || chr == '#' || chr == 's' || chr == '@'
 	|| chr == 'U' || chr == '<' || chr == '{' || chr == ')' || chr == 'k'
-	|| chr == 'y' || chr == 'r')
+	|| chr == 'y' || chr == 'r' || chr == 'i')
 		return (1);
 	else if (chr == ':' || chr == '$' || chr == '=' || chr == 't' || chr == ','
 	|| chr == 'a' || chr == '|' || chr == '}' || chr == 'z' || chr == '>' ||
-	chr == '_' || chr == 'p')
+	chr == '_' || chr == 'p' )
 		return (-1);
 	return (0);
 }
@@ -37,7 +37,7 @@ int		sp_collision(int x, int y, char **map)
 	map[y][x] == 'A' || map[y][x] == 'l' || map[y][x] == 'I' ||
 	map[y][x] == 's' || map[y][x] == 'U' || map[y][x] == '<' ||
 	map[y][x] == '{' || map[y][x] == ')' || map[y][x] == 'k' ||
-	map[y][x] == 'y' || map[y][x] == 'r')
+	map[y][x] == 'y' || map[y][x] == 'r' || map[y][x] == 'i')
 	{
 		system("aplay -N -q ./cont/sounds/collision.wav &");
 		return (1);

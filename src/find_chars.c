@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:56:46 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 00:51:25 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_img	*find_animation(t_game *game, int info, t_img *tex, char chr)
 		tex = death_animation(game, tex, find_enemy(game, x1, y1, chr));
 	else if (chr == 'f' || chr == '(' || chr == ';' || chr == '#' || chr == '@'
 	|| chr == '<' || chr == '{' || chr == ')' || chr == 'k' ||
-	chr == 'y' || chr == 'r')
+	chr == 'y' || chr == 'r' || chr == 'i')
 		tex = aim_animation(game, tex, find_enemy(game, x1, y1, chr));
 	return (tex);
 }
@@ -56,6 +56,8 @@ char	find_shooting_chr(char chr)
 		return ('V');
 	if (chr == 'r')
 		return ('e');
+	if (chr == 'i')
+		return ('I');
 	return ('\0');
 }
 

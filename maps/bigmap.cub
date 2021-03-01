@@ -19,6 +19,7 @@ S* ./cont/walls/panel.xpm
 S/ ./cont/obj/colonne.xpm
 ST ./cont/obj/tube.xpm
 S~ ./cont/guns/Impact_Cannon.xpm
+S& ./cont/obj/himmler.xpm
 
 SP ./cont/walls/doors_close.xpm
 Sp ./cont/walls/doors_open.xpm
@@ -28,14 +29,14 @@ S$ ./cont/foes/enemyPM_dead.xpm
 S: ./cont/foes/enemycapt_dead.xpm
 S} ./cont/foes/mutant_dead.xpm
 S| ./cont/foes/flame_d5.xpm
-Sz ./cont/foes/marinedoom_d5.xpm
 
 S, ./cont/foes/angel_dead.xpm
 St ./cont/foes/Hitler_head.xpm
 Sa ./cont/foes/HitlerMage_dead.xpm
 S> ./cont/foes/uber_dead.xpm
+Sz ./cont/foes/priest_d7.xpm
 
-SAr ./cont/foes/enemy.xpm
+SA1r ./cont/foes/enemy.xpm
 SA2r ./cont/foes/enemy_aiming.xpm
 SA3r ./cont/foes/enemy_aim.xpm
 SA1e ./cont/foes/enemy_aim.xpm
@@ -132,12 +133,30 @@ SA3L ./cont/foes/flame_d3.xpm
 SA4L ./cont/foes/flame_d4.xpm
 SA5L ./cont/foes/flame_d5.xpm
 
+SA1i ./cont/foes/mutant_aim.xpm
+SA2i ./cont/foes/mutant_aim2.xpm
+SA3i ./cont/foes/mutant_shoot1.xpm
 SA1I ./cont/foes/mutant_shoot1.xpm
 SA2I ./cont/foes/mutant_shoot2.xpm
 SA1o ./cont/foes/mutant_d1.xpm
 SA2o ./cont/foes/mutant_d2.xpm
 SA3o ./cont/foes/mutant_d3.xpm
-SA4o ./cont/foes/mutant_dead.xpm
+SA4o ./cont/foes/mutant_d4.xpm
+SA5o ./cont/foes/mutant_dead.xpm
+
+SA1# ./cont/foes/priest_aim_1.xpm
+SA2# ./cont/foes/priest_aim_2.xpm
+SA3# ./cont/foes/priest_aim_3.xpm
+SA4# ./cont/foes/priest_shoot_1.xpm
+SA1s ./cont/foes/priest_shoot_1.xpm
+SA2s ./cont/foes/priest_shoot_2.xpm
+SA1_ ./cont/foes/priest_d1.xpm
+SA2_ ./cont/foes/priest_d2.xpm
+SA3_ ./cont/foes/priest_d3.xpm
+SA4_ ./cont/foes/priest_d4.xpm
+SA5_ ./cont/foes/priest_d5.xpm
+SA6_ ./cont/foes/priest_d6.xpm
+SA7_ ./cont/foes/priest_d7.xpm
 
 SA1f ./cont/foes/spectre.xpm
 SA2f ./cont/foes/spectre2.xpm
@@ -147,17 +166,6 @@ SA5f ./cont/foes/spectre5.xpm
 SA6f ./cont/foes/spectre6.xpm
 SA7f ./cont/foes/spectre7.xpm
 SA8f ./cont/foes/spectre8.xpm
-
-
-SA1# ./cont/foes/marinedoom.xpm
-SA1s ./cont/foes/marinedoom_s.xpm
-SA2s ./cont/foes/marinedoom_s2.xpm
-SA1_ ./cont/foes/marinedoom_d.xpm
-SA2_ ./cont/foes/marinedoom_d2.xpm
-SA3_ ./cont/foes/marinedoom_d3.xpm
-SA4_ ./cont/foes/marinedoom_d4.xpm
-SA5_ ./cont/foes/marinedoom_d5.xpm
-
 
 SA1@ ./cont/foes/uber.xpm
 SA2@ ./cont/foes/uber1.xpm
@@ -172,22 +180,22 @@ SA5u ./cont/foes/uber_dead.xpm
 
 KY ./cont/color-galaxy.xpm
 
-1111111111111111111111111111111111111111 111111111   11111111111111111111
-19000000000000f000000000000041E000000001 100000001   10000000P00000000001
-1000700000000f0f0000000007000111111111P1 100000001   10T00000100000000001
-100000000000f0<0f0000000000001r000000001 144000001   10000000100;0000;001
-1000000000000f0f00000000000001000r000001 1111111P1   1111P111108080000001
-100000000000000000000000000001400000y001       101   10080800111P111P111
-1000700000000000000000000700011111P11111       101   1000#00010000100001
-130000000000000000000000000041   1000001       101   1000000010000100001
-11111111111111P11111111111111111 1111101       1#11111400000010000100001
-            12021  1000041000001     1r1       100000P00000001300010k001
-            10y01  1000y010Tr001     101       1111111111111113000105001
-            10001  1000001000001     101                     1111*111P111111
-            1000111111P11111P111111111P1111                     1~1000010441
-            1000P00000000000000r000000000r1                     1110000P0441
-            1111111111P11111P11111111111111                     10000#010031
-                   1000001000001                                111111111111
+1111111111111111111111111111111111111111111111111   11111111111111111111
+19000000000000f000000000000041E0000000i1100000001   10000000P00000000001
+1000700000000f0f0000000007000111111111P1100000001   10T00000100000000001
+100000000000f0<0f0000000000001r000000001144000001   10000000100;0000;001
+1000000000000f0f00000000000001000r0000011111111P1   1111P111108080000001
+100000000000000000000000000001400000y001      101   10080800111P111P111
+1000700000000000000000000700011111P11111      101   1000#00010000100001
+130000000000000000000000000041   1000001      101   1000000010000100001
+11111111111111P11111111111111111 1111101      1#11111400000010000100001
+            12021  1000041000001     1r1      100000P00000001300010k001
+            10y01  1000y010Tr001     101      1111111111111113000105001
+            10001  1000001000001     101                    1111*111P111111
+            1000111111P11111P111111111P1111                    1~1000010441
+            1000P00000000000000r000000000r1                    1110000P0441
+            1111111111P11111P11111111111111                    10000#010031
+                   1000001000001                               111111111111
                    10000r10T0001
                    1r00441000001
                    1111111111111

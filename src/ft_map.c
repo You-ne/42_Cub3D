@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 02:39:05 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 22:52:35 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int		find_map(t_game *game, int line)
 	tmp_set = ft_strdup("NEWS0");
 	tmp_set = count_sprites(game, 0, tmp_set);
 	sp_set = count_sprites(game, 1, tmp_set);
+	printf("SP_set: %s", sp_set);
 	end = line;
 	while (game->map[end] != NULL)
 		end++;
