@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/01 00:21:04 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 01:47:43 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	int i;
 	int n;
 
-	if ((long)enemy->tseen <= 0)
-		enemy->tseen = clock();
 	t2 = clock();
+	if (enemy->tseen < 0)
+		enemy->tseen = clock();
 	n = count_animation_sprites(tex);
 	i = 1;
 	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) /

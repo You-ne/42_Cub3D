@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:24:25 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 06:24:55 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int		save_texture(char *info, t_game *game, char param)
 		checkpath(info + i, game);
 		i = i + 2;
 		if (param == 'N')
-			extract_texture(game, info + i, "NO", '\0');
+			extract_xpm(game, &game->NO, info + i);
 		if (param == 'S')
-			extract_texture(game, info + i, "SO", '\0');
+			extract_xpm(game, &game->SO, info + i);
 		if (param == 'W')
-			extract_texture(game, info + i, "WE", '\0');
+			extract_xpm(game, &game->WE, info + i);
 		if (param == 'E')
-			extract_texture(game, info + i, "EA", '\0');
+			extract_xpm(game, &game->EA, info + i);
 		if (param == 'Y')
-			extract_texture(game, info + i, "KY", '\0');
+			extract_xpm(game, &game->SKY, info + i);
 	}
 	else
 		ft_error("Please enter a valid path for textures !!\n", game);
@@ -71,14 +71,13 @@ int		save_sprite(char *info, t_game *game, char chr, char mode)
 	i = 0;
 	while (info[i] == ' ')
 		i++;
-	printf("sp: %s\n", &info[i]);
 	if (info[i] == '.' && info[i + 1] == '/')
 	{
 		checkpath(info + i, game);
 		if (mode == 'S')
-			extract_texture(game, info + i, "SP", chr);
+			extract_sprite(game, info + i, chr, game->SP);
 		if (mode == 'A')
-			extract_anim(game, info + i, chr);
+			extract_sprite(game, info + i, chr, game->SA);
 	}
 	else
 		ft_error("Please enter a valid path for sprites textures !!\n", game);

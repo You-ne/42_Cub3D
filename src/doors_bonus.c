@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:31:01 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/28 23:20:30 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 02:27:38 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_coor	*ft_door_yray(t_coor *ray, t_coor *eq, t_game *game, t_coor *dir)
 		ft_error("Erreur: Malloc a échoué !\n", game);
 	eqsol = (((int)ray->y + (game->player.pos.y < ray->y ? 0.5 : -0.5)) - eq->y)
 	/ eq->x;
+	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	if ((eqsol < (int)ray->x + 1 && eqsol > (int)ray->x))
 	{
 		door->x = (dir->x != -2) ? eqsol : -1.0;
@@ -46,6 +47,7 @@ t_coor	*ft_door_xray(t_coor *ray, t_coor *eq, t_game *game, t_coor *dir)
 			ft_error("Erreur: Malloc a échoué !\n", game);
 		eqsol = ((int)ray->x + (game->player.pos.x < ray->x ? 0.5 : -0.5)) *
 		eq->x + eq->y;
+		eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 		if ((eqsol > (int)ray->y  && eqsol < (int)ray->y + 1))
 		{
 			door->x = (int)ray->x + (game->player.pos.x < ray->x ? 0.5 : -0.5);

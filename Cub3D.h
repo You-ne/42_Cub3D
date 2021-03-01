@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:43:54 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 06:25:27 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,6 @@ typedef struct s_game
 
 	t_coor		secret;
 
-	int			enemy_fire;
-	clock_t		enemy_fire_t1;
 	t_enemy		*enemies;
 
 	int			win_created;
@@ -224,6 +222,8 @@ typedef struct s_game
 /*
 **------------------------------- Prototypes -----------------------------------
 */
+
+void	extract_xpm(t_game *game, t_img *tex, char *str);
 void	my_delay(int i);
 void	end_screen(t_game *game, t_img *tex, t_img *img);
 void	init_keys(t_game *game);
@@ -310,8 +310,7 @@ int		save_texture(char *info, t_game *game, char param);
 void	no_we_textures(t_game *game, char param, char *str);
 void	so_ea_textures(t_game *game, char param, char *str);
 void	sky_texture(t_game *game, char param, char *str);
-void	extract_anim(t_game *game, char *str, char chr);
-void	extract_sprite(t_game *game, char *str, char chr);
+void	extract_sprite(t_game *game, char *str, char chr, t_img *sp_sa);
 int		save_sprite(char *info, t_game *game, char chr, char mode);
 
 void	ft_start_display(t_game *game);

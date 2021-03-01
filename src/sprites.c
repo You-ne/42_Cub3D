@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/28 23:14:58 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 04:53:32 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,31 +57,31 @@ int	ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
 
 int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 {
-	int col;
 	t_coor eq2;
 	t_coor a;
 	float size;
+	static float eq_h;
 
 	size = sp_size(tex->chr);
-	if (eqray->x > 0.0005 || eqray->x < -0.0005)
+	if (eqray->x > 0.001 || eqray->x < -0.001)
 	{
 		eq2.x = - (1.0 / eqray->x);
 		eq2.y = sp->y - (eq2.x * sp->x);
 		a.x = (eq2.y - eqray->y) / (eqray->x - eq2.x);
 		a.y = (eq2.x * a.x) + eq2.y;
 		eq2.dist = ft_pythagore(a.x - sp->x, a.y - sp->y);
+		eq_h = eq2.dist;
 	}
 	else
 	{
 		a.x = sp->x;
 		a.y = pos->y;
-		eq2.dist = fabs(a.y - sp->y) + (fabs(a.y - sp->y) / 70);
+		eq2.dist = eq_h;
 	}
 	if (eq2.dist > size / 2)
 		return (-1);
 	pos->dist = eq2.dist;
-	col = ft_calc_col_sprite(&a, pos, sp, tex);
-	return (col);
+	return (ft_calc_col_sprite(&a, pos, sp, tex));
 }
 
 t_coor	*ft_sprite_dist(t_coor *ray, t_coor *dir, t_game *game)

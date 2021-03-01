@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 08:33:08 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 08:10:14 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 01:18:51 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		count_animation_sprites(t_img *tex)
 	int		i;
 
 	tmp = tex->next;
-	i = 0;
+	i = 1;
 	while (tmp->chr == tex->chr)
 	{
 		i++;
@@ -79,8 +79,6 @@ int		count_animation_sprites(t_img *tex)
 			break ;
 		tmp = tmp->next;
 	}
-	if (i == 0)
-		i = 1;
 	return (i);
 }
 

@@ -7,7 +7,6 @@ NAME= ./cub3D
 SRC =	./src/main.c \
 		./src/init.c \
 		./src/extract_textures.c \
-		./src/extract_textures2.c \
 		./src/find_chars.c \
 		./src/param_sprites.c \
 		./src/param_enemy.c \

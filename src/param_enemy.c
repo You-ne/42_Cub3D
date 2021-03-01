@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:35:30 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 06:33:59 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,26 +105,26 @@ float	sp_size(char chr)
 	float size;
 
 	size = 1.0;
-	if (chr == '2')
+	if (chr == '9')
 		size = 0.3;
-	if (chr == 'e' || chr == '+' || chr == '=' || chr == 'V' || chr == '%' ||
-	chr == '$' || chr == 'C' || chr == '?' || chr == ':' || chr == ';' ||
+	else if (chr == 'e' || chr == '+' || chr == '=' || chr == 'V' || chr == '%'
+	|| chr == '$' || chr == 'C' || chr == '?' || chr == ':' || chr == ';' ||
 	chr == 'l' || chr == 'L' || chr == '|' || chr == 'I' || chr == 'o' ||
 	chr == '}' || chr == '#' || chr == 's' || chr == '_' || chr == 'z' ||
 	chr == 'f' || chr == 'k' || chr == 'y' || chr == 'r')
 		size = 0.6;
-	if (chr == '3')
+	else if (chr == '3')
 		size = 0.4;
-	if (chr == '4')
+	else if (chr == '4')
 		size = 0.5;
-	if (chr == 'M' || chr == 'm' || chr == 'H' || chr == 'h' || chr == 'X' ||
+	else if (chr == 'M' || chr == 'm' || chr == 'H' || chr == 'h' || chr == 'X' ||
 		chr == 'x' || chr == 'a' || chr == 'A' || chr == '-' || chr == ',' ||
 		chr == '@' || chr == 'U' || chr == 'u' || chr == '>' || chr == '<' ||
 		chr == '{' || chr == ')')
 		size = 0.7;
-	if (chr == 't')
+	else if (chr == 't')
 		size = 0.2;
-	if (chr == '5')
+	else if (chr == '5')
 		size = 0.1;
 	return (size);
 }

@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/01 00:45:12 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 06:31:06 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		is_alive_or_dead(char chr)
 
 int		sp_collision(int x, int y, char **map)
 {
-	if (map[y][x] == '1' || map[y][x] == '*' ||
+	if (map[y][x] == '1' || map[y][x] == '*' || map[y][x] == '2' ||
 	map[y][x] == '6' || map[y][x] == '7' || map[y][x] == '8' ||
-	map[y][x] == '9' || map[y][x] == '/' || map[y][x] == 'P' ||
+	map[y][x] == '/' || map[y][x] == 'P' ||
 	map[y][x] == 'e' || map[y][x] == 'V' || map[y][x] == 'C' ||
 	map[y][x] == 'M' || map[y][x] == 'H' || map[y][x] == 'X' ||
 	map[y][x] == 'A' || map[y][x] == 'l' || map[y][x] == 'I' ||
@@ -58,7 +58,7 @@ void	sp_events(t_game *game)
 	char	chr;
 
 	chr = game->map[(int)game->player.pos.y][(int)game->player.pos.x];
-	if (chr == '2')
+	if (chr == '9')
 		teleportation(&game->player, 46.5, 1.5);
 	if (chr == '3')
 	{

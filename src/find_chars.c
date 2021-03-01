@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:33:14 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 01:56:46 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ t_img	*find_animation(t_game *game, int info, t_img *tex, char chr)
 	chr == 'A' || chr == 'l' || chr == 'I' || chr == 's' || chr == 'U')
 		tex = enemy_fire_animation(game, tex, find_enemy(game, x1, y1, chr));
 	else if (chr == '-' || chr == '+' || chr == '%' || chr == '?' || chr == 'm'
-		|| chr == 'h' || chr == 'x' || chr == 'L' || chr == 'o' || chr == 'u')
+	|| chr == 'h' || chr == 'x' || chr == 'L' || chr == 'o' || chr == 'u')
 		tex = death_animation(game, tex, find_enemy(game, x1, y1, chr));
 	else if (chr == 'f' || chr == '(' || chr == ';' || chr == '#' || chr == '@'
-		|| chr == '<' || chr == '{' || chr == ')' || chr == 'k' ||
-		chr == 'y' || chr == 'r')
-	{
+	|| chr == '<' || chr == '{' || chr == ')' || chr == 'k' ||
+	chr == 'y' || chr == 'r')
 		tex = aim_animation(game, tex, find_enemy(game, x1, y1, chr));
-	}
 	return (tex);
 }
 

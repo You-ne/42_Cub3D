@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:41:02 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 05:28:31 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,9 @@ int			main(int argc, char **argv)
 	game.player.pos = find_start(&game);
 	game.player.weapon = get_weapon_tex(&game, P1, P2, P3);
 	game.player.weapon2 = get_weapon_tex(&game, M1, M2, M3);
-	game.enemy_fire_t1 = clock();
-	init_screens(&game);
+	extract_xpm(&game, &game.game_over, GAME_OVER);
+	extract_xpm(&game, &game.you_win, YOU_WIN);
+	game.player.vect = init_dir(game.map, game.player.pos);
 	change_map(&game, (int)game.player.pos.x, (int)game.player.pos.y, '0');
 	ft_start_display(&game);
 	return (0);

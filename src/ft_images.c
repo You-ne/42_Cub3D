@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:36:19 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 03:46:48 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 
 	x = (int)xy.x;
 	y = (int)xy.y;
-	if (texture[i] == 0 && texture[i + 1] == 0 && texture[i + 2] == 0 )
+	if (texture[i] == 0 && texture[i + 1] == 0 && texture[i + 2] == 0)
 	{
-		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = (char)1;
+		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = (char)1;
+		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = (char)1;
+		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = (char)127;
 	}
 	else if (texture[i] != texture[0] && texture[i + 1] != texture[1] &&
-	texture[i + 2] != texture[0])
+	texture[i + 2] != texture[2])
 	{
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = texture[i];
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] =
@@ -55,7 +55,7 @@ void	ft_texture_put(t_img *img, int x, int y, char *texture)
 		img->img[((x * (img->bpp / 8)) + (y * img->s_line))] = 0;
 		img->img[((x * (img->bpp / 8) + 1) + (y * img->s_line))] = 0;
 		img->img[((x * (img->bpp / 8) + 2) + (y * img->s_line))] = 0;
-		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 0;
+		img->img[((x * (img->bpp / 8) + 3) + (y * img->s_line))] = 127;
 	}
 	else
 	{

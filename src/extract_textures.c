@@ -5,103 +5,87 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/27 04:23:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:15:03 by yotillar         ###   ########.fr       */
+/*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
+/*   Updated: 2021/03/01 06:26:06 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	sky_texture(t_game *game, char param, char *str)
+void	extract_xpm(t_game *game, t_img *tex, char *str)
 {
-	if (param == 'K')
-	{
-		game->SKY.img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
-		&game->SKY.width, &game->SKY.height);
-		if (!(game->SKY.img_p))
-			ft_error("Troubles extracting sky textures !!\n", game);
-		game->SKY.img = mlx_get_data_addr(game->SKY.img_p, &game->SKY.bpp,
-		&game->SKY.s_line, &game->SKY.endian);
-	}
+	tex->img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
+	&tex->width, &tex->height);
+	if (tex->img_p == NULL)
+		ft_error("Troubles extracting texture !\n", game);
+	tex->img = mlx_get_data_addr(tex->img_p, &tex->bpp,
+	&tex->s_line, &tex->endian);
 }
 
-void	so_ea_textures(t_game *game, char param, char *str)
+t_img	*find_sprite(t_game *game, char chr)
 {
-	if (param == 'S')
+	t_img *tex1;
+	t_img *tex2;
+
+	tex1 = game->SP;
+	tex2 = game->SA;
+	while (tex1->chr != chr && tex1->next != NULL)
 	{
-		game->SO.img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
-		&game->SO.width, &game->SO.height);
-		if (!(game->SO.img_p))
-			ft_error("Troubles extracting SO texture !!\n", game);
-		game->SO.img = mlx_get_data_addr(game->SO.img_p, &game->SO.bpp,
-		&game->SO.s_line, &game->SO.endian);
+		tex1 = tex1->next;
 	}
-	if (param == 'E')
+	if (tex1->chr == chr)
+		return (tex1);
+	while (tex2->chr != chr && tex2->next != NULL)
 	{
-		game->EA.img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
-		&game->EA.width, &game->EA.height);
-		if (!(game->EA.img_p))
-			ft_error("Troubles extracting EA texture !!\n", game);
-		game->EA.img = mlx_get_data_addr(game->EA.img_p, &game->EA.bpp,
-		&game->EA.s_line, &game->EA.endian);
+		tex2 = tex2->next;
 	}
+	if (tex2->chr == chr)
+		return (tex2);
+	return (NULL);
 }
 
-void	no_we_textures(t_game *game, char param, char *str)
+void	extract_sprite(t_game *game, char *str, char chr, t_img *sp_sa)
 {
-	if (param == 'N')
-	{
-		game->NO.img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
-		&game->NO.width, &game->NO.height);
-		if (!(game->NO.img_p))
-			ft_error("Troubles extracting NO texture !!\n", game);
-		game->NO.img = mlx_get_data_addr(game->NO.img_p, &game->NO.bpp,
-		&game->NO.s_line, &game->NO.endian);
-	}
-	if (param == 'W')
-	{
-		game->WE.img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
-		&game->WE.width, &game->WE.height);
-		if (!(game->WE.img_p))
-			ft_error("Troubles extracting WE texture !!\n", game);
-		game->WE.img = mlx_get_data_addr(game->WE.img_p, &game->WE.bpp,
-		&game->WE.s_line, &game->WE.endian);
-	}
-}
+	t_img	*tmp;
+	t_img	*tex;
 
-void	extract_sprite_2(t_game *game, char *str, char chr)
-{
-	t_img *tex;
-	t_img *tmp;
-
-	tmp = game->SP;
-	if (!(tex = (struct s_img*)malloc(sizeof(struct s_img))))
-		ft_error("Erreur: Malloc a échoué !\n", game);
-	tex->img_p = mlx_xpm_file_to_image(game->win.mlxp, str, &tex->width,
-	&tex->height);
-	if (!(game->SP->img_p))
-		ft_error("Troubles extracting sprites textures !!\n", game);
-	tex->img = mlx_get_data_addr(tex->img_p, &tex->bpp, &tex->s_line,
-	&tex->endian);
-	tex->chr = chr;
-	tex->next = NULL;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = tex;
-}
-
-void	extract_sprite(t_game *game, char *str, char chr)
-{
-	if (chr == '2')
+	if ((sp_sa == game->SA && sp_sa->chr == '0') ||
+	(sp_sa == game->SP && sp_sa->chr == '2'))
 	{
-		game->SP->img_p = mlx_xpm_file_to_image(game->win.mlxp, str,
-		&game->SP->width, &game->SP->height);
-		if (!(game->SP->img_p))
-			ft_error("Troubles extracting sprites textures !!\n", game);
-		game->SP->img = mlx_get_data_addr(game->SP->img_p, &game->SP->bpp,
-		&game->SP->s_line, &game->SP->endian);
-		game->SP->chr = '2';
+		extract_xpm(game, sp_sa, str);
+		sp_sa->chr = chr;
 	}
 	else
-		extract_sprite_2(game, str, chr);
+	{
+		tmp = sp_sa;
+		if (!(tex = (struct s_img*)malloc(sizeof(struct s_img))))
+			ft_error("Erreur: Malloc a échoué !\n", game);
+		extract_xpm(game, tex, str);
+		tex->chr = chr;
+		tex->next = NULL;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = tex;
+	}
+}
+
+t_img	*get_weapon_tex(t_game *game, char *n1, char *n2, char *n3)
+{
+	t_img *w;
+	t_img *w2;
+	t_img *w3;
+
+	if (!(w = (struct s_img*)malloc(sizeof(struct s_img))))
+		ft_error("Erreur: Malloc a échoué !\n", game);
+	if (!(w2 = (struct s_img*)malloc(sizeof(struct s_img))))
+		ft_error("Erreur: Malloc a échoué !\n", game);
+	if (!(w3 = (struct s_img*)malloc(sizeof(struct s_img))))
+		ft_error("Erreur: Malloc a échoué !\n", game);
+	extract_xpm(game, w, n1);
+	extract_xpm(game, w2, n2);
+	extract_xpm(game, w3, n3);
+	w->next = w2;
+	w2->next = w3;
+	w3->next = 0x0;
+	return (w);
 }

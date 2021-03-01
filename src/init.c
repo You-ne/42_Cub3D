@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:41:16 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 05:28:15 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,4 @@ void	init(t_game *game)
 	game->start_found = 0;
 	init_params(game);
 	init_enemies(game);
-}
-
-void	init_screens(t_game *game)
-{
-	game->game_over.img_p = mlx_xpm_file_to_image(game->win.mlxp, GAME_OVER,
-	&game->game_over.width, &game->game_over.height);
-	game->game_over.img = mlx_get_data_addr(game->game_over.img_p,
-	&game->game_over.bpp, &game->game_over.s_line, &game->game_over.endian);
-	game->you_win.img_p = mlx_xpm_file_to_image(game->win.mlxp, YOU_WIN,
-	&game->you_win.width, &game->you_win.height);
-	game->you_win.img = mlx_get_data_addr(game->you_win.img_p,
-	&game->you_win.bpp, &game->you_win.s_line, &game->you_win.endian);
-	game->player.vect = init_dir(game->map, game->player.pos);
 }

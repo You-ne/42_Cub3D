@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:52:24 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:39:32 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 06:57:52 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	verify_map(t_game *game, char *sp_set)
 		while (game->map[i][j])
 		{
 			if (!verify_char(game, i, j, sp_set))
+			{
 				ft_error("Erreur: Map ouverte !\n", game);
+			}
 			j++;
 		}
 		i++;
