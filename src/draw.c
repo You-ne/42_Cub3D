@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:49:59 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 03:44:05 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:11:25 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void draw_sky2(t_game *game, t_img *img, int x, float xtex)
 void draw_sky(t_game *game, t_img *img)
 {
 	int x;
-	int i;
 	float xtex;
 	float angle;
 
@@ -110,8 +109,8 @@ int	draw_HUD(t_game *game, int x, int y)
 	(x < (int)((float)(game->res[0] / 2) + (0.10 * (float)game->res[1])) &&
 	x > (int)((float)(game->res[0] / 2) + (0.05 * (float)game->res[1]))))) ||
 	((x > (int)((float)(game->res[0] / 2) - 3) && x <
-	(int)((float)(game->res[0] / 2) + 3)) && ((y > (int)(mid - (0.10 *
-	(float)game->res[1])) && y < (int)(mid - (0.05 * (float)game->res[1])) ||
+	(int)((float)(game->res[0] / 2) + 3)) && (((y > (int)(mid - (0.10 *
+	(float)game->res[1])) && y < (int)(mid - (0.05 * (float)game->res[1]))) ||
 	(y < (int)(mid + (0.10 * (float)game->res[1])) &&
 	y > (int)(mid + (0.05 * (float)game->res[1])))))))
 		return (1);

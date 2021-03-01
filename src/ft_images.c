@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 05:16:27 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:36:19 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 void	ft_pixel_put(t_img *img, int x, int y, int color)
 {
-	char	red;
-	char	green;
-	char	blue;
 	char	*dst;
 
-	red = (char)(color & 255);
-	green = (char)((color >> 8) & 255);
-	blue = (char)((color >> 16) & 255);
 	dst = (char *)img->img + ((y * img->s_line) + (x * 4));
 	*(int*)dst = color;
 }
@@ -80,8 +74,6 @@ void	end_screen(t_game *game, t_img *tex, t_img *img)
 	int x;
 	int y;
 	int i;
-	int count;
-	float mid;
 	int j;
 
 	x = 0;

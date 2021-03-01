@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/28 07:55:17 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 00:21:04 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 		enemy->tseen = clock();
 	t2 = clock();
 	n = count_animation_sprites(tex);
-	printf("n=%i\n", n);
 	i = 1;
 	centisec = (int)roundf((float)((long)t2 - (long)enemy->tseen) /
 	CLOCKS_PER_SEC * 100);
@@ -55,7 +54,7 @@ t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 		{
 			system("aplay -N -q ./cont/sounds/357_Magnum.wav &");
 			system("aplay -N -q ./cont/sounds/Pain.wav &");
-			change_pv(&game->player, enemy->damage);
+			change_pv(game, enemy->damage);
 		}
 		enemy->fire = 1;
 		return (tex->next);
@@ -121,7 +120,7 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 
 	if (game->player.num_weapon == 1)
 		time_anim = 66;
-	else if (game->player.num_weapon == 2)
+	else
 		time_anim = 33;
 	tmp = (game->player.ammo == 0 ? weapon->next->next : weapon);
 	if (game->fire == 1)

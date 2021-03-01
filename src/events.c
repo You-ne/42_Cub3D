@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/28 10:38:15 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 00:18:14 by antoine          ###   ########.fr       */
 //Colors
 #/*                                                                            */
 /* ************************************************************************** */
@@ -25,40 +25,37 @@ void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 				system("aplay -N -q ./cont/sounds/Nein.wav &");
 			change_map(game, enemy->x, enemy->y, find_death_chr(enemy->chr));
 				if (enemy->chr == 'H')
-					game->victory = clock();
+					game->end = clock();
 		}
 	}
 }
 
-void	weapon_fire(t_game *game, t_coor *tir)
+void	weapon_fire(t_game *g, t_coor *t)
 {
 	t_coor	*tir2;
 	t_enemy	*enemy;
 
-	tir2 = tir;
-	if (tir->next != NULL)
+	tir2 = t;
+	if (t->next != NULL)
 	{
-		while (tir->next->next != NULL)
-				tir = tir->next;
-		printf("a_or_d=%i; chr=%c\n", is_alive_or_dead((char)((int)tir->next->dist)), (char)((int)tir->next->dist));
-		if (is_alive_or_dead((char)((int)tir->next->dist) < 0) ||
-		((int)game->res[1] / 2 > (game->tilt + (int)(game->res[1] / 2)) +
-		((tir->next->y * (1 / sp_size((char)((int)tir->next->dist)) / 2))) ||
-		game->res[1] / 2 < (game->tilt + (int)(game->res[1] / 2)) +
-		((tir->next->y * (1 / sp_size((char)((int)tir->next->dist))) / 2)) -
-		tir->next->y))
+		while (t->next->next != NULL)
+				t = t->next;
+		if (is_alive_or_dead((char)((int)t->next->dist)) < 0 || ((int)(g->res[1]
+		/ 2) > (g->tilt + (int)(g->res[1] / 2)) + ((t->next->y * (1 / sp_size(
+		(char)((int)t->next->dist)) / 2))) || g->res[1] / 2 < (g->tilt + (int)
+		(g->res[1] / 2)) + ((t->next->y * (1 / sp_size((char)(
+		(int)t->next->dist))) / 2)) - t->next->y))
 		{
-			write(1, "A", 1);
-			free_ray(tir->next);
-			tir->next = NULL;
-			weapon_fire(game, tir2);
+			free_ray(t->next);
+			t->next = NULL;
+			weapon_fire(g, tir2);
 			return ;
 		}
-		if (is_alive_or_dead((char)((int)tir->next->dist)) != 1)
+		if (is_alive_or_dead((char)((int)t->next->dist)) != 1)
 			return ;
-		enemy = find_enemy(game, tir->next->coor_sp / 1000,
-		tir->next->coor_sp % 1000, (char)((int)tir->next->dist));
-		change_enemy_pv(game, enemy, game->player.damage);
+		enemy = find_enemy(g, t->next->coor_sp / 1000,
+		t->next->coor_sp % 1000, (char)((int)t->next->dist));
+		change_enemy_pv(g, enemy, g->player.damage);
 	}
 }
 
@@ -74,13 +71,16 @@ void	change_map(t_game *game, int x, int y, char chr)
 	game->map[y][x] = chr;
 }
 
-void	change_pv(t_player *player, float pv)
+void	change_pv(t_game *game, float pv)
 {
-	player->pv = player->pv + pv;
-	if (player->pv > 100)
-		player->pv = 100;
-	if (player->pv <= 0)
+	game->player.pv = game->player.pv + pv;
+	if (game->player.pv > 100)
+		game->player.pv = 100;
+	if (game->player.pv <= 0)
+	{
+		game->end = clock();
 		system("aplay -N -q ./cont/sounds/Cri_wilhelm.wav &");
+	}
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/02/28 09:02:17 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 00:45:12 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		is_alive_or_dead(char chr)
 	if (chr == 'e' || chr == 'V' || chr == 'c' || chr == 'M' || chr == 'H'
 	|| chr == '(' || chr == 'A' || chr == 'X' || chr == ';' || chr == 'l'
 	|| chr == 'x' || chr == 'I' || chr == '#' || chr == 's' || chr == '@'
-	|| chr == 'U' | chr == '<' || chr == '{' || chr == ')' || chr == 'k'
+	|| chr == 'U' || chr == '<' || chr == '{' || chr == ')' || chr == 'k'
 	|| chr == 'y' || chr == 'r')
 		return (1);
 	else if (chr == ':' || chr == '$' || chr == '=' || chr == 't' || chr == ','
@@ -71,7 +71,7 @@ void	sp_events(t_game *game)
 	if (chr == '4')
 	{
 		system("aplay -N -q ./cont/sounds/rot.wav &");
-		change_pv(&game->player, 15);
+		change_pv(game, 15);
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 	}
 	if (chr == '5')

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 06:53:21 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:33:14 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ char	find_death_chr2(char chr)
 		return ('z');
 	else if (chr == 'U')
 		return ('u');
-	if (chr == 'u')
+	else if (chr == 'u')
 		return ('>');
+	return ('\0');
 }
 
 char	find_death_chr(char chr)

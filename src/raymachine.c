@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:34:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 07:20:06 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:22:43 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	ft_raymachine(t_game *game, t_img *img)
 {
 	int	x;
 	float	angle;
-	float	distproj;
 	t_coor	*ray;
-	t_img	weapon;
 
 	x = 0;
 	angle = (float)FOV / (float)game->res[0];

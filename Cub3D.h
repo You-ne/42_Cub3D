@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:11:44 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 00:20:46 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef struct s_game
 	t_win		win;
 	t_player	player;
 
-	clock_t		victory;
+	clock_t		end;
 
 	t_img		game_over;
 	t_img		you_win;
@@ -273,7 +273,7 @@ float	sp_size(char chr);
 int		sp_collision(int x, int y, char **map);
 void	teleportation(t_player *player, float x, float y);
 void	change_map(t_game *game, int x, int y, char chr);
-void	change_pv(t_player *player, float pv);
+void	change_pv(t_game *game, float pv);
 void	change_enemy_pv(t_game *game, t_enemy* enemy, int pv);
 
 int		key_press(int keycode, t_game *game);

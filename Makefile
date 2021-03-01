@@ -1,6 +1,6 @@
 CC=gcc
 
-LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -g3
+LFLAGS= -lmlx -lXext -lX11 -lm -lbsd -march=native -O3
 
 NAME= ./cub3D
 

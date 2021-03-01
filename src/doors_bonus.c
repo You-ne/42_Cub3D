@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:31:01 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 07:24:08 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:20:30 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_coor	*ft_door_yray(t_coor *ray, t_coor *eq, t_game *game, t_coor *dir)
 		ft_error("Erreur: Malloc a échoué !\n", game);
 	eqsol = (((int)ray->y + (game->player.pos.y < ray->y ? 0.5 : -0.5)) - eq->y)
 	/ eq->x;
-//	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	if ((eqsol < (int)ray->x + 1 && eqsol > (int)ray->x))
 	{
 		door->x = (dir->x != -2) ? eqsol : -1.0;
@@ -47,7 +46,6 @@ t_coor	*ft_door_xray(t_coor *ray, t_coor *eq, t_game *game, t_coor *dir)
 			ft_error("Erreur: Malloc a échoué !\n", game);
 		eqsol = ((int)ray->x + (game->player.pos.x < ray->x ? 0.5 : -0.5)) *
 		eq->x + eq->y;
-//		eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 		if ((eqsol > (int)ray->y  && eqsol < (int)ray->y + 1))
 		{
 			door->x = (int)ray->x + (game->player.pos.x < ray->x ? 0.5 : -0.5);
@@ -59,7 +57,7 @@ t_coor	*ft_door_xray(t_coor *ray, t_coor *eq, t_game *game, t_coor *dir)
 			return (NULL);
 		}
 	}
-	else if (ray->dist == -5)
+	else
 		return (ft_door_yray(ray, eq, game, dir));
 	return (door);
 }
@@ -81,7 +79,7 @@ t_coor	*ft_vertical_door(t_game *game, t_coor *dir, t_coor *ray, int width)
 	return (door);
 }
 
-void	ft_add_door2(t_game *game, t_coor *door, int width, t_coor *ray)
+void	ft_add_door2(t_game *game, t_coor *door, int width)
 {
 	int distproj;
 
@@ -97,7 +95,6 @@ t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 {
 	t_coor *door;
 	t_coor vect;
-	float eqsol;
 	t_img *tex;
 
 	tex = find_sprite(game, ft_ray_collision(game->map, ray, dir));
@@ -114,7 +111,7 @@ t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	ft_pythagore(game->player.vect.x, game->player.vect.y));
 	door->dist = fabs(vect.dist) * ft_pythagore(door->y - game->player.pos.y, 
 	door->x - game->player.pos.x);
-	ft_add_door2(game, door, tex->width, eqline);
+	ft_add_door2(game, door, tex->width);
 	door->dist = (float)((int)ft_ray_collision(game->map, ray, dir));
 	door->next = ray->next;
 	return (door);

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/27 07:19:15 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:31:48 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 {
 	float eqsol;
 	int midcase;
-	t_coor *sp;
 
 	eqsol = ((int)ray->x + dir.x) * eqline->x + eqline->y;
-//	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	ray->dist = -4;
 	midcase = (dir.y == 0 && ray->y == (float)((int)ray->y) && 
 	ray->x != (float)((int)ray->x)) ? -1 : 0;
@@ -84,7 +82,6 @@ void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 			return ;
 		dir.x = ((dir.x == 0.0) ? -1.0 : dir.x);
 		eqsol = ((int)ray->x + dir.x) * eqline->x + eqline->y;
-//		eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 		midcase = (dir.y == 0 && ray->y == (float)((int)ray->y)) ? -1 : 0;
 	}
 	ray->dist = 1;
@@ -94,10 +91,8 @@ void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 {
 	float eqsol;
 	int midcase;
-	t_coor *sp;
 
 	eqsol = (((int)ray->y + dir.y) - eqline->y) / eqline->x;
-//	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	ray->dist = -5;
 	midcase = (dir.x == 0 && (ray->x == (float)((int)ray->x))) ? -1 : 0;
 	while ((eqsol <= (int)ray->x + midcase + 1 && eqsol >= (int)ray->x + midcase)
@@ -111,7 +106,6 @@ void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 			return ;
 		dir.y = (dir.y == 0) ? -1 : dir.y;
 		eqsol = (((int)ray->y + dir.y) - eqline->y) / eqline->x;
-//		eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 		midcase = (dir.x == 0 && ray->x == (float)((int)ray->x)) ? -1 : 0;
 	}
 	ray->dist = 1;
@@ -119,8 +113,6 @@ void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 
 void	ft_vertical_ray(t_coor *eqline, t_coor *dir, t_coor *ray, t_game *game)
 {
-	t_coor *sp;
-
 	ray->dist = -3;
 	if (dir->y > 0)
 		ray->y = (float)((int)ray->y + 1);

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 06:10:31 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:28:03 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		key_release(int keycode, t_game *game)
 		system("aplay -N -q ./cont/sounds/door.wav &");
 		open_door(game);
 	}
+	return (1);
 }
 
 
@@ -90,4 +91,5 @@ int		key_press(int keycode, t_game *game)
 		game->tilt = nose_axis;
 	}
 	key_press2(keycode, game);
+	return (1);
 }

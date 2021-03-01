@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/27 07:16:52 by antoine          ###   ########.fr       */
+/*   Updated: 2021/02/28 23:14:58 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,18 @@ int	ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 	if (a->x == sp->x && a->y == sp->y)
 		return ((int)((float)tex->width * 0.5));
 	else if ((int)pos->x > (int)sp->x)
-	{
 		return (a->y > sp->y ? (int)((float)tex->width * (((s / 2) - pos->dist)
 		/ s)) : (int)((float)tex->width * (((s / 2) + pos->dist) / s)));
-	}
 	else if ((int)pos->x < (int)sp->x)
-	{
 		return (a->y < sp->y ? (int)((float)tex->width * (((s / 2) - pos->dist)
 		/ s)) : (int)((float)tex->width * (((s / 2) + pos->dist) / s)));
-	}
 	else if ((int)pos->y > (int)sp->y)
-	{
 		return (a->x < sp->x ? (int)((float)tex->width * (((s / 2) - pos->dist)
 		/ s)) : (int)((float)tex->width * (((s / 2) + pos->dist) / s)));
-	}
 	else if ((int)pos->y < (int)sp->y)
-	{
 		return (a->x > sp->x ? (int)((float)tex->width * (((s / 2) - pos->dist)
 		/ s)) : (int)((float)tex->width * (((s / 2) + pos->dist) / s)));
-	}
+	return (-1);
 }
 
 int	ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
@@ -91,7 +84,7 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 	return (col);
 }
 
-t_coor	*ft_sprite_dist(char **map, t_coor *ray, t_coor *dir, t_game *game)
+t_coor	*ft_sprite_dist(t_coor *ray, t_coor *dir, t_game *game)
 {
 	t_coor *sp;
 	int i;
@@ -129,7 +122,7 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	t_coor tmp;
 	float distproj;
 
-	sp = ft_sprite_dist(game->map, ray, dir, game);
+	sp = ft_sprite_dist(ray, dir, game);
 	sp->dist = ft_pythagore(sp->y - game->player.pos.y,
 	sp->x - game->player.pos.x);
 	tmp = *sp;
