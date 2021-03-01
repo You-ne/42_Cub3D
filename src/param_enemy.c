@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 07:53:35 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 01:35:30 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -2;
 		enemy->time_anim = 20;
 	}
+	game = game;
 //		param_enemy4(game, enemy, chr);
 }
 

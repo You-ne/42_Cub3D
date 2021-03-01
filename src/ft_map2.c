@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:52:24 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 17:18:15 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:39:32 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	find_secret_door(t_game *game)
 
 char	*count_sprites(t_game *game, int time, char *sp_set)
 {
-	int		i;
 	char	*tmp;
 	t_img	*sp;
 

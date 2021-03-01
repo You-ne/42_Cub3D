@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 20:02:18 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:39:12 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	get_enemies(t_game *game, char *foes_set)
 {
 	int		x;
 	int		y;
-	t_enemy *tmp;
 
 	y = 0;
 	while (game->map[y] != NULL)
@@ -85,7 +84,6 @@ void	get_enemies(t_game *game, char *foes_set)
 		y++;
 	}
 	free(foes_set);
-	tmp = game->enemies;
 }
 
 char	*get_foes_char(t_img *enemies)
@@ -109,7 +107,7 @@ char	*get_foes_char(t_img *enemies)
 	return (set);
 }
 
-int		find_map(t_game *game, int line, int nb_params)
+int		find_map(t_game *game, int line)
 {
 	int		end;
 	char	*sp_set;

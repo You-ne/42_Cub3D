@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:10:09 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:41:02 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void		extract_file(char *path, t_game *game)
 	int		i;
 	int		size;
 	char	*tmp;
-	char	**map;
 
 	i = 0;
 	size = 0;
@@ -53,10 +52,9 @@ int			parser(t_game *game)
 		while (game->map[i][j] != '\0')
 		{
 			if (game->map[i][j] == '1')
-				return (find_map(game, i, game->nb_params));
+				return (find_map(game, i));
 			if (game->map[i][j] > 65 && game->map[i][j] < 91)
 			{
-				game->nb_params++;
 				find_info(game->map[i], game);
 				break ;
 			}
@@ -97,9 +95,7 @@ void		find_res(t_game *game)
 int			main(int argc, char **argv)
 {
 	t_game	game;
-	int		i;
 
-	i = 0;
 	init(&game);
 	init_keys(&game);
 	check_args(&game, argv, argc);

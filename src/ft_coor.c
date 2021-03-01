@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 07:25:27 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:09:57 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:36:00 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_coor		find_start(t_game *game)
 	int	j;
 
 	i = 0;
-	if (game->map_found = 0)
+	if (game->map_found == 0)
 		ft_error("Map layout not found in .cub file\n", game);
 	while(game->map[i] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 05:17:21 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/18 19:30:40 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:36:57 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void		bmp_img(t_bmp *bmp, int fd, t_img *img)
 {
 	int		x;
 	int		y;
-	int		l;
 
 	y = bmp->heigth;
-	l = ft_strlen(img->img);
 	while (y > 0)
 	{
 		x = 0;

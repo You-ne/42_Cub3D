@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:28:13 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:41:16 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	init(t_game *game)
 	game->win_created = 0;
 	game->map_found = 0;
 	game->map = NULL;
-	game->nb_params = 0;
 	game->secret.x = 0;
 	game->secret.y = 0;
 	game->secret.dist = 0;

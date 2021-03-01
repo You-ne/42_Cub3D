@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:27:45 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/01 01:34:12 by yotillar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_img	*find_sprite(t_game *game, char chr)
 	}
 	if (tex2->chr == chr)
 		return (tex2);
+	return (NULL);
 }
 
 void	extract_anim2(t_game *game, char *str, char chr)
