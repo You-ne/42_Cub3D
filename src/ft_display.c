@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 03:15:17 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/01 23:06:40 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	end(t_game *game, t_img *img, int i)
 
 	t2 = clock();
 	if (j != 2)
-		j = ((t2 - game->end) / CLOCKS_PER_SEC > 2) ? 1 : 0;
+		j = ((t2 - game->end) / CLOCKS_PER_SEC > 1) ? 1 : 0;
 	if (i == 0)
 	{
 		if (j == 1)

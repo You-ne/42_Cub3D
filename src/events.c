@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/01 00:18:14 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 02:23:44 by antoine          ###   ########.fr       */
 //Colors
 #/*                                                                            */
 /* ************************************************************************** */
@@ -62,6 +62,7 @@ void	weapon_fire(t_game *g, t_coor *t)
 
 void	teleportation(t_player *player, float x, float y)
 {
+	system("aplay -N -q ./cont/sounds/Cat.wav &");
 	player->pos.x = x;
 	player->pos.y = y;
 }

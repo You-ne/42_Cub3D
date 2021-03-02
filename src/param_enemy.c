@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 00:53:42 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:33:02 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 	}
 	else if (chr == '#')
 	{
-		enemy->pv = 100;
-		enemy->damage = -2;
-		enemy->time_anim = 20;
+		enemy->pv = 160;
+		enemy->damage = -10;
+		enemy->time_anim = 100;
 	}
 	game = game;
 //		param_enemy4(game, enemy, chr);
@@ -46,8 +46,8 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 {
 	if (chr == 'k')
 	{
-		enemy->pv = 150;
-		enemy->damage = -10;
+		enemy->pv = 200;
+		enemy->damage = -12;
 		enemy->time_anim = 150;
 	}
 	else if (chr == 'i')
@@ -59,8 +59,8 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 	else if (chr == ';')
 	{
 		enemy->pv = 100;
-		enemy->damage = -25;
-		enemy->time_anim = 150;
+		enemy->damage = -2;
+		enemy->time_anim = 16;
 	}
 	else if (chr == '(')
 	{
@@ -88,8 +88,8 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 	else if (chr == 'y')
 	{
 		enemy->pv = 100;
-		enemy->damage = -4;
-		enemy->time_anim = 35;
+		enemy->damage = -5;
+		enemy->time_anim = -35;
 	}
 	else if (chr == '{')
 	{
@@ -108,7 +108,7 @@ float	sp_size(char chr)
 	if (chr == '9')
 		size = 0.3;
 	else if (chr == 'e' || chr == '+' || chr == '=' || chr == 'V' || chr == '%'
-	|| chr == '$' || chr == 'C' || chr == '?' || chr == ':' || chr == ';' ||
+	|| chr == '$' || chr == 'c' || chr == '?' || chr == ':' || chr == ';' ||
 	chr == 'l' || chr == 'L' || chr == '|' || chr == 'I' || chr == 'o' ||
 	chr == '}' || chr == '#' || chr == 's' || chr == '_' || chr == 'z' ||
 	chr == 'f' || chr == 'k' || chr == 'y' || chr == 'r' || chr == 'i')
