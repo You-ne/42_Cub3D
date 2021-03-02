@@ -1,9 +1,9 @@
 /* XPM */
 static char * himmler_xpm[] = {
 "97 97 117 2",
-"  	c #FFC0CB",
+"  	c #28e010",
 ". 	c #575757",
-"+ 	c #FFC0CB",
+"+ 	c #28e010",
 "@ 	c #5B5B5B",
 "# 	c #4B4B4B",
 "$ 	c #ABABAB",
