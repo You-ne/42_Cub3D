@@ -1,7 +1,7 @@
 /* XPM */
 static char * enemy_PM_aiming_xpm[] = {
 "106 107 65 1",
-" 	c #9B008B",
+" 	c #FCC0CB",
 ".	c #383838",
 "+	c #4D4D4D",
 "@	c #323232",

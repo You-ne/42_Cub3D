@@ -256,7 +256,7 @@ static char * gunD_xpm[] = {
 "D+	c #007474",
 "E+	c #007070",
 "F+	c #006C6C",
-"G+	c #980088",
+"G+	c #ff0000",
 "G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+",
 "G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+",
 "G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+G+",
