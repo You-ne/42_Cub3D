@@ -6,18 +6,18 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:43:48 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/02 02:26:42 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:58:48 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
+t_img		*aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
-	clock_t t2;
+	clock_t	t2;
 	int		centisec;
-	int i;
-	int n;
+	int		i;
+	int		n;
 
 	t2 = clock();
 	if (enemy->tseen < 0)
@@ -38,7 +38,7 @@ t_img *aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	return (tex);
 }
 
-t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
+t_img		*enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
 	clock_t	t2;
 	int		centisec;
@@ -65,12 +65,12 @@ t_img *enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	return (tex);
 }
 
-t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy)
+t_img		*death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {
-	clock_t t2;
+	clock_t	t2;
 	int		centisec;
-	int i;
-	int n;
+	int		i;
+	int		n;
 
 	t2 = clock();
 	n = count_animation_sprites(tex);
@@ -89,10 +89,9 @@ t_img *death_animation(t_game *game, t_img *tex, t_enemy *enemy)
 	return (tex);
 }
 
-
-void	do_fire(t_game *game)
+void		do_fire(t_game *game)
 {
-	t_coor *tir;
+	t_coor	*tir;
 
 	if (game->player.fire == 0)
 	{
@@ -111,13 +110,12 @@ void	do_fire(t_game *game)
 	game->player.fire = 1;
 }
 
-
-t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
+t_img		*weapon_fire_animation(t_game *game, t_img *weapon)
 {
 	t_img	*tmp;
 	clock_t	t2;
-	int	centisec;
-	int	time_anim;
+	int		centisec;
+	int		time_anim;
 
 	if (game->player.num_weapon == 1)
 		time_anim = 66;
@@ -140,23 +138,3 @@ t_img	*weapon_fire_animation(t_game *game, t_img *weapon)
 	}
 	return (tmp);
 }
-/*
-t_img perpetual_animation(t_game *game, t_img *tex)
-{
-	clock_t t2;
-	int		centisec;
-	int n;
-	int i;
-
-	n = count_animation_sprites(tex);
-	t2 = clock();
-	i = 1;
-	centisec = (int)roundf((float)(t2) / CLOCKS_PER_SEC * 100);
-	while (centisec % (n * 15) > 15 * i && i < n)
-	{
-		tex = tex->next;
-		i++;
-	}
-	return (*tex);
-}
-*/

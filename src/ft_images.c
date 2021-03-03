@@ -6,13 +6,13 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 21:58:08 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:46:44 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	ft_pixel_put(t_img *img, int x, int y, int color)
+void		ft_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -20,11 +20,10 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 	*(int*)dst = color;
 }
 
-
-void	ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
+void		ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	x = (int)xy.x;
 	y = (int)xy.y;
@@ -69,18 +68,18 @@ void	ft_texture_put(t_img *img, int x, int y, char *texture)
 	}
 }
 
-void	end_screen(t_game *game, t_img *tex, t_img *img)
+void		end_screen(t_game *game, t_img *tex, t_img *img)
 {
-	int x;
-	int y;
-	int i;
-	int j;
+	int		x;
+	int		y;
+	int		i;
+	int		j;
 
 	x = 0;
 	while (x < game->res[0])
 	{
 		y = 0;
-		j = ((int)(((float)tex->width / game->res[0])* (float)x));
+		j = ((int)(((float)tex->width / game->res[0]) * (float)x));
 		while (y < game->res[1])
 		{
 			i = (int)(((float)tex->height / game->res[1]) * (float)y);

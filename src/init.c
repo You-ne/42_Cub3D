@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 05:28:15 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:43:20 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	init(t_game *game)
 	game->secret.dist = 0;
 	game->SKY.img_p = NULL;
 	if (!(game->SA = (struct s_img*)malloc(sizeof(struct s_img))))
-		ft_error("Erreur: Malloc a échoué !\n", game);	
+		ft_error("Erreur: Malloc a échoué !\n", game);
 	if (!(game->SP = (struct s_img*)malloc(sizeof(struct s_img))))
 		ft_error("Erreur: Malloc a échoué !\n", game);
 	game->player.num_weapon = 1;

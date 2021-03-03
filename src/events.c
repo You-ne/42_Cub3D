@@ -6,14 +6,13 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/02 04:03:24 by antoine          ###   ########.fr       */
-//Colors
-#/*                                                                            */
+/*   Updated: 2021/03/03 04:00:23 by antoine          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
+void		change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 {
 	if (enemy->pv > 1)
 	{
@@ -30,7 +29,7 @@ void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 	}
 }
 
-void	weapon_fire(t_game *g, t_coor *t)
+void		weapon_fire(t_game *g, t_coor *t)
 {
 	t_coor	*tir2;
 	t_enemy	*enemy;
@@ -59,20 +58,19 @@ void	weapon_fire(t_game *g, t_coor *t)
 	}
 }
 
-
-void	teleportation(t_player *player, float x, float y)
+void		teleportation(t_player *player, float x, float y)
 {
 	system("aplay -N -q ./cont/sounds/Cat.wav &");
 	player->pos.x = x;
 	player->pos.y = y;
 }
 
-void	change_map(t_game *game, int x, int y, char chr)
+void		change_map(t_game *game, int x, int y, char chr)
 {
 	game->map[y][x] = chr;
 }
 
-void	change_pv(t_game *game, float pv)
+void		change_pv(t_game *game, float pv)
 {
 	game->player.pv = game->player.pv + pv;
 	if (game->player.pv > 100)
@@ -84,4 +82,3 @@ void	change_pv(t_game *game, float pv)
 	}
 	return ;
 }
-

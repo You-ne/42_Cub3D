@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:52:24 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:21:02 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:45:06 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int		verify_char(t_game *game, int y, int x, char *sp_set)
 	if (in_str(game->map[y][x], sp_set) && (game->map[y][x + 1] == ' ' ||
 	game->map[y][x - 1] == ' ' || game->map[y + 1][x] == ' ' ||
 	game->map[y - 1][x] == ' ' || game->map[y + 1][x + 1] == ' ' ||
-	game->map[y - 1][x - 1] == ' '  || game->map[y - 1][x + 1] == ' ' ||
+	game->map[y - 1][x - 1] == ' ' || game->map[y - 1][x + 1] == ' ' ||
 	game->map[y + 1][x - 1] == ' ' || game->map[y][x + 1] == '\0' ||
 	game->map[y][x - 1] == '\0' || game->map[y + 1][x] == '\0' ||
 	game->map[y - 1][x] == '\0' || game->map[y + 1][x + 1] == '\0' ||
-	game->map[y - 1][x - 1] == '\0'  || game->map[y - 1][x + 1] == '\0' ||
+	game->map[y - 1][x - 1] == '\0' || game->map[y - 1][x + 1] == '\0' ||
 	game->map[y + 1][x - 1] == '\0'))
 		return (0);
 	return (1);

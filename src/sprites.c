@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/03 02:48:08 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:37:38 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int			ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 	return (-1);
 }
 
-int			ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
+int			ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex,
+t_coor *pos)
 {
 	int		col;
 	t_coor	a;
@@ -112,7 +113,8 @@ t_coor		*ft_sprite_dist(t_coor *ray, t_coor *dir, t_game *game)
 	return (sp);
 }
 
-t_coor		*ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
+t_coor		*ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir,
+t_coor *eqline)
 {
 	t_coor	*sp;
 	t_img	*tex;

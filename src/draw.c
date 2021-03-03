@@ -6,17 +6,17 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:49:59 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/28 23:11:25 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:42:41 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void draw_sky2(t_game *game, t_img *img, int x, float xtex)
+void		draw_sky2(t_game *game, t_img *img, int x, float xtex)
 {
-	int y;
-	int i;
-	int count;
+	int		y;
+	int		i;
+	int		count;
 
 	y = 0;
 	count = (int)(game->res[1]) - game->tilt;
@@ -41,11 +41,11 @@ void draw_sky2(t_game *game, t_img *img, int x, float xtex)
 	return ;
 }
 
-void draw_sky(t_game *game, t_img *img)
+void		draw_sky(t_game *game, t_img *img)
 {
-	int x;
-	float xtex;
-	float angle;
+	int		x;
+	float	xtex;
+	float	angle;
 
 	x = 0;
 	angle = game->player.vect.y / game->player.vect.x;
@@ -68,14 +68,12 @@ void draw_sky(t_game *game, t_img *img)
 	return ;
 }
 
-
-
-void	draw_weapon(t_game *game, t_img *img, t_img *tex)
+void		draw_weapon(t_game *game, t_img *img, t_img *tex)
 {
-	int y;
-	int x;;
-	int i;
-	t_coor xy;
+	int		y;
+	int		x;
+	int		i;
+	t_coor	xy;
 
 	x = (int)((float)game->res[0] / 2) + 3;
 	while (x < game->res[0])
@@ -98,9 +96,9 @@ void	draw_weapon(t_game *game, t_img *img, t_img *tex)
 	return ;
 }
 
-int	draw_HUD(t_game *game, int x, int y)
+int			draw_hud(t_game *game, int x, int y)
 {
-	float mid;
+	float	mid;
 
 	mid = (float)game->res[1] / 2;
 	if ((y > (int)(mid - 3) && y < (int)(mid + 3) &&
@@ -117,12 +115,11 @@ int	draw_HUD(t_game *game, int x, int y)
 	return (0);
 }
 
-
-void	draw_life(t_game *game, t_img *img)
+void		draw_life(t_game *game, t_img *img)
 {
-	int x;
-	int y;
-	float mid;
+	int		x;
+	int		y;
+	float	mid;
 
 	mid = (float)game->res[1] / 2;
 	x = 0;
@@ -131,10 +128,10 @@ void	draw_life(t_game *game, t_img *img)
 		y = 0;
 		while (y < game->res[1])
 		{
-			if (y > (int)(mid * (2 - ((float)game->player.pv / 100))) && 
+			if (y > (int)(mid * (2 - ((float)game->player.pv / 100))) &&
 			x < game->res[0] / 50)
 				ft_pixel_put(img, x, y, 9175040);
-			if (draw_HUD(game, x, y) == 1)
+			if (draw_hud(game, x, y) == 1)
 				ft_pixel_put(img, x, y, 16777215);
 			y++;
 		}
@@ -142,6 +139,3 @@ void	draw_life(t_game *game, t_img *img)
 	}
 	return ;
 }
-
-
-

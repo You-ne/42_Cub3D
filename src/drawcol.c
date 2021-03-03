@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/02/28 05:18:10 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:52:10 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 {
-	int mid;
-	int i;
-	float size;
-	t_img *tex;
+	int		mid;
+	int		i;
+	float	size;
+	t_img	*tex;
 
 	tex = img->next;
 	size = sp_size((char)((int)heightncol->dist));
@@ -31,7 +31,7 @@ void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 		(char)((int)heightncol->dist) != '*')
 			ft_texture_put_sp(img, *xy, tex->img, i);
 		else
-			ft_texture_put(img, xy->x, xy->y, (tex->img +i));
+			ft_texture_put(img, xy->x, xy->y, (tex->img + i));
 		xy->dist = xy->dist + 1;
 	}
 	return ;
@@ -39,10 +39,10 @@ void	ft_drawcol_sp2(t_coor *heightncol, t_game *gam, t_img *img, t_coor *xy)
 
 void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 {
-	t_img *tex;
-	float size;
-	t_coor xy;
-	int mid;
+	t_img	*tex;
+	float	size;
+	t_coor	xy;
+	int		mid;
 
 	xy.y = 0;
 	size = sp_size((char)((int)heightncol->dist));
@@ -65,11 +65,11 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 		ft_drawcol_sp(heightncol->next, game, img, x);
 }
 
-t_coor	*suppr_sp_behind_door(t_coor *hnc)
+t_coor		*suppr_sp_behind_door(t_coor *hnc)
 {
-	t_coor *tmp;
-	t_coor *tmp2;
-	int i;
+	t_coor	*tmp;
+	t_coor	*tmp2;
+	int		i;
 
 	tmp = hnc;
 	i = 0;
@@ -95,9 +95,9 @@ t_coor	*suppr_sp_behind_door(t_coor *hnc)
 
 void	ft_drawcol(t_coor *heightncol, t_img *tex, t_game *game, t_img *img)
 {
-	int y;
-	int count;
-	int i;
+	int	y;
+	int	count;
+	int	i;
 
 	y = 0;
 	count = 0;
@@ -121,4 +121,3 @@ void	ft_drawcol(t_coor *heightncol, t_img *tex, t_game *game, t_img *img)
 	if (heightncol->next != 0x0)
 		ft_drawcol_sp(heightncol->next, game, img, i);
 }
-

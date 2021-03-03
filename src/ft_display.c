@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 04:06:55 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:52:46 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	end(t_game *game, t_img *img, int i)
 {
-	clock_t t2;
-	static long int j;
+	clock_t			t2;
+	static long int	j;
 
 	t2 = clock();
 	if (j != 2)

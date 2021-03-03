@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 21:42:05 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:39:40 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		key_release(int keycode, t_game *game)
 		open_door(game);
 	return (1);
 }
-
 
 void	key_press2(int keycode, t_game *game)
 {
