@@ -6,15 +6,15 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/03 01:18:08 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 02:48:08 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-int	ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
+int			ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 {
-	float s;
+	float	s;
 
 	s = sp_size(tex->chr);
 	if (a->x == sp->x && a->y == sp->y)
@@ -34,12 +34,12 @@ int	ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 	return (-1);
 }
 
-int	ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
+int			ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
 {
-	int col;
-	t_coor a;
-	float dist;
-	float size;
+	int		col;
+	t_coor	a;
+	float	dist;
+	float	size;
 
 	size = sp_size(tex->chr);
 	a.x = ray->x;
@@ -55,16 +55,16 @@ int	ft_vertical_sprite_col(t_coor *sp, t_coor *ray, t_img *tex, t_coor *pos)
 	return (col);
 }
 
-int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
+int			ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 {
-	t_coor eq2;
-	t_coor a;
-	float size;
+	t_coor	eq2;
+	t_coor	a;
+	float	size;
 
 	size = sp_size(tex->chr);
 	if (eqray->x > 0.001 || eqray->x < -0.001)
 	{
-		eq2.x = - (1.0 / eqray->x);
+		eq2.x = -(1.0 / eqray->x);
 		eq2.y = sp->y - (eq2.x * sp->x);
 		a.x = (eq2.y - eqray->y) / (eqray->x - eq2.x);
 		a.y = (eq2.x * a.x) + eq2.y;
@@ -83,10 +83,10 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 	return (ft_calc_col_sprite(&a, pos, sp, tex));
 }
 
-t_coor	*ft_sprite_dist(t_coor *ray, t_coor *dir, t_game *game)
+t_coor		*ft_sprite_dist(t_coor *ray, t_coor *dir, t_game *game)
 {
-	t_coor *sp;
-	int i;
+	t_coor	*sp;
+	int		i;
 
 	if (!(sp = (struct s_coor*)malloc(sizeof(struct s_coor))))
 		ft_error("Erreur: Malloc a échoué !\n", game);
@@ -112,14 +112,13 @@ t_coor	*ft_sprite_dist(t_coor *ray, t_coor *dir, t_game *game)
 	return (sp);
 }
 
-
-t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
+t_coor		*ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 {
-	t_coor *sp;
-	t_img *tex;
-	t_coor vect;
-	t_coor tmp;
-	float distproj;
+	t_coor	*sp;
+	t_img	*tex;
+	t_coor	vect;
+	t_coor	tmp;
+	float	distproj;
 
 	sp = ft_sprite_dist(ray, dir, game);
 	sp->dist = ft_pythagore(sp->y - game->player.pos.y,
@@ -141,8 +140,3 @@ t_coor *ft_add_sprite(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
 	sp->next = ray->next;
 	return (sp);
 }
-
-
-
-
-

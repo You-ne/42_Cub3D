@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/02 06:03:54 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 02:49:23 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		is_alive_or_dead(char chr)
 		return (1);
 	else if (chr == ':' || chr == '$' || chr == '=' || chr == 't' || chr == ','
 	|| chr == 'a' || chr == '|' || chr == '}' || chr == 'z' || chr == '>' ||
-	chr == '_' || chr == 'p' || chr == '+' || chr == '%'  || chr == '?'  ||
+	chr == '_' || chr == 'p' || chr == '+' || chr == '%' || chr == '?' ||
 	chr == 'm' || chr == 'h' || chr == 'x' || chr == '-' || chr == 'L' ||
-	chr == 'o'|| chr == 'u')
+	chr == 'o' || chr == 'u')
 		return (-1);
 	return (0);
 }

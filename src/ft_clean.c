@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 22:19:45 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:44:25 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/03 02:59:59 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	ft_clean_game(t_game *game)
 
 int		ft_exit(int keycode, t_game *game)
 {
-	keycode = keycode;
+	int	rien;
+
+	rien = keycode * 0;
 	if (game)
 		ft_clean_game(game);
 	exit(0);
-	return (0);
+	return (rien);
 }
 
 void	ft_error(const char *str, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 03:41:18 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:02:17 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	add_enemy(int x, int y, char enemy_chr, t_game *game)
 	tmp->fire = 0;
 	tmp->tseen = -1;
 	tmp->tdeath = -1;
-	param_enemy(game, tmp, enemy_chr);
+	param_enemy(tmp, enemy_chr);
 	tmp->chr = find_shooting_chr(enemy_chr);
 	tmp->next = NULL;
 }

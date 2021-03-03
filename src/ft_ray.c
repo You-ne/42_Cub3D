@@ -6,16 +6,16 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 02:25:28 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 02:44:41 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-char	ft_ray_collision(char **map, t_coor *ray, t_coor *dir)
+char		ft_ray_collision(char **map, t_coor *ray, t_coor *dir)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = (dir->x <= 0) ? -1 : 0;
 	j = (dir->y <= 0) ? -1 : 0;
@@ -37,9 +37,10 @@ char	ft_ray_collision(char **map, t_coor *ray, t_coor *dir)
 	return ('0');
 }
 
-void	ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline)
+void		ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor *dir,
+t_coor *eqline)
 {
-	t_coor *sp;
+	t_coor	*sp;
 
 	if (ft_ray_collision(game->map, ray, dir) == '1')
 	{
@@ -62,18 +63,18 @@ void	ft_verif_ray_collision(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqli
 	}
 }
 
-void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
+void		ft_xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 {
-	float eqsol;
-	int midcase;
+	float	eqsol;
+	int		midcase;
 
 	eqsol = ((int)ray->x + dir.x) * eqline->x + eqline->y;
 	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	ray->dist = -4;
 	midcase = (dir.y == 0 && ray->y == (float)((int)ray->y) && 
 	ray->x != (float)((int)ray->x)) ? -1 : 0;
-	while ((eqsol >= (int)ray->y + midcase && eqsol <= (int)ray->y + midcase + 1)
-	|| (eqsol == (float)((int)eqsol) && (eqsol >= (int)ray->y + midcase &&
+	while ((eqsol >= (int)ray->y + midcase && eqsol <= (int)ray->y + midcase +
+	1) || (eqsol == (float)((int)eqsol) && (eqsol >= (int)ray->y + midcase &&
 	eqsol <= (int)ray->y + midcase + 1)))
 	{
 		ray->x = (int)ray->x + dir.x;
@@ -89,18 +90,18 @@ void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 	ray->dist = 1;
 }
 
-void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
+void		ft_yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 {
-	float eqsol;
-	int midcase;
+	float	eqsol;
+	int		midcase;
 
 	eqsol = (((int)ray->y + dir.y) - eqline->y) / eqline->x;
 	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	ray->dist = -5;
 	midcase = (dir.x == 0 && (ray->x == (float)((int)ray->x))) ? -1 : 0;
-	while ((eqsol <= (int)ray->x + midcase + 1 && eqsol >= (int)ray->x + midcase)
-	|| (eqsol == (float)((int)eqsol) && (eqsol >= (int)ray->x + midcase && 
-	eqsol <= (int)ray->x + midcase + 1)))
+	while ((eqsol <= (int)ray->x + midcase + 1 && eqsol >= (int)ray->x +
+	midcase) || (eqsol == (float)((int)eqsol) && (eqsol >= (int)ray->x + midcase
+	&& eqsol <= (int)ray->x + midcase + 1)))
 	{
 		ray->x = (dir.x != -2) ? eqsol : ray->x;
 		ray->y = (int)ray->y + dir.y;
@@ -115,7 +116,8 @@ void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 	ray->dist = 1;
 }
 
-void	ft_vertical_ray(t_coor *eqline, t_coor *dir, t_coor *ray, t_game *game)
+void		ft_vertical_ray(t_coor *eqline, t_coor *dir, t_coor *ray,
+t_game *game)
 {
 	ray->dist = -3;
 	if (dir->y > 0)

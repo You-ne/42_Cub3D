@@ -6,13 +6,13 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 21:51:49 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:01:07 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
+void		param_enemy3(t_enemy *enemy, char chr)
 {
 	if (chr == ')')
 	{
@@ -38,10 +38,9 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -10;
 		enemy->time_anim = 100;
 	}
-	game = game;
 }
 
-void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
+void		param_enemy2(t_enemy *enemy, char chr)
 {
 	if (chr == 'k')
 	{
@@ -67,10 +66,10 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -10;
 		enemy->time_anim = 220;
 	}
-	param_enemy3(game, enemy, chr);
+	param_enemy3(enemy, chr);
 }
 
-void	param_enemy(t_game *game, t_enemy *enemy, char chr)
+void		param_enemy(t_enemy *enemy, char chr)
 {
 	if (chr == 'r')
 	{
@@ -96,12 +95,12 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 		enemy->damage = -10;
 		enemy->time_anim = 70;
 	}
-	param_enemy2(game, enemy, chr);
+	param_enemy2(enemy, chr);
 }
 
-float	sp_size(char chr)
+float		sp_size(char chr)
 {
-	float size;
+	float	size;
 
 	size = (chr == ')' || chr == 'M' || chr == 'm') ? 0.80 : 1.0;
 	if (chr == '9' || chr == 'w')

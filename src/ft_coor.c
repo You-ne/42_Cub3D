@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 07:25:27 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 01:36:00 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/03 03:16:50 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_coor		find_start(t_game *game)
 	int	j;
 
 	i = 0;
+	coor.x = 0;
+	coor.y = 0;
 	if (game->map_found == 0)
 		ft_error("Map layout not found in .cub file\n", game);
 	while(game->map[i] != NULL)
@@ -46,6 +48,8 @@ t_coor		find_start(t_game *game)
 		}
 		i++;
 	}
+	if (game->map[i] == NULL && coor.x == 0 && coor.y == 0)
+		ft_error("Erreur: Position de départ introuvable !\n", game);
 	return (coor);
 }
 

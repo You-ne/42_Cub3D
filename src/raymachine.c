@@ -6,15 +6,15 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:34:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/01 02:19:18 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:03:53 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-t_coor	*ft_ray(t_coor *pos, t_coor *dir, t_coor *eqline, t_game *game)
+t_coor		*ft_ray(t_coor *pos, t_coor *dir, t_coor *eqline, t_game *game)
 {
-	t_coor *ray;
+	t_coor	*ray;
 
 	if (!(ray = (struct s_coor *)malloc(sizeof(struct s_coor))))
 		ft_error("Erreur: Malloc a échoué\n", game);
@@ -27,21 +27,21 @@ t_coor	*ft_ray(t_coor *pos, t_coor *dir, t_coor *eqline, t_game *game)
 		if (dir->x == -2)
 		{
 			ft_vertical_ray(eqline, dir, ray, game);
-			break;
+			break ;
 		}
-		ft_Xray(eqline, *dir, ray, game);
+		ft_xray(eqline, *dir, ray, game);
 		if (ray->dist == -1)
-			break;
-		ft_Yray(eqline, *dir, ray, game);
+			break ;
+		ft_yray(eqline, *dir, ray, game);
 		if (ray->dist == -1)
-			break;
+			break ;
 	}
 	return (ray);
 }
 
-void	free_ray(t_coor *ray)
+void		free_ray(t_coor *ray)
 {
-	t_coor *p;
+	t_coor	*p;
 
 	while (ray != NULL)
 	{
@@ -52,9 +52,9 @@ void	free_ray(t_coor *ray)
 	}
 }
 
-void	ft_raymachine(t_game *game, t_img *img)
+void		ft_raymachine(t_game *game, t_img *img)
 {
-	int	x;
+	int		x;
 	float	angle;
 	t_coor	*ray;
 
@@ -71,23 +71,21 @@ void	ft_raymachine(t_game *game, t_img *img)
 	return ;
 }
 
-t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game)
+t_coor		*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game)
 {
-	float pente;
-	float x0;
-	t_coor *ray;
-	t_coor vecray;
-	t_coor dir;
-	t_coor eqline;
+	float	pente;
+	t_coor	*ray;
+	t_coor	vecray;
+	t_coor	dir;
+	t_coor	eqline;
 
 	pente = 0;
 	vecray.x = (vect->x * cos(angle)) - (vect->y * sin(angle));
 	vecray.y = (vect->x * sin(angle)) + (vect->y * cos(angle));
 	if (vecray.x != 0)
 		pente = vecray.y / vecray.x;
-	x0 =  pos->y - (pente * pos->x);
 	eqline.x = pente;
-	eqline.y = x0;
+	eqline.y = pos->y - (pente * pos->x);
 	dir = ft_dirsteps(vecray);
 	ray = ft_ray(pos, &dir, &eqline, game);
 	if (dir.x == -2)
@@ -96,5 +94,5 @@ t_coor	*ft_raycannon(t_coor *pos, t_coor *vect, float angle, t_game *game)
 	else
 		ray->dist = ft_pythagore((ray->x - pos->x), (ray->y - pos->y)) *
 		cos(angle);
-	return(ray);
+	return (ray);
 }

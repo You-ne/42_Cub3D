@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 01:13:41 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 03:03:11 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void	verify_map(t_game *game, char *sp_set);
 t_coor	find_start(t_game *game);
 t_img	*find_sprite(t_game *game, char chr);
 char	*count_sprites(t_game *game, int time, char *sp_set);
-void	param_enemy(t_game *game, t_enemy *enemy, char chr);
+void	param_enemy(t_enemy *enemy, char chr);
 void	find_secret_door(t_game *game);
 t_coor	*ft_add_door(t_game *game, t_coor *ray, t_coor *dir, t_coor *eqline);
 
@@ -249,8 +249,8 @@ t_coor	init_dir(char **map, t_coor coor);
 void	init(t_game *game);
 void	init_screens(t_game *game);
 
-void	ft_Xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
-void	ft_Yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
+void	ft_xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
+void	ft_yray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game);
 void	ft_vertical_ray(t_coor *eqline, t_coor *dir, t_coor *ray, t_game *game);
 
 void	draw_sky(t_game *game, t_img *img);
