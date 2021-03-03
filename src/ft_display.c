@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:52:46 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:01:04 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	ft_start_display(t_game *game)
 			ft_error("Window's heigth or width is <= 0\n", game);
 		if (game->win.winp != NULL)
 			game->win_created = 1;
-		mlx_hook(game->win.winp, 2, KEY_PRESS_M, key_press, game);
-		mlx_hook(game->win.winp, 3, KEY_RELEASE_M, key_release, game);
+		mlx_hook(game->win.winp, 2, (1L << 0), key_press, game);
+		mlx_hook(game->win.winp, 3, (1L << 1), key_release, game);
 		mlx_hook(game->win.winp, 17, (1L << 17), ft_exit, game);
 		write(1, "Follow the cat and kill MecaHitler !\n", 37);
 		mlx_loop_hook(game->win.mlxp, next_frame, game);

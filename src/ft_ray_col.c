@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 04:24:29 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/03 04:07:24 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:06:00 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	ray_col_n_draw(t_game *game, t_coor *ray, t_coor *hnc, t_img *img)
 {
 	if (game->player.pos.y < ray->y)
 	{
-		hnc->x = (float)(((int)(game->SO.width * ray->x)) % game->SO.width);
-		ft_drawcol(hnc, &game->SO, game, img);
+		hnc->x = (float)(((int)(game->so.width * ray->x)) % game->so.width);
+		ft_drawcol(hnc, &game->so, game, img);
 	}
 	else
 	{
-		hnc->x = (float)(((int)(game->NO.width * ray->x)) % game->NO.width);
-		ft_drawcol(hnc, &game->NO, game, img);
+		hnc->x = (float)(((int)(game->no.width * ray->x)) % game->no.width);
+		ft_drawcol(hnc, &game->no, game, img);
 	}
 	return ;
 }
@@ -38,7 +38,7 @@ t_img *img)
 		game->map[(int)ray->y - 1][(int)ray->x - 1] == '1'))
 		{
 			heightncol->x = 0.0;
-			ft_drawcol(heightncol, &game->NO, game, img);
+			ft_drawcol(heightncol, &game->no, game, img);
 			return (1);
 		}
 		if ((game->player.pos.y < ray->y && game->player.pos.x > ray->x &&
@@ -47,7 +47,7 @@ t_img *img)
 		game->map[(int)ray->y][(int)ray->x - 1] == '1'))
 		{
 			heightncol->x = 0.0;
-			ft_drawcol(heightncol, &game->SO, game, img);
+			ft_drawcol(heightncol, &game->so, game, img);
 			return (1);
 		}
 	}
@@ -69,13 +69,13 @@ void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img)
 	{
 		if (game->player.pos.x < ray->x)
 		{
-			hnc.x = (float)(((int)(game->EA.width * ray->y)) % game->EA.width);
-			ft_drawcol(&hnc, &game->EA, game, img);
+			hnc.x = (float)(((int)(game->ea.width * ray->y)) % game->ea.width);
+			ft_drawcol(&hnc, &game->ea, game, img);
 		}
 		else
 		{
-			hnc.x = (float)(((int)(game->WE.width * ray->y)) % game->WE.width);
-			ft_drawcol(&hnc, &game->WE, game, img);
+			hnc.x = (float)(((int)(game->we.width * ray->y)) % game->we.width);
+			ft_drawcol(&hnc, &game->we, game, img);
 		}
 	}
 	else

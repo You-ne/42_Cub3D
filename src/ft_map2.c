@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:52:24 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:45:06 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:08:21 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ char	*count_sprites(t_game *game, int time, char *sp_set)
 	t_img	*sp;
 
 	if (time == 0)
-		sp = game->SP;
+		sp = game->sp;
 	else
-		sp = game->SA;
+		sp = game->sa;
 	while (sp != NULL)
 	{
 		if (!(in_str(sp->chr, sp_set)))

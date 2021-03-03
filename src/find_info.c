@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:30:05 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 01:50:54 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:12:10 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	find_info_2(char *info, t_game *game)
 	int		found;
 
 	found = 0;
-	if (info[0] == 'C' && game->Ce == 0)
+	if (info[0] == 'C' && game->ce == 0)
 	{
 		if (game->found[1] == 1)
 			ft_error("Ceiling color appear twice!\n", game);
@@ -113,7 +113,7 @@ void	find_info(char *info, t_game *game)
 			game->found[7] += 1;
 		found++;
 	}
-	if (info[i] == 'F' && game->Fl == 0)
+	if (info[i] == 'F' && game->fl == 0)
 	{
 		if (game->found[0] == 1)
 			ft_error("Floor color appear twice!\n", game);

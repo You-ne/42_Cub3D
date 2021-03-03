@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 19:28:14 by yotillar          #+#    #+#             */
-/*   Updated: 2020/10/13 20:09:02 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/03 04:45:21 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ char		*ft_strmcat(char *src, char *add)
 	free(src);
 	return (dest);
 }
-

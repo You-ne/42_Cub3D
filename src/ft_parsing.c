@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 01:46:33 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:04:55 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int		save_texture(char *info, t_game *game, char param)
 		checkpath(info + i, game);
 		i = i + 2;
 		if (param == 'N')
-			extract_xpm(game, &game->NO, info + i);
+			extract_xpm(game, &game->no, info + i);
 		if (param == 'S')
-			extract_xpm(game, &game->SO, info + i);
+			extract_xpm(game, &game->so, info + i);
 		if (param == 'W')
-			extract_xpm(game, &game->WE, info + i);
+			extract_xpm(game, &game->we, info + i);
 		if (param == 'E')
-			extract_xpm(game, &game->EA, info + i);
+			extract_xpm(game, &game->ea, info + i);
 		if (param == 'Y')
-			extract_xpm(game, &game->SKY, info + i);
+			extract_xpm(game, &game->sky, info + i);
 	}
 	else
 		ft_error("Please enter a valid path for textures !!\n", game);
@@ -75,9 +75,9 @@ int		save_sprite(char *info, t_game *game, char chr, char mode)
 	{
 		checkpath(info + i, game);
 		if (mode == 'S')
-			extract_sprite(game, info + i, chr, game->SP);
+			extract_sprite(game, info + i, chr, game->sp);
 		if (mode == 'A')
-			extract_sprite(game, info + i, chr, game->SA);
+			extract_sprite(game, info + i, chr, game->sa);
 	}
 	else
 		ft_error("Please enter a valid path for sprites textures !!\n", game);
@@ -88,17 +88,17 @@ void	check_colors(t_game *game, char param)
 {
 	if (param == 'F')
 	{
-		if (game->F[0] < 0 || game->F[0] > 255 || game->F[1] < 0 ||
-		game->F[1] > 255 || game->F[2] < 0 || game->F[2] > 255)
+		if (game->f[0] < 0 || game->f[0] > 255 || game->f[1] < 0 ||
+		game->f[1] > 255 || game->f[2] < 0 || game->f[2] > 255)
 			ft_error("An RGB int is > 0 or < 255 please check the map\n", game);
-		game->Fl = (game->F[0] * 256 * 256) + (game->F[1] * 256) + game->F[2];
+		game->fl = (game->f[0] * 256 * 256) + (game->f[1] * 256) + game->f[2];
 	}
 	if (param == 'C')
 	{
-		if (game->C[0] < 0 || game->C[0] > 255 || game->C[1] < 0 ||
-		game->C[1] > 255 || game->C[2] < 0 || game->C[2] > 255)
+		if (game->c[0] < 0 || game->c[0] > 255 || game->c[1] < 0 ||
+		game->c[1] > 255 || game->c[2] < 0 || game->c[2] > 255)
 			ft_error("An RGB int is > 0 or < 255 please check the map\n", game);
-		game->Ce = (game->C[0] * 256 * 256) + (game->C[1] * 256) + game->C[2];
+		game->ce = (game->c[0] * 256 * 256) + (game->c[1] * 256) + game->c[2];
 	}
 }
 
@@ -114,9 +114,9 @@ int		get_color(char *info, t_game *game, char param)
 		if (info[i] > 47 && info[i] < 58)
 		{
 			if (param == 'F')
-				game->F[j] = ft_atoi(info + i);
+				game->f[j] = ft_atoi(info + i);
 			if (param == 'C')
-				game->C[j] = ft_atoi(info + i);
+				game->c[j] = ft_atoi(info + i);
 			j++;
 			while (info[i] > 47 && info[i] < 58 && info[i] != '\0')
 				i++;

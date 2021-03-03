@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:50:54 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:43:20 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:08:54 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	init_enemies(t_game *game)
 	game->enemies->next = NULL;
 	game->enemies->x = -1;
 	game->enemies->chr = '0';
-	game->SA->next = NULL;
-	game->SA->chr = '0';
-	game->SP->next = NULL;
-	game->SP->chr = '0';
+	game->sa->next = NULL;
+	game->sa->chr = '0';
+	game->sp->next = NULL;
+	game->sp->chr = '0';
 }
 
 void	init_keys(t_game *game)
@@ -53,8 +53,8 @@ void	init_keys(t_game *game)
 
 void	init(t_game *game)
 {
-	game->Fl = 0;
-	game->Ce = 0;
+	game->fl = 0;
+	game->ce = 0;
 	game->res[0] = 0;
 	game->res[1] = 0;
 	game->win_created = 0;
@@ -63,10 +63,10 @@ void	init(t_game *game)
 	game->secret.x = 0;
 	game->secret.y = 0;
 	game->secret.dist = 0;
-	game->SKY.img_p = NULL;
-	if (!(game->SA = (struct s_img*)malloc(sizeof(struct s_img))))
+	game->sky.img_p = NULL;
+	if (!(game->sa = (struct s_img*)malloc(sizeof(struct s_img))))
 		ft_error("Erreur: Malloc a échoué !\n", game);
-	if (!(game->SP = (struct s_img*)malloc(sizeof(struct s_img))))
+	if (!(game->sp = (struct s_img*)malloc(sizeof(struct s_img))))
 		ft_error("Erreur: Malloc a échoué !\n", game);
 	game->player.num_weapon = 1;
 	game->player.damage = -50;

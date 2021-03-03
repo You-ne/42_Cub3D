@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:03:11 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:10:16 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@
 **------------------------------- Structures -----------------------------------
 */
 
-typedef struct s_coor
+typedef struct	s_coor
 {
 	float			x;
 	float			y;
 	float			dist;
 	int				coor_sp;
 	struct s_coor	*next;
-}		t_coor;
+}				t_coor;
 
-typedef struct s_window
+typedef struct	s_window
 {
 	void	*mlxp;
 	void	*winp;
-}		t_win;
+}				t_win;
 
-typedef struct s_img
+typedef struct	s_img
 {
 	void			*img_p;
 	char			*img;
@@ -65,9 +65,9 @@ typedef struct s_img
 
 	char			chr;
 	struct s_img	*next;
-}		t_img;
+}				t_img;
 
-typedef struct s_player
+typedef struct	s_player
 {
 	t_coor	pos;
 	t_coor	vect;
@@ -79,9 +79,9 @@ typedef struct s_player
 	int		fire;
 	int		damage;
 	int		ammo;
-}		t_player;
+}				t_player;
 
-typedef struct s_bmp
+typedef struct	s_bmp
 {
 	int						zero;
 	unsigned int			size;
@@ -91,34 +91,34 @@ typedef struct s_bmp
 	int						heigth;
 	unsigned short int		planes;
 	unsigned short int		bpp;
-}		t_bmp;
+}				t_bmp;
 
-typedef struct s_enemy
+typedef struct	s_enemy
 {
-	int x;
-	int y;
-	int fire;
-	int pv;
-	int damage;
-	char chr;
-	int time_anim;
-	clock_t tdeath;
-	clock_t tseen;
-	struct s_enemy *next;
-}		t_enemy;
+	int				x;
+	int				y;
+	int				fire;
+	int				pv;
+	int				damage;
+	char			chr;
+	int				time_anim;
+	clock_t			tdeath;
+	clock_t			tseen;
+	struct s_enemy	*next;
+}				t_enemy;
 
-typedef struct s_game
+typedef struct	s_game
 {
 	int			is_bmp;
 	t_bmp		bmp;
 
 	int			res[2];
 
-	int			F[3];
-	int			C[3];
-	
-	int			Fl;
-	int			Ce;
+	int			f[3];
+	int			c[3];
+
+	int			fl;
+	int			ce;
 
 	int			found[8];
 	int			map_found;
@@ -150,14 +150,14 @@ typedef struct s_game
 
 	t_img		game_over;
 	t_img		you_win;
-	t_img		SKY;
-	t_img		NO;
-	t_img		SO;
-	t_img		WE;
-	t_img		EA;
-	t_img		*SP;
-	t_img		*SA;
-}		t_game;
+	t_img		sky;
+	t_img		no;
+	t_img		so;
+	t_img		we;
+	t_img		ea;
+	t_img		*sp;
+	t_img		*sa;
+}				t_game;
 
 /*
 **------------------------------- Define ---------------------------------------
@@ -171,7 +171,7 @@ typedef struct s_game
 # define FRONT_SPEED	0.13
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
-# define SPRINT_SPEED	0.10
+# define SPRINT_SPEED	0.23
 
 # define M1 "./cont/guns/M2GFB0.xpm"
 # define M2 "./cont/guns/M2GFA0.xpm"
@@ -214,11 +214,6 @@ typedef struct s_game
 # define BUTTON_PRESS 4
 # define BUTTON_RELEASE 5
 
-# define KEY_PRESS_M 1L << 0
-# define KEY_RELEASE_M 1L << 1
-# define BUTTON_PRESS_M 1L << 2
-# define BUTTON_RELEASE_M 1L << 3
-
 /*
 **------------------------------- Prototypes -----------------------------------
 */
@@ -229,7 +224,7 @@ void	end_screen(t_game *game, t_img *tex, t_img *img);
 void	init_keys(t_game *game);
 void	check_args(t_game *game, char **argv, int argc);
 void	check_fd(t_game *game, char *argv);
-void	checkpath(char *path,  t_game *game);
+void	checkpath(char *path, t_game *game);
 void	check_res(t_game *game);
 void	check_settings(t_game *game);
 

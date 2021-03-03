@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 06:26:06 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:06:40 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_img	*find_sprite(t_game *game, char chr)
 	t_img *tex1;
 	t_img *tex2;
 
-	tex1 = game->SP;
-	tex2 = game->SA;
+	tex1 = game->sp;
+	tex2 = game->sa;
 	while (tex1->chr != chr && tex1->next != NULL)
 	{
 		tex1 = tex1->next;
@@ -49,8 +49,8 @@ void	extract_sprite(t_game *game, char *str, char chr, t_img *sp_sa)
 	t_img	*tmp;
 	t_img	*tex;
 
-	if ((sp_sa == game->SA && sp_sa->chr == '0') ||
-	(sp_sa == game->SP && sp_sa->chr == '2'))
+	if ((sp_sa == game->sa && sp_sa->chr == '0') ||
+	(sp_sa == game->sp && sp_sa->chr == '2'))
 	{
 		extract_xpm(game, sp_sa, str);
 		sp_sa->chr = chr;
