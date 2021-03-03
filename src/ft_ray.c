@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:36:23 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:09:25 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		ft_xray(t_coor *eqline, t_coor dir, t_coor *ray, t_game *game)
 	eqsol = ((int)ray->x + dir.x) * eqline->x + eqline->y;
 	eqsol = floor(eqsol * pow(10, 5) + 0.5) / pow(10, 5);
 	ray->dist = -4;
-	midcase = (dir.y == 0 && ray->y == (float)((int)ray->y) && 
+	midcase = (dir.y == 0 && ray->y == (float)((int)ray->y) &&
 	ray->x != (float)((int)ray->x)) ? -1 : 0;
 	while ((eqsol >= (int)ray->y + midcase && eqsol <= (int)ray->y + midcase +
 	1) || (eqsol == (float)((int)eqsol) && (eqsol >= (int)ray->y + midcase &&

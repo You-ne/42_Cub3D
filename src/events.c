@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/03 04:00:23 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:03:27 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void		change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 			if (enemy->chr == 'M')
 				system("aplay -N -q ./cont/sounds/NEIN.wav &");
 			change_map(game, enemy->x, enemy->y, find_death_chr(enemy->chr));
-				if (enemy->chr == 'H')
-					game->end = clock();
+			if (enemy->chr == 'H')
+				game->end = clock();
 		}
 	}
 }
@@ -38,7 +38,7 @@ void		weapon_fire(t_game *g, t_coor *t)
 	if (t->next != NULL)
 	{
 		while (t->next->next != NULL)
-				t = t->next;
+			t = t->next;
 		if (is_alive_or_dead((char)((int)t->next->dist)) < 0 || ((int)(g->res[1]
 		/ 2) > (g->tilt + (int)(g->res[1] / 2)) + ((t->next->y * (1 / sp_size(
 		(char)((int)t->next->dist)) / 2))) || g->res[1] / 2 < (g->tilt + (int)

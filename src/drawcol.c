@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/03 03:52:10 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:06:51 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_drawcol_sp(t_coor *heightncol, t_game *game, t_img *img, int x)
 		ft_drawcol_sp(heightncol->next, game, img, x);
 }
 
-t_coor		*suppr_sp_behind_door(t_coor *hnc)
+t_coor	*suppr_sp_behind_door(t_coor *hnc)
 {
 	t_coor	*tmp;
 	t_coor	*tmp2;

@@ -6,13 +6,13 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 04:24:29 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/03 03:47:56 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:07:24 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void		ray_col_n_draw(t_game *game, t_coor *ray, t_coor *hnc, t_img *img)
+void	ray_col_n_draw(t_game *game, t_coor *ray, t_coor *hnc, t_img *img)
 {
 	if (game->player.pos.y < ray->y)
 	{
@@ -27,7 +27,8 @@ void		ray_col_n_draw(t_game *game, t_coor *ray, t_coor *hnc, t_img *img)
 	return ;
 }
 
-int	corner_ray_col(t_game *game, t_coor *ray, t_coor *heightncol, t_img *img)
+int		corner_ray_col(t_game *game, t_coor *ray, t_coor *heightncol,
+t_img *img)
 {
 	if (ray->x == (float)((int)ray->x) && ray->y == (float)((int)ray->y))
 	{
@@ -53,7 +54,7 @@ int	corner_ray_col(t_game *game, t_coor *ray, t_coor *heightncol, t_img *img)
 	return (0);
 }
 
-void		ft_projection(t_game *game, t_coor *ray, int x, t_img *img)
+void	ft_projection(t_game *game, t_coor *ray, int x, t_img *img)
 {
 	float	distproj;
 	t_coor	hnc;

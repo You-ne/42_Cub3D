@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/03 03:37:38 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:09:07 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int			ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 		return (a->x < sp->x ? (int)((float)tex->width * (((s / 2) - pos->dist)
 		/ s)) : (int)((float)tex->width * (((s / 2) + pos->dist) / s)));
 	else if ((int)pos->y < (int)sp->y)
+	{
 		return (a->x > sp->x ? (int)((float)tex->width * (((s / 2) - pos->dist)
 		/ s)) : (int)((float)tex->width * (((s / 2) + pos->dist) / s)));
+	}
 	return (-1);
 }
 

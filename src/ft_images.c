@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:46:44 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:06:38 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		ft_texture_put_sp(t_img *img, t_coor xy, char *texture, int i)
 	}
 }
 
-void	ft_texture_put(t_img *img, int x, int y, char *texture)
+void		ft_texture_put(t_img *img, int x, int y, char *texture)
 {
 	if (*texture == 0 && *(texture + 1) == 0 && *(texture + 2) == 0)
 	{

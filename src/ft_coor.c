@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 07:25:27 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:56:44 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 04:13:05 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ t_coor		init_dir_2(char **map, t_coor coor)
 		vect.x = 1;
 		vect.y = 0;
 		vect.dist = 0;
+	}
+	else
+	{
+		vect.x = -1;
+		vect.y = -1;
+		vect.dist = -1;
 	}
 	return (vect);
 }
