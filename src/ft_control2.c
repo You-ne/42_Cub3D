@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_control2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:27:22 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/02 21:42:07 by antoine          ###   ########.fr       */

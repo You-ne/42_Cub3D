@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:07:41 by yotillar          #+#    #+#             */
 /*   Updated: 2020/10/13 20:17:23 by yotillar         ###   ########.fr       */

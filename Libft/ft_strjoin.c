@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 23:10:12 by yotillar          #+#    #+#             */
-/*   Updated: 2020/01/10 23:22:29 by yotillar         ###   ########.fr       */
+/*   Created: 2019/09/12 16:38:47 by amanchon          #+#    #+#             */
+/*   Updated: 2020/01/16 19:24:21 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char				*ft_strjoin(char const *s1, char const *s2)
 {
-	int		j;
-	int		i;
-	int		len;
-	char	*str;
+	char			*dest;
+	unsigned int	totlen;
+	unsigned int	i;
+	unsigned int	k;
 
+	i = 0;
+	k = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	len = (ft_strlen((char*)s1) + ft_strlen((char*)s2));
-	if (!(str = (char*)malloc(len * sizeof(str) + 1)))
+	totlen = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	if (!(dest = malloc(sizeof(char) * (totlen + 1))))
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
+	while (i < totlen)
 	{
-		str[i] = s1[i];
+		if (i < ft_strlen((char *)s1))
+			dest[i] = s1[i];
+		if (i >= ft_strlen((char *)s1) && (s2[k] != '\0'))
+		{
+			dest[i] = s2[k];
+			k++;
+		}
 		i++;
 	}
-	while (s2[j])
-	{
-		str[i] = s2[j];
-		j++;
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	dest[totlen] = '\0';
+	return (dest);
 }

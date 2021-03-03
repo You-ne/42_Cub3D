@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   param_enemy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/03 03:01:07 by antoine          ###   ########.fr       */

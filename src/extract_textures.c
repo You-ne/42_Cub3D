@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   extract_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 04:23:43 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/03 05:06:40 by antoine          ###   ########.fr       */

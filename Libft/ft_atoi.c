@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 03:19:04 by yotillar          #+#    #+#             */
-/*   Updated: 2020/01/13 18:50:06 by yotillar         ###   ########.fr       */
+/*   Created: 2019/09/05 16:56:47 by amanchon          #+#    #+#             */
+/*   Updated: 2020/01/16 16:45:43 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 int	ft_atoi(const char *str)
 {
-	int					i;
-	unsigned int		res;
-	int					sign;
+	int i;
+	int x;
+	int res;
 
-	sign = 1;
 	i = 0;
+	x = 1;
 	res = 0;
-	while ((*str > 8 && *str < 14) || *str == ' ')
-		str++;
-	if (str[i] == '-' || str[i] == '+')
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	{
+		if (str[i] == '\0')
+			return (0);
+		i++;
+	}
+	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-			sign = -1;
+			x = -1 * x;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
-		res = res * 10 + (str[i++] - '0');
-	return ((int)res * sign);
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (res * x);
 }

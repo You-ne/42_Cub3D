@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/29 18:29:44 by yotillar          #+#    #+#             */
-/*   Updated: 2020/01/16 19:00:19 by yotillar         ###   ########.fr       */
+/*   Created: 2020/01/11 18:45:31 by amanchon          #+#    #+#             */
+/*   Updated: 2020/01/11 19:08:02 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_tolower(int c)
 {
-	if (c > 64 && c < 91)
-		return (c + 32);
-	else
-		return (c);
+	if (c >= 65 && c <= 90)
+		c = c + 32;
+	return (c);
 }

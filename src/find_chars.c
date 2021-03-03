@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   find_chars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/02 03:59:46 by antoine          ###   ########.fr       */

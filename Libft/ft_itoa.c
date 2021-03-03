@@ -3,53 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 19:06:07 by yotillar          #+#    #+#             */
-/*   Updated: 2020/01/10 18:22:25 by yotillar         ###   ########.fr       */
+/*   Created: 2020/01/16 16:56:13 by amanchon          #+#    #+#             */
+/*   Updated: 2020/01/16 16:56:42 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		len_alloc(long n)
+int			nbchar(int nbr)
 {
-	int		len;
+	int		i;
+	int		x;
 
-	len = 1;
-	while (n > 9)
+	i = 0;
+	x = nbr;
+	if (x < 0)
+		x = -x;
+	while (x >= 10)
 	{
-		n /= 10;
-		len += 1;
+		i++;
+		x = x / 10;
 	}
-	return (len);
+	i++;
+	if (nbr < 0)
+		i++;
+	return (i);
 }
 
-char	*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
-	long	nb;
-	int		len;
+	char	*dest;
+	int		nchar;
 	int		neg;
-	char	*res;
 
-	nb = n;
-	neg = 0;
-	if (nb < 0)
-	{
-		neg = 1;
-		nb *= -1;
-	}
-	len = (len_alloc(nb) + neg);
-	if (!(res = (char*)malloc((len + 1) * sizeof(char))))
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	nchar = nbchar(n);
+	if (!(dest = malloc(sizeof(char) * (nchar + 1))))
 		return (NULL);
-	if (neg == 1)
-		res[0] = '-';
-	res[len] = '\0';
-	while (len > neg)
+	neg = n < 0 ? 1 : 0;
+	if (n < 0)
 	{
-		res[len - 1] = (nb % 10) + 48;
-		nb /= 10;
-		len--;
+		n = n * -1;
+		dest[0] = '-';
 	}
-	return (res);
+	dest[nchar] = '\0';
+	while (nchar > neg)
+	{
+		dest[nchar - 1] = (n % 10) + '0';
+		n = n / 10;
+		nchar--;
+	}
+	return (dest);
 }

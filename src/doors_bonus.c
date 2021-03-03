@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   doors_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:31:01 by antoine           #+#    #+#             */
 /*   Updated: 2021/03/03 03:54:35 by antoine          ###   ########.fr       */

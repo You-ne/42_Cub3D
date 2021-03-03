@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray_col.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 04:24:29 by antoine           #+#    #+#             */
 /*   Updated: 2021/03/03 05:06:00 by antoine          ###   ########.fr       */

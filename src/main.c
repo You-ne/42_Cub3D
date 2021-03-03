@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 00:41:42 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 05:28:31 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:30:53 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		extract_file(char *path, t_game *game)
 		ft_error("Erreur: Malloc a échoué !\n", game);
 	while (get_next_line(fd, &tmp) > 0)
 	{
-		game->map[i] = ft_strdup_gnl(tmp);
+		game->map[i] = ft_strdup(tmp);
 		i++;
 		free(tmp);
 	}

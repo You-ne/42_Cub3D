@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
 /*   Updated: 2021/03/03 04:09:07 by antoine          ###   ########.fr       */

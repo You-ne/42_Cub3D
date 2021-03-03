@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_images.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 07:51:11 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/03 04:06:38 by antoine          ###   ########.fr       */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 05:10:16 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:57:58 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ void	apply_mvmt(t_game *game);
 void	rotation(t_coor *vect, float angle);
 void	open_door(t_game *game);
 
-void	ft_error(const char *str, t_game *game);
+void	ft_error(char *str, t_game *game);
 int		ft_exit(int keycode, t_game *game);
 void	save(t_game *game, t_img *img);
 

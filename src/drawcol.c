@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   drawcol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 06:40:06 by antoine           #+#    #+#             */
 /*   Updated: 2021/03/03 04:06:51 by antoine          ###   ########.fr       */

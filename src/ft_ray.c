@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:10:09 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/03 04:09:25 by antoine          ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_coor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 07:25:27 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/03 04:13:05 by antoine          ###   ########.fr       */

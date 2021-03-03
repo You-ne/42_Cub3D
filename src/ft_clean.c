@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 22:19:45 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 02:59:59 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 05:22:52 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_exit(int keycode, t_game *game)
 	return (rien);
 }
 
-void	ft_error(const char *str, t_game *game)
+void	ft_error(char *str, t_game *game)
 {
 	ft_putstr_fd(str, 2);
 	ft_exit(65307, game);

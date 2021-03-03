@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 18:03:24 by yotillar          #+#    #+#             */
-/*   Updated: 2020/01/15 19:03:20 by yotillar         ###   ########.fr       */
+/*   Created: 2020/01/11 18:47:55 by amanchon          #+#    #+#             */
+/*   Updated: 2020/01/11 18:48:36 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_toupper(int c)
 {
-	if (c > 96 && c < 123)
-		return (c - 32);
-	else
-		return (c);
+	if (c >= 97 && c <= 122)
+		c = c - 32;
+	return (c);
 }

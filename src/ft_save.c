@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 05:17:21 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/01 01:36:57 by yotillar         ###   ########.fr       */

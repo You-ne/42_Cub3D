@@ -3,92 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 17:38:08 by yotillar          #+#    #+#             */
-/*   Updated: 2020/01/13 21:40:32 by yotillar         ###   ########.fr       */
+/*   Created: 2019/09/15 15:42:07 by amanchon          #+#    #+#             */
+/*   Updated: 2020/01/16 15:32:57 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			c_w(char *str, char c)
+int			ft_find_sep(char c, char charset)
 {
+	if (c == charset)
+		return (1);
+	if (c == '\0')
+		return (1);
+	return (0);
+}
+
+int			ft_count_numb_of_word(char *str, char c)
+{
+	int		i;
 	int		words;
 
 	words = 0;
-	while (*str)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		while (*str && *str == c)
-			str++;
-		if (*str)
-		{
+		if ((ft_find_sep(str[i + 1], c) == 1 &&
+					ft_find_sep(str[i], c) == 0))
 			words++;
-			while (*str && *str != c)
-				str++;
-		}
+		i++;
 	}
 	return (words);
 }
 
-int			len_word(char *str, char c)
-{
-	int		len;
-
-	len = 0;
-	while (*str == c && *str)
-		str++;
-	while (*str != c && *str)
-	{
-		str++;
-		len++;
-	}
-	return (len);
-}
-
-char		*ft_dup(char *src, char c)
+void		ft_copy_word(char *dest, char *from, char c)
 {
 	int		i;
-	char	*dest;
 
 	i = 0;
-	if (!(dest = (char *)malloc(sizeof(*dest) * (len_word(src, c) + 1))))
-		return (NULL);
-	i = 0;
-	while (*src && *src != c)
+	while (ft_find_sep(from[i], c) == 0)
 	{
-		dest[i] = *src;
-		src++;
+		dest[i] = from[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return (dest);
+}
+
+void		ft_transfert_to_tab(char **tab, char *str, char c)
+{
+	int		i;
+	int		j;
+	int		word;
+
+	word = 0;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_find_sep(str[i], c) == 1)
+			i++;
+		else
+		{
+			j = 0;
+			while (ft_find_sep(str[i + j], c) == 0)
+				j++;
+			tab[word] = (char*)malloc(sizeof(char) * (j + 1));
+			ft_copy_word(tab[word], str + i, c);
+			i = i + j;
+			word++;
+		}
+	}
 }
 
 char		**ft_split(char const *s, char c)
 {
 	char	**tab;
+	int		word;
 	char	*str;
-	int		i;
 
 	if (!s)
 		return (NULL);
-	if (!(tab = (char**)malloc(sizeof(*tab) * (c_w((char*)s, c) + 1))))
+	str = (char *)s;
+	word = ft_count_numb_of_word(str, c);
+	if ((tab = (char**)malloc(sizeof(char*) * (word + 1))) == NULL)
 		return (NULL);
-	i = 0;
-	str = (char*)s;
-	while (*str)
-	{
-		while (*str && *str == c)
-			str++;
-		if (*str)
-		{
-			tab[i] = ft_dup(str, c);
-			i++;
-			while (*str && *str != c)
-				str++;
-		}
-	}
-	tab[i] = 0;
+	tab[word] = 0;
+	ft_transfert_to_tab(tab, str, c);
 	return (tab);
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   find_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:30:05 by yotillar          #+#    #+#             */
 /*   Updated: 2021/03/03 05:12:10 by antoine          ###   ########.fr       */
