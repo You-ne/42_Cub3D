@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 t_img	*find_animation(t_game *game, int info, t_img *tex, char chr)
 {

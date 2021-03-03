@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 t_coor	*ft_door_yray(t_coor *ray, t_coor *eq, t_game *game, t_coor *dir)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 int			ft_calc_col_sprite(t_coor *a, t_coor *pos, t_coor *sp, t_img *tex)
 {

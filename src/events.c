@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 void		change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 {

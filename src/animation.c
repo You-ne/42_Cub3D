@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 t_img		*aim_animation(t_game *game, t_img *tex, t_enemy *enemy)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 char		ft_ray_collision(char **map, t_coor *ray, t_coor *dir)
 {

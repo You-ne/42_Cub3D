@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 void	ray_col_n_draw(t_game *game, t_coor *ray, t_coor *hnc, t_img *img)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 void		draw_sky2(t_game *game, t_img *img, int x, float xtex)
 {

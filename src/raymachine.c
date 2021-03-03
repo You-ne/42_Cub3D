@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../cub3d.h"
 
 t_coor		*ft_ray(t_coor *pos, t_coor *dir, t_coor *eqline, t_game *game)
 {
