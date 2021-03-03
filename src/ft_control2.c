@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:27:22 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 01:33:27 by yotillar         ###   ########.fr       */
+/*   Updated: 2021/03/02 21:42:07 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,28 @@
 
 void	open_door(t_game *g)
 {
-	if (g->player.vect.x >= 0 &&
-	g->map[(int)g->player.pos.y][(int)g->player.pos.x + 1] == 'P')
-		change_map(g, (int)g->player.pos.x + 1, (int)g->player.pos.y, 'p');
-	else if (g->player.vect.x < 0 &&
-	g->map[(int)g->player.pos.y][(int)g->player.pos.x - 1] == 'P')
-		change_map(g, (int)g->player.pos.x - 1, (int)g->player.pos.y, 'p');
-	else if (g->player.vect.y >= 0 &&
-	g->map[(int)g->player.pos.y + 1][(int)g->player.pos.x] == 'P')
-		change_map(g, (int)g->player.pos.x, (int)g->player.pos.y + 1, 'p');
-	else if (g->player.vect.y < 0 &&
-	g->map[(int)g->player.pos.y - 1][(int)g->player.pos.x] == 'P')
-		change_map(g, (int)g->player.pos.x, (int)g->player.pos.y - 1, 'p');
-	else if (g->player.vect.x >= 0 &&
-	g->map[(int)g->player.pos.y][(int)g->player.pos.x + 1] == 'p')
-		change_map(g, (int)g->player.pos.x + 1, (int)g->player.pos.y, 'P');
-	else if (g->player.vect.x < 0 &&
-	g->map[(int)g->player.pos.y][(int)g->player.pos.x - 1] == 'p')
-		change_map(g, (int)g->player.pos.x - 1, (int)g->player.pos.y, 'P');
-	else if (g->player.vect.y >= 0 &&
-	g->map[(int)g->player.pos.y + 1][(int)g->player.pos.x] == 'p')
-		change_map(g, (int)g->player.pos.x, (int)g->player.pos.y + 1, 'P');
-	else if (g->player.vect.y < 0 &&
-	g->map[(int)g->player.pos.y - 1][(int)g->player.pos.x] == 'p')
-		change_map(g, (int)g->player.pos.x, (int)g->player.pos.y - 1, 'P');
+	t_coor *p;
+
+	p = &g->player.pos;
+	if (g->player.vect.x >= 0 && g->map[(int)p->y][(int)p->x + 1] == 'P')
+		change_map(g, (int)p->x + 1, (int)p->y, 'p');
+	else if (g->player.vect.x < 0 && g->map[(int)p->y][(int)p->x - 1] == 'P')
+		change_map(g, (int)p->x - 1, (int)p->y, 'p');
+	else if (g->player.vect.y >= 0 && g->map[(int)p->y + 1][(int)p->x] == 'P')
+		change_map(g, (int)p->x, (int)p->y + 1, 'p');
+	else if (g->player.vect.y < 0 && g->map[(int)p->y - 1][(int)p->x] == 'P')
+		change_map(g, (int)p->x, (int)p->y - 1, 'p');
+	else if (g->player.vect.x >= 0 && g->map[(int)p->y][(int)p->x + 1] == 'p')
+		change_map(g, (int)p->x + 1, (int)p->y, 'P');
+	else if (g->player.vect.x < 0 && g->map[(int)p->y][(int)p->x - 1] == 'p')
+		change_map(g, (int)p->x - 1, (int)p->y, 'P');
+	else if (g->player.vect.y >= 0 && g->map[(int)p->y + 1][(int)p->x] == 'p')
+		change_map(g, (int)p->x, (int)p->y + 1, 'P');
+	else if (g->player.vect.y < 0 && g->map[(int)p->y - 1][(int)p->x] == 'p')
+		change_map(g, (int)p->x, (int)p->y - 1, 'P');
+	else
+		return ;
+	system("aplay -N -q ./cont/sounds/door.wav &");
 }
 
 void	rotation(t_coor *vect, float angle)

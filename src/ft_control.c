@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 02:35:29 by yotillar          #+#    #+#             */
-/*   Updated: 2021/02/28 23:28:03 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:42:05 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int		key_release(int keycode, t_game *game)
 	else if (keycode == SPACE)
 		game->fire = 0;
 	else if (keycode == T)
-	{
-		system("aplay -N -q ./cont/sounds/door.wav &");
 		open_door(game);
-	}
 	return (1);
 }
 

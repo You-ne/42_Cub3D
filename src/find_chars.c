@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:48:22 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 01:49:56 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 03:59:46 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_img	*find_animation(t_game *game, int info, t_img *tex, char chr)
 	x1 = info / 1000;
 	y1 = info % 1000;
 	if (chr == 'e' || chr == 'V' || chr == 'c' || chr == 'M' || chr == 'X' ||
-	chr == 'A' || chr == 'l' || chr == 'I' || chr == 's' || chr == 'U')
+	chr == 'A' || chr == 'l' || chr == 'I' || chr == 's' || chr == 'U' ||
+	chr == 'H')
 		tex = enemy_fire_animation(game, tex, find_enemy(game, x1, y1, chr));
 	else if (chr == '-' || chr == '+' || chr == '%' || chr == '?' || chr == 'm'
 	|| chr == 'h' || chr == 'x' || chr == 'L' || chr == 'o' || chr == 'u' ||

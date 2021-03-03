@@ -1,18 +1,17 @@
 R 10000 10000
 F 0, 102, 51
 C 0, 204, 204
-NO ./cont/walls/bookshelf.xpm
-WE ./cont/walls/S.xpm
-EA ./cont/walls/dark_oak_log.xpm
-SO ./cont/walls/N.xpm
-
+NO ./cont/walls/N.xpm
+WE ./cont/walls/dark_oak_log.xpm
+EA ./cont/walls/S.xpm
+SO ./cont/walls/bookshelf.xpm
 S ./cont/obj/orc07.xpm
 
 111111111111111111
-100000000000200001
+100000000000200001    1111
 100001110000001001
 100201000002000001
 100001000000000001
-10000000W000011001
+1000100000S0011001
 100000000000000001
 111111111111111111

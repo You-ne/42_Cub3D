@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 23:06:40 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 04:06:55 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	end(t_game *game, t_img *img, int i)
 		if (j == 1)
 			system("aplay -N -q ./cont/sounds/final-fantasy.wav &");
 		j = (j == 1 || j == 2) ? 2 : 0;
-		if (((t2 - game->end) / CLOCKS_PER_SEC > 7))
-			end_screen(game, &game->you_win, img);
+		end_screen(game, &game->you_win, img);
 	}
 	mlx_put_image_to_window(game->win.mlxp, game->win.winp, img->img_p, 0, 0);
 	mlx_destroy_image(game->win.mlxp, img->img_p);
@@ -66,7 +65,7 @@ int		next_frame(t_game *game)
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
 	if (game->player.pv <= 0)
 		end(game, &img, 0);
-	else if (game->end && (t2 - game->end) / CLOCKS_PER_SEC > 2)
+	else if (game->end && (t2 - game->end) / CLOCKS_PER_SEC > 5)
 		end(game, &img, 1);
 	else
 		frame(game, &img);

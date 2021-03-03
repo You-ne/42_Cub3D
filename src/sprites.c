@@ -6,7 +6,7 @@
 /*   By: antoine </var/spool/mail/antoine>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 05:27:58 by antoine           #+#    #+#             */
-/*   Updated: 2021/03/02 00:46:17 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 01:18:08 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 	t_coor eq2;
 	t_coor a;
 	float size;
-	static float eq_h;
 
 	size = sp_size(tex->chr);
 	if (eqray->x > 0.001 || eqray->x < -0.001)
@@ -70,13 +69,13 @@ int	ft_sprite_col(t_coor *sp, t_coor *eqray, t_img *tex, t_coor *pos)
 		a.x = (eq2.y - eqray->y) / (eqray->x - eq2.x);
 		a.y = (eq2.x * a.x) + eq2.y;
 		eq2.dist = ft_pythagore(a.x - sp->x, a.y - sp->y);
-		eq_h = eq2.dist;
 	}
 	else
 	{
 		a.x = sp->x;
 		a.y = pos->y;
-		eq2.dist = eq_h;
+		eq2.dist = fabs(sp->y - pos->y);
+		eq2.dist = floor(eq2.dist * pow(10, 5) + 0.5) / pow(10, 5);
 	}
 	if (eq2.dist > size / 2)
 		return (-1);

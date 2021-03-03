@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 04:12:48 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 06:25:27 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 01:13:41 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ typedef struct s_game
 # define FRONT_SPEED	0.13
 # define BACK_SPEED		0.07
 # define STRAFE_SPEED	0.07
-# define SPRINT_SPEED	0.22
+# define SPRINT_SPEED	0.10
 
 # define M1 "./cont/guns/M2GFB0.xpm"
 # define M2 "./cont/guns/M2GFA0.xpm"

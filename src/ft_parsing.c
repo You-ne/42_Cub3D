@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:15:09 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 06:24:55 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 01:46:33 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ void	check_colors(t_game *game, char param)
 	{
 		if (game->F[0] < 0 || game->F[0] > 255 || game->F[1] < 0 ||
 		game->F[1] > 255 || game->F[2] < 0 || game->F[2] > 255)
-			ft_error("An RGB int is < 0 or > 255 please check the map\n", game);
+			ft_error("An RGB int is > 0 or < 255 please check the map\n", game);
 		game->Fl = (game->F[0] * 256 * 256) + (game->F[1] * 256) + game->F[2];
 	}
 	if (param == 'C')
 	{
 		if (game->C[0] < 0 || game->C[0] > 255 || game->C[1] < 0 ||
 		game->C[1] > 255 || game->C[2] < 0 || game->C[2] > 255)
-			ft_error("An RGB int is < 0 or > 255 please check the map\n", game);
+			ft_error("An RGB int is > 0 or < 255 please check the map\n", game);
 		game->Ce = (game->C[0] * 256 * 256) + (game->C[1] * 256) + game->C[2];
 	}
 }

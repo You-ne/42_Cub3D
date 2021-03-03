@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 02:30:05 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 06:58:19 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 01:50:54 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	find_info_5(char *info, t_game *game)
 	found = 0;
 	if (info[0] == 'S' && info[1] == ' ')
 		save_sprite(info + 1, game, '2', 'S') ? found++ : found++;
-	if (info[0] == 'S' && info[1] != 'O' && info[1] != 'A')
+	else if (info[0] == 'S' && info[1] != 'O' && info[1] != 'A')
 		save_sprite(info + 2, game, info[1], 'S') ? found++ : found++;
-	if (info[0] == 'S' && info[1] == 'A')
+	else if (info[0] == 'S' && info[1] == 'A')
 		save_sprite(info + 4, game, info[3], 'A') ? found++ : found++;
 	if (found == 0)
 		ft_error("There's a key without info in .cub file!\n", game);

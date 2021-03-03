@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:44:44 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/02 01:58:53 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 06:03:54 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int		sp_collision(int x, int y, char **map)
 	map[y][x] == 'A' || map[y][x] == 'l' || map[y][x] == 'I' ||
 	map[y][x] == 's' || map[y][x] == 'U' || map[y][x] == '<' ||
 	map[y][x] == '{' || map[y][x] == ')' || map[y][x] == 'k' ||
-	map[y][x] == 'y' || map[y][x] == 'r' || map[y][x] == 'i')
+	map[y][x] == 'y' || map[y][x] == 'r' || map[y][x] == 'i' ||
+	map[y][x] == 'T' || map[y][x] == '&' || map[y][x] == '(' ||
+	map[y][x] == ';' || map[y][x] == '@')
 	{
 		system("aplay -N -q ./cont/sounds/collision.wav &");
 		return (1);
@@ -53,6 +55,28 @@ void	key_found(t_game *game)
 	change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 	if (game->secret.dist == 1)
 		change_map(game, (int)game->secret.x, (int)game->secret.y, '0');
+}
+
+void	sp_events2(t_game *game, char chr)
+{
+	if (chr == '4')
+	{
+		system("aplay -N -q ./cont/sounds/rot.wav &");
+		change_pv(game, 15);
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
+	}
+	else if (chr == '5')
+	{
+		system("aplay -N -q ./cont/sounds/door.wav &");
+		key_found(game);
+	}
+	else if (chr == '~')
+	{
+		system("aplay -N -q ./cont/sounds/TakeWeapon.wav &");
+		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
+		game->player.num_weapon = 2;
+		game->player.damage = -80;
+	}
 }
 
 void	sp_events(t_game *game)
@@ -72,22 +96,6 @@ void	sp_events(t_game *game)
 			game->player.ammo = AMMO_MAX;
 		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
 	}
-	else if (chr == '4')
-	{
-		system("aplay -N -q ./cont/sounds/rot.wav &");
-		change_pv(game, 15);
-		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
-	}
-	else if (chr == '5')
-	{
-		system("aplay -N -q ./cont/sounds/door.wav &");
-		key_found(game);
-	}
-	else if (chr == '~')
-	{
-		system("aplay -N -q ./cont/sounds/TakeWeapon.wav &");
-		change_map(game, (int)game->player.pos.x, (int)game->player.pos.y, '0');
-		game->player.num_weapon = 2;
-		game->player.damage = -80;
-	}
+	else
+		sp_events2(game, chr);
 }

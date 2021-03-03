@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/02 02:33:02 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:51:49 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 {
-	if (chr == '(')
+	if (chr == ')')
 	{
-		enemy->pv = 250;
-		enemy->damage = -15;
-		enemy->time_anim = 200;
+		enemy->pv = 1200;
+		enemy->damage = -8;
+		enemy->time_anim = 30;
 	}
 	else if (chr == '<')
 	{
@@ -28,9 +28,9 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 	}
 	else if (chr == '@')
 	{
-		enemy->pv = 300;
-		enemy->damage = -15;
-		enemy->time_anim = 200;
+		enemy->pv = 500;
+		enemy->damage = -20;
+		enemy->time_anim = 60;
 	}
 	else if (chr == '#')
 	{
@@ -39,7 +39,6 @@ void	param_enemy3(t_game *game, t_enemy *enemy, char chr)
 		enemy->time_anim = 100;
 	}
 	game = game;
-//		param_enemy4(game, enemy, chr);
 }
 
 void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
@@ -52,9 +51,9 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 	}
 	else if (chr == 'i')
 	{
-		enemy->pv = 150;
-		enemy->damage = -20;
-		enemy->time_anim = 150;
+		enemy->pv = 200;
+		enemy->damage = -15;
+		enemy->time_anim = 120;
 	}
 	else if (chr == ';')
 	{
@@ -64,9 +63,9 @@ void	param_enemy2(t_game *game, t_enemy *enemy, char chr)
 	}
 	else if (chr == '(')
 	{
-		enemy->pv = 250;
-		enemy->damage = -15;
-		enemy->time_anim = 200;
+		enemy->pv = 350;
+		enemy->damage = -10;
+		enemy->time_anim = 220;
 	}
 	param_enemy3(game, enemy, chr);
 }
@@ -87,15 +86,15 @@ void	param_enemy(t_game *game, t_enemy *enemy, char chr)
 	}
 	else if (chr == 'y')
 	{
-		enemy->pv = 100;
+		enemy->pv = 120;
 		enemy->damage = -5;
 		enemy->time_anim = -35;
 	}
 	else if (chr == '{')
 	{
-		enemy->pv = 250;
-		enemy->damage = -15;
-		enemy->time_anim = 120;
+		enemy->pv = 500;
+		enemy->damage = -10;
+		enemy->time_anim = 70;
 	}
 	param_enemy2(game, enemy, chr);
 }
@@ -104,8 +103,8 @@ float	sp_size(char chr)
 {
 	float size;
 
-	size = 1.0;
-	if (chr == '9')
+	size = (chr == ')' || chr == 'M' || chr == 'm') ? 0.80 : 1.0;
+	if (chr == '9' || chr == 'w')
 		size = 0.3;
 	else if (chr == 'e' || chr == '+' || chr == '=' || chr == 'V' || chr == '%'
 	|| chr == '$' || chr == 'c' || chr == '?' || chr == ':' || chr == ';' ||
@@ -117,10 +116,10 @@ float	sp_size(char chr)
 		size = 0.4;
 	else if (chr == '4')
 		size = 0.5;
-	else if (chr == 'M' || chr == 'm' || chr == 'H' || chr == 'h' || chr == 'X' ||
-		chr == 'x' || chr == 'a' || chr == 'A' || chr == '-' || chr == ',' ||
-		chr == '@' || chr == 'U' || chr == 'u' || chr == '>' || chr == '<' ||
-		chr == '{' || chr == ')')
+	else if (chr == 'H' || chr == 'h' || chr == 'X' || chr == 'x' || chr == 'a'
+	|| chr == 'A' || chr == '-' || chr == ',' || chr == '@' || chr == 'U' ||
+	chr == 'u' || chr == '>' || chr == '<' || chr == '{' || chr == '&' ||
+	chr == '(')
 		size = 0.7;
 	else if (chr == 't')
 		size = 0.2;

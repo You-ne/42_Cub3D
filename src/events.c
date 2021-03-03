@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:38:04 by amanchon          #+#    #+#             */
-/*   Updated: 2021/03/02 02:23:44 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 04:03:24 by antoine          ###   ########.fr       */
 //Colors
 #/*                                                                            */
 /* ************************************************************************** */
@@ -21,8 +21,8 @@ void	change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 		if (enemy->pv < 1)
 		{
 			enemy->tdeath = clock();
-			if (find_death_chr(enemy->chr) == 'H')
-				system("aplay -N -q ./cont/sounds/Nein.wav &");
+			if (enemy->chr == 'M')
+				system("aplay -N -q ./cont/sounds/NEIN.wav &");
 			change_map(game, enemy->x, enemy->y, find_death_chr(enemy->chr));
 				if (enemy->chr == 'H')
 					game->end = clock();

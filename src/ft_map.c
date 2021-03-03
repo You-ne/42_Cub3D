@@ -6,7 +6,7 @@
 /*   By: yotillar <yotillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 06:04:14 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/01 02:39:05 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/02 03:41:18 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	get_enemies(t_game *game, char *foes_set)
 			if (in_str(game->map[y][x], foes_set))
 			{
 				add_enemy(x, y, game->map[y][x], game);
-				if (game->map[y][x] == 'M')
-					add_enemy(x, y, 'H', game);
+				if (game->map[y][x] == ')')
+					add_enemy(x, y, '{', game);
 			}
 			x++;
 		}
