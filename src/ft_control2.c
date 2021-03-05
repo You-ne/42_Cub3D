@@ -50,7 +50,7 @@ void	rotation(t_coor *vect, float angle)
 	vect->y = (x * sin(angle) + y * cos(angle));
 }
 
-void	move(t_game *g, char ***map, float v, int frontnback)
+void	move(t_game *g, float v, int frontnback)
 {
 	float pente;
 	float angl;
@@ -71,7 +71,7 @@ void	move(t_game *g, char ***map, float v, int frontnback)
 		y = g->player.pos.y + (v * sin(angl + (M_PI / 2)) *
 		(g->player.vect.x < 0 ? -1 : 1));
 	}
-	if (sp_collision((int)x, (int)y, map, g) == 0)
+	if (sp_collision((int)x, (int)y, g) == 0)
 	{
 		g->player.pos.x = x;
 		g->player.pos.y = y;
@@ -84,11 +84,11 @@ void	apply_mvmt(t_game *game)
 
 	x = 0;
 	if (game->sprint == 1 && game->up == 1)
-		move(game, &game->map, SPRINT_SPEED, 1);
+		move(game, SPRINT_SPEED, 1);
 	(game->rot_left == 1) ? (rotation(&game->player.vect, (-ROT_SPEED))) : x--;
 	(game->rot_right == 1) ? (rotation(&game->player.vect, ROT_SPEED)) : x--;
-	(game->left == 1) ? move(game, &game->map, -STRAFE_SPEED, 0) : x++;
-	(game->right == 1) ? move(game, &game->map, STRAFE_SPEED, 0) : x++;
-	(game->up == 1) ? move(game, &game->map, FRONT_SPEED, 1) : x++;
-	(game->down == 1) ? move(game, &game->map, -FRONT_SPEED, 1) : x++;
+	(game->left == 1) ? move(game, -STRAFE_SPEED, 0) : x++;
+	(game->right == 1) ? move(game, STRAFE_SPEED, 0) : x++;
+	(game->up == 1) ? move(game, FRONT_SPEED, 1) : x++;
+	(game->down == 1) ? move(game, -FRONT_SPEED, 1) : x++;
 }

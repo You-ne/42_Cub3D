@@ -29,22 +29,22 @@ int		is_alive_or_dead(char chr)
 	return (0);
 }
 
-int		sp_collision(int x, int y, char ***map, t_game *game)
+int		sp_collision(int x, int y, t_game *g)
 {
-	if (*map[y][x] == '1' || *map[y][x] == '*' || *map[y][x] == '2' ||
-	*map[y][x] == '6' || *map[y][x] == '7' || *map[y][x] == '8' ||
-	*map[y][x] == '/' || *map[y][x] == 'P' || *map[y][x] == '#' ||
-	*map[y][x] == 'e' || *map[y][x] == 'V' || *map[y][x] == 'c' ||
-	*map[y][x] == 'M' || *map[y][x] == 'H' || *map[y][x] == 'X' ||
-	*map[y][x] == 'A' || *map[y][x] == 'l' || *map[y][x] == 'I' ||
-	*map[y][x] == 's' || *map[y][x] == 'U' || *map[y][x] == '<' ||
-	*map[y][x] == '{' || *map[y][x] == ')' || *map[y][x] == 'k' ||
-	*map[y][x] == 'y' || *map[y][x] == 'r' || *map[y][x] == 'i' ||
-	*map[y][x] == 'T' || *map[y][x] == '&' || *map[y][x] == '(' ||
-	*map[y][x] == ';' || *map[y][x] == '@')
+	if (g->map[y][x] == '1' || g->map[y][x] == '*' || g->map[y][x] == '2' ||
+	g->map[y][x] == '6' || g->map[y][x] == '7' || g->map[y][x] == '8' ||
+	g->map[y][x] == '/' || g->map[y][x] == 'P' || g->map[y][x] == '#' ||
+	g->map[y][x] == 'e' || g->map[y][x] == 'V' || g->map[y][x] == 'c' ||
+	g->map[y][x] == 'M' || g->map[y][x] == 'H' || g->map[y][x] == 'X' ||
+	g->map[y][x] == 'A' || g->map[y][x] == 'l' || g->map[y][x] == 'I' ||
+	g->map[y][x] == 's' || g->map[y][x] == 'U' || g->map[y][x] == '<' ||
+	g->map[y][x] == '{' || g->map[y][x] == ')' || g->map[y][x] == 'k' ||
+	g->map[y][x] == 'y' || g->map[y][x] == 'r' || g->map[y][x] == 'i' ||
+	g->map[y][x] == 'T' || g->map[y][x] == '&' || g->map[y][x] == '(' ||
+	g->map[y][x] == ';' || g->map[y][x] == '@')
 	{
 		if (system("aplay -N -q ./cont/sounds/collision.wav &") == -1)
-			ft_error("Erreur: aplay a échoué !\n", game);
+			ft_error("Erreur: aplay a échoué !\n", g);
 		return (1);
 	}
 	else

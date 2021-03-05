@@ -262,7 +262,7 @@ int						is_alive_or_dead(char chr);
 
 void					sp_events(t_game *game);
 float					sp_size(char chr);
-int						sp_collision(int x, int y, char ***map, t_game *g);
+int						sp_collision(int x, int y, t_game *g);
 void					teleportation(t_game *game, float x, float y);
 void					change_map(t_game *game, int x, int y, char chr);
 void					change_pv(t_game *game, float pv);
