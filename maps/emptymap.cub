@@ -1,6 +1,6 @@
 R 1500 800
-F 0, 102, 51
-C 0, 204, 204
+F 150, 102, 240
+C 0, 56, 204
 
 NO ./cont/walls/circuit.xpm
 WE ./cont/walls/panel.xpm

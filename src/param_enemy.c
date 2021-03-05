@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:41:39 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 03:01:07 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/04 03:37:11 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		param_enemy3(t_enemy *enemy, char chr)
 	if (chr == ')')
 	{
 		enemy->pv = 1200;
-		enemy->damage = -8;
+		enemy->damage = -10;
 		enemy->time_anim = 30;
 	}
 	else if (chr == '<')
@@ -63,8 +63,8 @@ void		param_enemy2(t_enemy *enemy, char chr)
 	else if (chr == '(')
 	{
 		enemy->pv = 350;
-		enemy->damage = -10;
-		enemy->time_anim = 220;
+		enemy->damage = -12;
+		enemy->time_anim = 150;
 	}
 	param_enemy3(enemy, chr);
 }
@@ -75,7 +75,7 @@ void		param_enemy(t_enemy *enemy, char chr)
 	{
 		enemy->pv = 100;
 		enemy->damage = -5;
-		enemy->time_anim = 200;
+		enemy->time_anim = 180;
 	}
 	else if (chr == 'f')
 	{
@@ -91,9 +91,9 @@ void		param_enemy(t_enemy *enemy, char chr)
 	}
 	else if (chr == '{')
 	{
-		enemy->pv = 500;
+		enemy->pv = 800;
 		enemy->damage = -10;
-		enemy->time_anim = 70;
+		enemy->time_anim = 50;
 	}
 	param_enemy2(enemy, chr);
 }

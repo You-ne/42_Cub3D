@@ -51,10 +51,17 @@ t_img		*enemy_fire_animation(t_game *game, t_img *tex, t_enemy *enemy)
 		if (enemy->fire == 0)
 		{
 			if (enemy->chr == 'A' || enemy->chr == 'X')
-				system("aplay -N -q ./cont/sounds/Blaster.wav &");
+			{
+				if (system("aplay -N -q ./cont/sounds/Blaster.wav &") == -1)
+					ft_error("Erreur: aplay a échoué !\n", game);
+			}
 			else if (enemy->chr != 'l')
-				system("aplay -N -q ./cont/sounds/357_Magnum.wav &");
-			system("aplay -N -q ./cont/sounds/Pain.wav &");
+			{
+				if (system("aplay -N -q ./cont/sounds/357_Magnum.wav &") == -1)
+					ft_error("Erreur: aplay a échoué !\n", game);
+			}
+			if (system("aplay -N -q ./cont/sounds/Pain.wav &") == -1)
+				ft_error("Erreur: aplay a échpoué !\n", game);
 			change_pv(game, enemy->damage);
 		}
 		enemy->fire = 1;
@@ -99,13 +106,17 @@ void		do_fire(t_game *game)
 		{
 			tir =
 			ft_raycannon(&game->player.pos, &game->player.vect, 0.0, game);
-			system("aplay -N -q ./cont/sounds/357_Magnum.wav &");
+			if (system("aplay -N -q ./cont/sounds/357_Magnum.wav &") == -1)
+				ft_error("Erreru: aplay a échoué !\n", game);
 			weapon_fire(game, tir);
 			game->player.ammo -= 1;
 			free_ray(tir);
 		}
 		else
-			system("aplay -N -q ./cont/sounds/gun_change.wav &");
+		{
+			if (system("aplay -N -q ./cont/sounds/gun_change.wav &") == -1)
+				ft_error("Erreur: aplay a échoué !\n", game);
+		}
 	}
 	game->player.fire = 1;
 }

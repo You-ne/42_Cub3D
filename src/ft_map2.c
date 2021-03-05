@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 01:52:24 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 05:08:21 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 20:20:46 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	verify_map(t_game *game, char *sp_set)
 		{
 			if (!verify_char(game, i, j, sp_set))
 			{
+				printf("y=%i, x=%i;\n", i, j);
 				ft_error("Erreur: Map ouverte !\n", game);
 			}
 			j++;

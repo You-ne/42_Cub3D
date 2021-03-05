@@ -21,7 +21,10 @@ void		change_enemy_pv(t_game *game, t_enemy *enemy, int pv)
 		{
 			enemy->tdeath = clock();
 			if (enemy->chr == 'M')
-				system("aplay -N -q ./cont/sounds/NEIN.wav &");
+			{
+				if (system("aplay -N -q ./cont/sounds/NEIN.wav &") == -1)
+					ft_error("Erreur: aplay a échoué !\n", game);
+			}
 			change_map(game, enemy->x, enemy->y, find_death_chr(enemy->chr));
 			if (enemy->chr == 'H')
 				game->end = clock();
@@ -58,11 +61,12 @@ void		weapon_fire(t_game *g, t_coor *t)
 	}
 }
 
-void		teleportation(t_player *player, float x, float y)
+void		teleportation(t_game *game, float x, float y)
 {
-	system("aplay -N -q ./cont/sounds/Cat.wav &");
-	player->pos.x = x;
-	player->pos.y = y;
+	if (system("aplay -N -q ./cont/sounds/Cat.wav &") == -1)
+		ft_error("Erreur: aplay a échoué !\n", game);
+	game->player.pos.x = x;
+	game->player.pos.y = y;
 }
 
 void		change_map(t_game *game, int x, int y, char chr)
@@ -78,7 +82,8 @@ void		change_pv(t_game *game, float pv)
 	if (game->player.pv <= 0)
 	{
 		game->end = clock();
-		system("aplay -N -q ./cont/sounds/Cri_wilhelm.wav &");
+		if (system("aplay -N -q ./cont/sounds/Cri_wilhelm.wav &") == -1)
+			ft_error("Erreur: aplay a échoué !\n", game);
 	}
 	return ;
 }

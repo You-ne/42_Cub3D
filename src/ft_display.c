@@ -6,7 +6,7 @@
 /*   By: amanchon <amanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:44:36 by yotillar          #+#    #+#             */
-/*   Updated: 2021/03/03 05:01:04 by antoine          ###   ########.fr       */
+/*   Updated: 2021/03/03 21:13:57 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,22 @@ void	end(t_game *game, t_img *img, int i)
 	if (i == 0)
 	{
 		if (j == 1)
-			system("aplay -N -q ./cont/sounds/tes-mauvais-jack.wav &");
+		{
+			if (system("aplay -N -q ./cont/sounds/tes-mauvais-jack.wav &")
+			== -1)
+				ft_error("Erreur: aplay a échoué !\n", game);
+		}
 		j = (j == 1 || j == 2) ? 2 : 0;
 		end_screen(game, &game->game_over, img);
 	}
 	else
 	{
 		if (j == 1)
-			system("aplay -N -q ./cont/sounds/final-fantasy.wav &");
+		{
+			if (system("aplay -N -q ./cont/sounds/final-fantasy.wav &")
+			== -1)
+				ft_error("Erreur: aplay a échoué !\n", game);
+		}
 		j = (j == 1 || j == 2) ? 2 : 0;
 		end_screen(game, &game->you_win, img);
 	}
@@ -61,7 +69,7 @@ int		next_frame(t_game *game)
 	t2 = clock();
 	img.img_p = mlx_new_image(game->win.mlxp, game->res[0], game->res[1]);
 	if (img.img_p == NULL)
-		ft_error("Erreur: Probleme création image minilibx", game);
+		ft_error("Erreur: Probleme création image minilibx\n", game);
 	img.img = mlx_get_data_addr(img.img_p, &img.bpp, &img.s_line, &img.endian);
 	if (game->player.pv <= 0)
 		end(game, &img, 0);
@@ -101,7 +109,6 @@ void	ft_start_display(t_game *game)
 		mlx_hook(game->win.winp, 2, (1L << 0), key_press, game);
 		mlx_hook(game->win.winp, 3, (1L << 1), key_release, game);
 		mlx_hook(game->win.winp, 17, (1L << 17), ft_exit, game);
-		write(1, "Follow the cat and kill MecaHitler !\n", 37);
 		mlx_loop_hook(game->win.mlxp, next_frame, game);
 		mlx_loop(game->win.mlxp);
 	}

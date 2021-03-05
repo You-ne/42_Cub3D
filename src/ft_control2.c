@@ -35,7 +35,8 @@ void	open_door(t_game *g)
 		change_map(g, (int)p->x, (int)p->y - 1, 'P');
 	else
 		return ;
-	system("aplay -N -q ./cont/sounds/door.wav &");
+	if (system("aplay -N -q ./cont/sounds/door.wav &") == -1)
+		ft_error("Erreur: aplay a échoué ! \n", g);
 }
 
 void	rotation(t_coor *vect, float angle)
@@ -49,31 +50,31 @@ void	rotation(t_coor *vect, float angle)
 	vect->y = (x * sin(angle) + y * cos(angle));
 }
 
-void	move(t_player *player, char **map, float speed, int frontnback)
+void	move(t_game *g, char ***map, float v, int frontnback)
 {
 	float pente;
 	float angl;
 	float x;
 	float y;
 
-	pente = player->vect.y / player->vect.x;
+	pente = g->player.vect.y / g->player.vect.x;
 	angl = atanf(pente);
 	if (frontnback == 1)
 	{
-		x = player->pos.x + (speed * cos(angl) * (player->vect.x < 0 ? -1 : 1));
-		y = player->pos.y + (speed * sin(angl) * (player->vect.x < 0 ? -1 : 1));
+		x = g->player.pos.x + (v * cos(angl) * (g->player.vect.x < 0 ? -1 : 1));
+		y = g->player.pos.y + (v * sin(angl) * (g->player.vect.x < 0 ? -1 : 1));
 	}
 	else
 	{
-		x = player->pos.x + (speed * cos(angl + (M_PI / 2)) *
-		(player->vect.x < 0 ? -1 : 1));
-		y = player->pos.y + (speed * sin(angl + (M_PI / 2)) *
-		(player->vect.x < 0 ? -1 : 1));
+		x = g->player.pos.x + (v * cos(angl + (M_PI / 2)) *
+		(g->player.vect.x < 0 ? -1 : 1));
+		y = g->player.pos.y + (v * sin(angl + (M_PI / 2)) *
+		(g->player.vect.x < 0 ? -1 : 1));
 	}
-	if (sp_collision((int)x, (int)y, map) == 0)
+	if (sp_collision((int)x, (int)y, map, g) == 0)
 	{
-		player->pos.x = x;
-		player->pos.y = y;
+		g->player.pos.x = x;
+		g->player.pos.y = y;
 	}
 }
 
@@ -82,12 +83,12 @@ void	apply_mvmt(t_game *game)
 	int		x;
 
 	x = 0;
+	if (game->sprint == 1 && game->up == 1)
+		move(game, &game->map, SPRINT_SPEED, 1);
 	(game->rot_left == 1) ? (rotation(&game->player.vect, (-ROT_SPEED))) : x--;
 	(game->rot_right == 1) ? (rotation(&game->player.vect, ROT_SPEED)) : x--;
-	(game->left == 1) ? move(&game->player, game->map, -STRAFE_SPEED, 0) : x++;
-	(game->right == 1) ? move(&game->player, game->map, STRAFE_SPEED, 0) : x++;
-	(game->up == 1) ? move(&game->player, game->map, FRONT_SPEED, 1) : x++;
-	(game->down == 1) ? move(&game->player, game->map, -FRONT_SPEED, 1) : x++;
-	if (game->sprint == 1 && game->up == 1)
-		move(&game->player, game->map, SPRINT_SPEED, 1);
+	(game->left == 1) ? move(game, &game->map, -STRAFE_SPEED, 0) : x++;
+	(game->right == 1) ? move(game, &game->map, STRAFE_SPEED, 0) : x++;
+	(game->up == 1) ? move(game, &game->map, FRONT_SPEED, 1) : x++;
+	(game->down == 1) ? move(game, &game->map, -FRONT_SPEED, 1) : x++;
 }
