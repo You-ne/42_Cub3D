@@ -1,6 +1,6 @@
 CC=gcc
 
-LFLAGS= -lX11 -lmlx -lXext -lm -lbsd -march=native -O3 -Wall -Wextra -Werror
+LFLAGS= -Wall -Wextra -Werror -I/usr/include -I/home/user42/_Code/Cub3D/Cub3D/minilibx -L/home/user42/_Code/Cub3D/Cub3D/minilibx -lmlx -lX11 -lXext -lm -lbsd -march=native -g3 -fsanitize=address
 
 NAME= ./cub3D
 
