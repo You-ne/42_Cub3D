@@ -1,0 +1,231 @@
+R 1600 770
+F 84, 55 , 14
+C 0, 204, 204
+
+NO ./cont/walls/rusted.xpm
+WE ./cont/walls/purplestone.xpm
+EA ./cont/walls/panel.xpm
+SO ./cont/walls/circuit.xpm
+
+S2 ./cont/obj/statue.xpm
+S3 ./cont/obj/ammo.xpm
+S4 ./cont/obj/barrel.xpm
+S5 ./cont/obj/key.xpm
+S6 ./cont/obj/puit.xpm
+S7 ./cont/obj/puit-sang.xpm
+S8 ./cont/obj/Spear.xpm
+S9 ./cont/obj/chat.xpm
+Sw ./cont/obj/chat.xpm
+S* ./cont/walls/panel.xpm
+S/ ./cont/obj/colonne.xpm
+ST ./cont/obj/tube.xpm
+S~ ./cont/guns/Impact_Cannon.xpm
+S& ./cont/obj/himmler.xpm
+
+SP ./cont/walls/doors_close.xpm
+Sp ./cont/walls/doors_open.xpm
+
+S= ./cont/foes/enemy_dead.xpm
+S$ ./cont/foes/enemyPM_dead.xpm
+S: ./cont/foes/enemycapt_dead.xpm
+S} ./cont/foes/mutant_dead.xpm
+S| ./cont/foes/flame_d5.xpm
+
+S, ./cont/foes/angel_dead.xpm
+St ./cont/foes/Hitler_head.xpm
+Sa ./cont/foes/HitlerMage_dead.xpm
+S> ./cont/foes/uber_dead.xpm
+Sz ./cont/foes/priest_d7.xpm
+
+SA1r ./cont/foes/enemy.xpm
+SA2r ./cont/foes/enemy_aiming.xpm
+SA3r ./cont/foes/enemy_aim.xpm
+SA1e ./cont/foes/enemy_aim.xpm
+SA2e ./cont/foes/enemy_shoot.xpm
+SA1+ ./cont/foes/enemy_dead1.xpm
+SA2+ ./cont/foes/enemy_dead2.xpm
+SA3+ ./cont/foes/enemy_dead3.xpm
+SA4+ ./cont/foes/enemy_dead4.xpm
+
+SA1y ./cont/foes/enemy_PM.xpm
+SA2y ./cont/foes/enemy_PM_aiming.xpm
+SA3y ./cont/foes/enemyPM_aim.xpm
+SA1V ./cont/foes/enemyPM_aim.xpm
+SA2V ./cont/foes/enemyPM_shoot.xpm
+SA1% ./cont/foes/enemyPM_dead1.xpm
+SA2% ./cont/foes/enemyPM_dead2.xpm
+SA3% ./cont/foes/enemyPM_dead3.xpm
+SA4% ./cont/foes/enemyPM_dead4.xpm
+SA5% ./cont/foes/enemyPM_dead.xpm
+
+SA1k ./cont/foes/enemy_captain.xpm
+SA2k ./cont/foes/enemy_captain_aiming.xpm
+SA3k ./cont/foes/enemycapt_aim.xpm
+SA1c ./cont/foes/enemycapt_aim.xpm
+SA2c ./cont/foes/enemycapt_shoot.xpm
+SA1? ./cont/foes/enemycapt_dead1.xpm
+SA2? ./cont/foes/enemycapt_dead2.xpm
+SA3? ./cont/foes/enemycapt_dead3.xpm
+SA4? ./cont/foes/enemycapt_dead4.xpm
+SA5? ./cont/foes/enemycapt_dead.xpm
+
+SA1) ./cont/foes/MecaHitler.xpm
+SA2) ./cont/foes/MecaHitler_aiming.xpm
+SA1M ./cont/foes/MecaHitler_aim.xpm
+SA2M ./cont/foes/MecaHitler_fire1.xpm
+SA1m ./cont/foes/MecaHitler_dead1.xpm
+SA2m ./cont/foes/MecaHitler_dead2.xpm
+SA3m ./cont/foes/MecaHitler_dead3.xpm
+SA4m ./cont/foes/MecaHitler_dead3.xpm
+
+SA1{ ./cont/foes/Hitler.xpm
+SA2{ ./cont/foes/Hitler_aiming.xpm
+SA3{ ./cont/foes/Hitler_aim.xpm
+SA1H ./cont/foes/Hitler_aim.xpm
+SA2H ./cont/foes/Hitler_fire.xpm
+SA1h ./cont/foes/Hitler_dead1.xpm
+SA2h ./cont/foes/Hitler_dead2.xpm
+SA3h ./cont/foes/Hitler_dead3.xpm
+SA4h ./cont/foes/Hitler_dead4.xpm
+SA5h ./cont/foes/Hitler_dead5.xpm
+SA6h ./cont/foes/Hitler_dead6.xpm
+SA7h ./cont/foes/Hitler_dead7.xpm
+SA8h ./cont/foes/Hitler_dead8.xpm
+SA9h ./cont/foes/Hitler_head.xpm
+
+SA1< ./cont/foes/MageHitler_aiming1.xpm
+SA2< ./cont/foes/MageHitler_aiming2.xpm
+SA3< ./cont/foes/MageHitler_aiming3.xpm
+SA4< ./cont/foes/MageHitler_aiming4.xpm
+SA4< ./cont/foes/MageHitler_aiming5.xpm
+SA5< ./cont/foes/HitlerMage_aim.xpm
+SA1X ./cont/foes/HitlerMage_aim.xpm
+SA2X ./cont/foes/HitlerMage_shoot.xpm
+SA1x ./cont/foes/HitlerMage_dead1.xpm
+SA2x ./cont/foes/HitlerMage_dead2.xpm
+SA3x ./cont/foes/HitlerMage_dead3.xpm
+SA4x ./cont/foes/HitlerMage_dead4.xpm
+SA5x ./cont/foes/HitlerMage_dead5.xpm
+SA6x ./cont/foes/HitlerMage_dead.xpm
+
+SA1( ./cont/foes/angel1.xpm
+SA2( ./cont/foes/angel2.xpm
+SA3( ./cont/foes/angel3.xpm
+SA4( ./cont/foes/angel4.xpm
+SA1A ./cont/foes/angel_s1.xpm
+SA2A ./cont/foes/angel_s2.xpm
+SA1- ./cont/foes/angel_d1.xpm
+SA2- ./cont/foes/angel_d2.xpm
+SA3- ./cont/foes/angel_d3.xpm
+SA4- ./cont/foes/angel_d4.xpm
+SA5- ./cont/foes/angel_d5.xpm
+SA6- ./cont/foes/angel_d6.xpm
+SA7- ./cont/foes/angel_d7.xpm
+SA8- ./cont/foes/angel_dead.xpm
+
+SA1; ./cont/foes/flame1.xpm
+SA2; ./cont/foes/flame2.xpm
+SA3; ./cont/foes/flame3.xpm
+SA1l ./cont/foes/flame_s1.xpm
+SA2l ./cont/foes/flame_s2.xpm
+SA1L ./cont/foes/flame_d1.xpm
+SA2L ./cont/foes/flame_d2.xpm
+SA3L ./cont/foes/flame_d3.xpm
+SA4L ./cont/foes/flame_d4.xpm
+SA5L ./cont/foes/flame_d5.xpm
+
+SA1i ./cont/foes/mutant_aim.xpm
+SA2i ./cont/foes/mutant_aim2.xpm
+SA3i ./cont/foes/mutant_shoot1.xpm
+SA1I ./cont/foes/mutant_shoot1.xpm
+SA2I ./cont/foes/mutant_shoot2.xpm
+SA1o ./cont/foes/mutant_d1.xpm
+SA2o ./cont/foes/mutant_d2.xpm
+SA3o ./cont/foes/mutant_d3.xpm
+SA4o ./cont/foes/mutant_d4.xpm
+SA5o ./cont/foes/mutant_dead.xpm
+
+SA1# ./cont/foes/priest_aim_1.xpm
+SA2# ./cont/foes/priest_aim_2.xpm
+SA3# ./cont/foes/priest_aim_3.xpm
+SA4# ./cont/foes/priest_shoot_1.xpm
+SA1s ./cont/foes/priest_shoot_1.xpm
+SA2s ./cont/foes/priest_shoot_2.xpm
+SA1_ ./cont/foes/priest_d1.xpm
+SA2_ ./cont/foes/priest_d2.xpm
+SA3_ ./cont/foes/priest_d3.xpm
+SA4_ ./cont/foes/priest_d4.xpm
+SA5_ ./cont/foes/priest_d5.xpm
+SA6_ ./cont/foes/priest_d6.xpm
+SA7_ ./cont/foes/priest_d7.xpm
+
+SA1f ./cont/foes/spectre.xpm
+SA2f ./cont/foes/spectre2.xpm
+SA3f ./cont/foes/spectre3.xpm
+SA4f ./cont/foes/spectre4.xpm
+SA5f ./cont/foes/spectre5.xpm
+SA6f ./cont/foes/spectre6.xpm
+SA7f ./cont/foes/spectre7.xpm
+SA8f ./cont/foes/spectre8.xpm
+
+SA1@ ./cont/foes/uber.xpm
+SA2@ ./cont/foes/uber1.xpm
+SA3@ ./cont/foes/uber2.xpm
+SA1U ./cont/foes/uber_s1.xpm
+SA2U ./cont/foes/uber_s2.xpm
+SA1u ./cont/foes/uber_d1.xpm
+SA2u ./cont/foes/uber_d2.xpm
+SA3u ./cont/foes/uber_d3.xpm
+SA4u ./cont/foes/uber_d4.xpm
+SA5u ./cont/foes/uber_dead.xpm
+
+KY ./cont/color-galaxy.xpm
+
+                                       11111
+                                       1f001
+11111111111111111111111111111111111111110111111111 1111111111111111111111
+19000000000000f000000000000041E0000000010100000001 1400000000P00000000001
+1000700000000f0f0000000007000111111111P10100000001 1310T0000010000000T001
+100000000000f0<0f0000000000001r0000000010144430001 111000004410;000000001
+1000000000000f0f00000000000001000r000001P1111111P1   1111P111108080000001
+100000000000000000000000000001400000y0010000i04101   10080800111P111P1111
+1000700000000000000000000700011111P11111000(004101   1000#00010000100001
+140000000000000000000000000041   10000010i00003101   1400000010;0010k001
+11111111111111P11111111111111111 11111010000(001#1111140000#010000105001
+            12021  1000431000001     1r10000000100000P000000010000101111
+            10y01  1000y010Tr001     1010011111111111111111111000010P0;1
+            10001  1000001000001     10100P00044441(06100;0001111*1111P11111
+            1000111111P11111P111111111P11110(0(033100010000001133~1000010441
+            1000P00000000000000r000000000r1000000310011111P111111110000P0441
+            1111111111P11111P1111111111111111P111111P1000000k00000000#010001
+                   1000001000001444100000P00000000f0013111P11111P1111111111111
+                   10000r10T000100010T0001111P1111P11131000001000001443000k001
+                   1r004410000010i0P000001i0000001011111000;010000010#00000031
+                   11111111111110001P11111444300810144410000010k#00P0000k00041
+11111111111      11111111114444P(00100000111111111P1144P0k0001004441000&0&0041
+1000000002111111114444443011111111110(0001 14440000111111111111111111111P11111
+1000000000P0000f0100700700P0000000f1000(01 144400001    1000400000000000000041
+14444330021111110100(00000111111110P000001 143300031    14111&000/0000/0000041
+11111111111111110100000i00P0000001P1111111111111P111    111110@000000000001041
+         1330441#100000000100(000100000(001   1001      1w111&000/0000/0000041
+         1000041011P111111100000410i00000011111011      100000k000000000000041
+         111P111010000i000100i003100000i00P344101       1111111111111111111111
+           100000100000f00111P111100000000111110111
+          111111010f0070001&000000(000(000P01000001
+          1400710100i000001111111111111111101000001
+          1#000P01(00000f01   133018000000001000001
+          100;010P000000001   1440P000i000001000001
+          11111111111111111   14401000000(001&2f2&1
+                              11111111111111111P1111111111111
+                                 11300000000000000000000000311
+                                 14401111000000000000011110441
+                                 11401780000000000000008710411
+                                  140180000000000000000081041
+                                  100000(000000)000000(000001
+                                  140180000000000000000081041
+                                 11401780000000000000008710411
+                                 14401110000000000000001110441
+                                 11300000000000100000000000311
+                                  111111111111000111111111111
+                                             14441
+                                             11111
