@@ -1,4 +1,4 @@
-# Cub3D
+#42_Cub3D
 Wolfenstein-like game made using minilibx and C language // 42 School project
 
 To play :
