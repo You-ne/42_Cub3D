@@ -1,5 +1,5 @@
 # Cub3D
-My Cub3D project for 42_School
+Wolfenstein-like game made using minilibx and C language // 42 School project
 
 To play :
 
